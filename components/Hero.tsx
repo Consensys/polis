@@ -1,11 +1,32 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
+import data from "../data/dummy-data.json";
+import { DummyData } from "./types";
 
 const Hero = () => {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<string[]>([]);
+  const [showResults, setShowResults] = useState(false);
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setQuery(value);
+
+    const filteredResults = [
+      ...data.trendingNow,
+      ...data.editorPicks,
+      ...data.categories,
+    ].filter((item: string) =>
+      item.toLowerCase().includes(value.toLowerCase())
+    );
+    setResults(filteredResults);
+  };
+
   return (
-    <div className="container relative flex flex-col min-h-screen px-6 py-8 mx-auto">
+    <div className="container hero relative flex flex-col min-h-screen px-6 py-8 mx-auto">
       <section className="flex items-center flex-1">
-        <div className="flex flex-col w-full ">
+        <div className="flex flex-col w-full">
           <h1 className="text-5xl font-extrabold font-first text-center lg:text-7xl 2xl:text-8xl">
             <span className="text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
               Explore Amazing DAO <br />
@@ -19,12 +40,16 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col mt-8 space-y-3 sm:-mx-2 sm:flex-row sm:justify-center sm:space-y-0">
-            <div className="flex items-center w-[476px] h-[52px] rounded-xl focus-within:shadow-lg bg-white">
+            <div className="search-box flex items-center w-full sm:w-3/4 md:w-[476px] h-[52px] rounded-xl focus-within:shadow-lg bg-white">
               <input
-                className="peer h-full w-full outline-none text-sm text-gray-700 pr-2"
-                type="search"
+                className="peer h-full w-full outline-none text-sm text-gray-700 pr-2 border border-gray-300 rounded-l-xl bg-[#F9FAFB]"
+                type="text"
+                value={query}
+                onChange={handleSearch}
                 id="search"
                 placeholder="Search for apps, tools, libraries..."
+                onFocus={() => setShowResults(true)}
+                onBlur={() => setTimeout(() => setShowResults(false), 100)}
               />
 
               <div className="grid place-items-center h-full w-12 text-gray-300">
@@ -45,6 +70,19 @@ const Hero = () => {
               </div>
             </div>
           </div>
+          {showResults && (
+            <div className="flex justify-center pt-4 items-center w-full">
+              <div className="centered-div">
+                <ul className="bg-white sm:w-3/4 md:w-[476px] rounded-xl focus-within:shadow-lg p-4  shadow-md">
+                  {results.slice(0, 3).map((item: string) => (
+                    <li key={item} className="text-gray-500">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          )}
         </div>
       </section>
     </div>
