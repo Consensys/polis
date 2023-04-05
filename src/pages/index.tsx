@@ -7,10 +7,10 @@ import Hero from "../../components/Hero";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
-  return (
-    <>
-      <Hero />
-    </>
-  );
-}
+const Home = () => (
+  <>
+    <Hero />
+  </>
+);
+
+export default Home;

@@ -6,8 +6,10 @@ import { DummyData } from "./types";
 
 const Hero = () => {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<string[]>([]);
-  const [showResults, setShowResults] = useState(false);
+  const [results, setResults] = useState<{ items: string[]; show: boolean }>({
+    items: [],
+    show: false,
+  });
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
@@ -20,7 +22,8 @@ const Hero = () => {
     ].filter((item: string) =>
       item.toLowerCase().includes(value.toLowerCase())
     );
-    setResults(filteredResults);
+
+    setResults({ items: filteredResults, show: true });
   };
 
   return (
@@ -48,8 +51,10 @@ const Hero = () => {
                 onChange={handleSearch}
                 id="search"
                 placeholder="Search for apps, tools, libraries..."
-                onFocus={() => setShowResults(true)}
-                onBlur={() => setTimeout(() => setShowResults(false), 100)}
+                onFocus={() => setResults({ ...results, show: true })}
+                onBlur={() =>
+                  setTimeout(() => setResults({ ...results, show: false }), 100)
+                }
               />
 
               <div className="grid place-items-center h-full w-12 text-gray-300">
@@ -70,11 +75,11 @@ const Hero = () => {
               </div>
             </div>
           </div>
-          {showResults && (
+          {results.show && (
             <div className="flex justify-center pt-4 items-center w-full">
               <div className="centered-div">
                 <ul className="bg-white sm:w-3/4 md:w-[476px] rounded-xl focus-within:shadow-lg p-4  shadow-md">
-                  {results.slice(0, 3).map((item: string) => (
+                  {results.items.slice(0, 3).map((item: string) => (
                     <li key={item} className="text-gray-500">
                       {item}
                     </li>
