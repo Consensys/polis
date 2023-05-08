@@ -1,0 +1,31 @@
+{
+  "name": "DaoDesk",
+  "logo": "https://i.imgur.com/nh12vjO.png",
+  "website": "https://www.daodesk.com",
+  "category": ["NFT", "DeFi"],
+  "description": "Sed tempor vitae urna quis imperdiet. In vehicula cursus sodales. Nullam consequat massa id rhoncus tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur interdum, tellus in tincidunt maximus, nibh risus viverra sapien, id fermentum odio mi vel dolor. Vivamus vitae diam sit amet nibh elementum suscipit non sed odio. Donec porttitor sollicitudin turpis, ultricies consequat velit gravida nec.",
+  "external_links": [
+    {
+      "name": "GitHub Repo",
+      "url": "https://github.com/daodesk/daodesk"
+    },
+    {
+      "name": "Developer Documentation",
+      "url": "https://docs.daodesk.com"
+    }
+  ],
+  "images": [
+    {
+      "url": "https://i.imgur.com/samibbK.png",
+      "alt": "Screenshot of the DaoDesk NFT marketplace"
+    },
+    {
+      "url": "https://i.imgur.com/zVIB9Em.png",
+      "alt": "Screenshot of the DaoDesk DeFi dashboard"
+    },
+    {
+      "url": "https://i.imgur.com/2TBxQlY.png",
+      "alt": "Screenshot of the DaoDesk governance module"
+    }
+  ]
+}
