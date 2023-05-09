@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 type AppDetailsProps = {
   category: string[];
@@ -27,13 +28,15 @@ const AppDetails: React.FC<AppDetailsProps> = ({
         {/* First Column */}
         <div className="grid grid-rows-3 gap-6">
           {/* Category */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-bold mb-2">Category</h2>
+          <div className="bg-gradient-to-b from-white to-transparent border border-white shadow-lg backdrop-blur rounded-md p-6">
+            <h2 className="text-2xl text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary font-bold mb-2">
+              Category
+            </h2>
             <div className="flex pt-8 space-x-2">
               {category.map((cat, index) => (
                 <span
                   key={index}
-                  className="bg-blue-500 text-white rounded-lg px-2 py-1 text-sm"
+                  className="border border-gray-500 text-gray-500 rounded-lg px-2 py-1 text-lg  hover:bg-slate-200 hover:text-gray-800"
                 >
                   {cat}
                 </span>
@@ -41,19 +44,23 @@ const AppDetails: React.FC<AppDetailsProps> = ({
             </div>
           </div>
           {/* Description */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-bold mb-2">Description</h2>
+          <div className="bg-gradient-to-b from-white to-transparent border border-white shadow-lg backdrop-blur rounded-md p-6">
+            <h2 className="text-2xl text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary font-bold mb-2">
+              Description
+            </h2>
             <p className="text-gray-600">{description}</p>
           </div>
           {/* External Links */}
-          <div className="bg-white rounded-lg shadow-md p-6">
-            <h2 className="text-lg font-bold mb-2">External Links</h2>
-            <div className="flex space-x-4">
+          <div className="bg-gradient-to-b from-white to-transparent border border-white shadow-lg backdrop-blur rounded-md p-6">
+            <h2 className="text-2xl text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary font-bold mb-2">
+              External Links
+            </h2>
+            <div className="flex space-x-4 pt-8">
               {externalLinks.map((link, index) => (
                 <a
                   key={index}
                   href={link.url}
-                  className="text-blue-500 hover:underline"
+                  className="text-gray-950 hover:underline"
                 >
                   {link.name}
                 </a>
@@ -63,26 +70,37 @@ const AppDetails: React.FC<AppDetailsProps> = ({
         </div>
 
         {/* Second Column */}
-        <div className="bg-white rounded-lg shadow-md flex flex-col justify-between p-6">
+        <div className="bg-gradient-to-b from-white to-transparent border border-white shadow-lg backdrop-blur rounded-md flex flex-col justify-between p-6">
           {/* Preview Title */}
-          <h2 className="text-lg font-bold mb-2 pt-8">Preview</h2>
+          <h2 className="text-2xl text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary font-bold mb-2 pt-8 pb-4">
+            Preview
+          </h2>
           {/* Preview Images */}
           <div className="flex flex-col space-y-12">
-            <img
+            <Image
               src={images[0].url}
               alt={images[0].alt}
-              className="w-full h-64 object-cover rounded-lg shadow-md"
+              width={400}
+              height={300}
+              layout="responsive"
+              className="rounded-lg shadow-md"
             />
             <div className="flex space-x-8">
-              <img
+              <Image
                 src={images[1].url}
                 alt={images[1].alt}
-                className="w-1/2 h-40 object-cover rounded-lg shadow-md"
+                width={200}
+                height={150}
+                layout="responsive"
+                className="rounded-lg shadow-md"
               />
-              <img
+              <Image
                 src={images[2].url}
                 alt={images[2].alt}
-                className="w-1/2 h-40 object-cover rounded-lg shadow-md"
+                width={200}
+                height={150}
+                layout="responsive"
+                className="rounded-lg shadow-md"
               />
             </div>
           </div>

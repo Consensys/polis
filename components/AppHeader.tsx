@@ -15,17 +15,19 @@ const AppHeader = ({ appName, logoSrc, websiteLink }: AppHeaderProps) => {
   };
 
   return (
-    <header className="flex flex-col sm:flex-row items-center justify-between px-16 py-2 mt-8">
-      <div className="flex items-center">
+    <header className="flex flex-col sm:flex-row items-center justify-between mx-16 sm:mx-32 px-2 sm:px-32 py-2 mt-8">
+      <div className="flex items-center justify-start sm:justify-center">
         <Image src={logoSrc} alt={`${appName} Logo`} width={50} height={50} />
-        <h1 className="ml-2 text-lg font-medium">{appName}</h1>
+        <h1 className="ml-2 text-4xl sm:text-5xl font-bold font-inter text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
+          {appName}
+        </h1>
       </div>
       <button
-        className="flex items-center mt-2 sm:mt-0 sm:ml-4 px-3 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
+        className="flex items-center mt-2 sm:mt-0 sm:ml-4 px-3 py-2 font-bold border border-gray-500 text-gray-500 rounded-full hover:bg-gray-100 hover:text-gray-700"
         onClick={handleVisitWebsite}
       >
         Visit Website
-        <i className="fas fa-external-link-alt ml-2"></i>
+        <i className="fa-sharp fa-solid fa-arrow-up-right-from-square"></i>
       </button>
     </header>
   );

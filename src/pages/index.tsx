@@ -10,9 +10,6 @@ const inter = Inter({ subsets: ["latin"] });
 
 const Home = () => (
   <>
-    <Link href="/application" as="/application">
-      <h4>Go to application page</h4>
-    </Link>
     <Hero />
   </>
 );
