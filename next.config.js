@@ -1,10 +1,12 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+// next.config.js
+
+module.exports = {
   reactStrictMode: true,
   env: {
     INFURA_API_KEY: process.env.INFURA_API_KEY,
     WALLETCONNECT_PROJECT_ID: process.env.WALLETCONNECT_PROJECT_ID,
   },
+  images: {
+    domains: ["i.imgur.com"],
+  },
 };
-
-module.exports = nextConfig;
