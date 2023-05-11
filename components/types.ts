@@ -3,3 +3,5 @@ export interface DummyData {
   editorPicks: string[];
   categories: string[];
 }
+
+export type ButtonVariant = "primary" | "light" | "borderless";
