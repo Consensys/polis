@@ -28,7 +28,10 @@ const AppHeader: React.FC<AppHeaderProps> = ({
           className="logo w-10 h-10 sm:w-14 sm:h-14"
           width={50}
           height={50}
-        />
+          style={{
+            maxWidth: "100%",
+            height: "auto"
+          }} />
         <h1 className="ml-2 text-4xl sm:text-5xl font-bold font-inter text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
           {appName}
         </h1>

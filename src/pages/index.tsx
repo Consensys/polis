@@ -5,12 +5,14 @@ import styles from "@/styles/Home.module.css";
 import Text from "../../components/Text";
 import Hero from "../../components/Hero";
 import Link from "next/link";
+import EditorsPick from "../../components/EditorsPick";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const Home = () => (
   <>
     <Hero />
+    <EditorsPick />
   </>
 );
 

@@ -82,8 +82,12 @@ const AppDetails: React.FC<AppDetailsProps> = ({
               alt={images[0].alt}
               width={400}
               height={300}
-              layout="responsive"
               className="rounded-lg shadow-md"
+              sizes="100vw"
+              style={{
+                width: "100%",
+                height: "auto",
+              }}
             />
             <div className="flex space-x-8">
               <Image
@@ -91,16 +95,24 @@ const AppDetails: React.FC<AppDetailsProps> = ({
                 alt={images[1].alt}
                 width={200}
                 height={150}
-                layout="responsive"
                 className="rounded-lg shadow-md"
+                sizes="100vw"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                }}
               />
               <Image
                 src={images[2].url}
                 alt={images[2].alt}
                 width={200}
                 height={150}
-                layout="responsive"
                 className="rounded-lg shadow-md"
+                sizes="100vw"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                }}
               />
             </div>
           </div>
