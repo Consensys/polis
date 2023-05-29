@@ -19,6 +19,7 @@ const EditorsPick = () => {
       <h2 className="text-3xl md:text-4xl lg:text-5xl pb-4 md:pb-6 font-extrabold font-first mb-4 text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
         Editor's Pick:
       </h2>
+
       <div className="flex flex-wrap justify-between pb-4 gap-4 md:gap-6 lg:gap-8">
         {cardData.map((data) => (
           <AppCard key={data.id} data={data} />
