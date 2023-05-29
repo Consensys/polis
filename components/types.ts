@@ -1,6 +1,6 @@
 export interface DummyData {
   trendingNow: string[];
-  editorPicks: string[];
+  editorPicks: number[]; // Update the type to store the IDs of editor's pick cards
   categories: string[];
 }
 
@@ -11,4 +11,5 @@ export interface AppCardData {
   logoUrl: string;
   appName: string;
   dummyText: string;
+  isEditorsPick: boolean; // Add the isEditorsPick property
 }
