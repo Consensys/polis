@@ -1,0 +1,25 @@
+{
+  "appCards": [
+    {
+      "id": 1,
+      "logoUrl": "https://i.imgur.com/nh12vjO.png",
+      "appName": "DaoDesk",
+      "dummyText": "Sed tempor vitae urna quis imperdiet. In vehicula cursus sodales. Nullam consequat massa id rhoncus tristique.",
+      "isEditorsPick": true
+    },
+    {
+      "id": 2,
+      "logoUrl": "https://i.imgur.com/hK2Narh.png",
+      "appName": "TokenSquare",
+      "dummyText": "Vestibulum tempor feugiat congue. Donec pretium eros enim. Fusce luctus velit consequat, tristique diam at, pulvinar nibh.",
+      "isEditorsPick": true
+    },
+    {
+      "id": 3,
+      "logoUrl": "https://i.imgur.com/7cdCRdQ.png",
+      "appName": "CryptoCouncil",
+      "dummyText": "Sed tempor vitae urna quis imperdiet. In vehicula cursus sodales. Nullam consequat massa id rhoncus tristique.",
+      "isEditorsPick": true
+    }
+  ]
+}
