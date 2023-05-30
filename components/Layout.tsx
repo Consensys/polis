@@ -16,7 +16,7 @@ const Layout: React.FC<Props> = ({
   className,
 }) => {
   const rootClassName = twMerge(
-    "relative px-4 md:px-24 text-primary-black min-h-screen",
+    "relative px-4 md:px-20 text-primary-black min-h-screen",
     className ? className : ""
   );
   return (

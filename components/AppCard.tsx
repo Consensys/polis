@@ -8,7 +8,7 @@ interface AppCardProps {
 
 const AppCard: React.FC<AppCardProps> = ({ data }) => {
   return (
-    <div className="border border-white bg-gradient-to-b from-slate-200 to-slate-100 flex flex-col justify-between items-end p-4 isolate w-96 md:w-80 lg:w-96 rounded-lg shadow-md transition duration-300 transform-gpu hover:shadow-lg hover:scale-105">
+    <div className="border border-white bg-gradient-to-b from-slate-200 to-slate-100 flex flex-col justify-between p-4 w-fit rounded-lg shadow-md transition duration-300 transform-gpu hover:shadow-lg hover:scale-105">
       <div className="flex justify-end">
         <div className="w-12 h-12">
           <Image
