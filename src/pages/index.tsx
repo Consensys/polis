@@ -1,17 +1,12 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-import styles from "@/styles/Home.module.css";
-import Text from "../../components/Text";
 import Hero from "../../components/Hero";
-import Link from "next/link";
-
-const inter = Inter({ subsets: ["latin"] });
+import Layout from "../../components/Layout";
 
 const Home = () => (
-  <>
-    <Hero />
-  </>
+  <Layout className="z-10 relative">
+    <div className="container z-10 relative flex flex-col px-6 mx-auto mt-32">
+      <Hero />
+    </div>
+  </Layout>
 );
 
 export default Home;

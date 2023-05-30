@@ -21,12 +21,6 @@ const config = createConfig({
   autoConnect: false,
   connectors: [
     new MetaMaskConnector({ chains }),
-    new WalletConnectConnector({
-      chains,
-      options: {
-        projectId: process.env.WALLETCONNECT_PROJECT_ID as string,
-      },
-    }),
   ],
   publicClient,
   webSocketPublicClient,
