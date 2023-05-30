@@ -8,6 +8,11 @@ export interface DummyData {
 
 export type ButtonVariant = "primary" | "light" | "borderless";
 
+export interface UrlProps extends LinkProps {
+  text: string;
+  className?: string;
+}
+
 export interface AppCardData {
   id: number;
   logoUrl: string;
