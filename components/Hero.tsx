@@ -3,7 +3,7 @@ import { H1, Text } from "./Text";
 
 const Hero = () => {
   return (
-    <section className="flex items-center flex-1 mt-10">
+    <section className="flex items-center flex-1 mt-24">
       <div className="flex flex-col w-full">
         <H1 className="font-extrabold text-center">
           <span className="text-transparent bg-gradient-to-br bg-clip-text from-primary to-slate-500">
