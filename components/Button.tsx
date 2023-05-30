@@ -6,7 +6,7 @@ import type { PropsWithChildren } from "react";
 
 const classMap: Record<ButtonVariant, string> = {
   primary:
-    "px-10 py-3 bg-primary text-white rounded-full flex items-center justify-center gap-4 w-fit max-w-xs shadow-md hover:bg-opacity-80 hover:shadow-lg ease-in-out duration-200",
+    "px-10 py-3 bg-primary text-white rounded-2xl flex items-center justify-center gap-4 w-fit max-w-xs shadow-md hover:bg-opacity-80 hover:shadow-lg ease-in-out duration-200",
   light: "",
   borderless: "",
 };
