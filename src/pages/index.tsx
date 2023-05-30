@@ -1,3 +1,4 @@
+import { Inter } from "next/font/google";
 import Hero from "../../components/Hero";
 import Link from "next/link";
 import Nav from "../../components/Nav";
