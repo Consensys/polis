@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import data from "../data/dummy-data.json";
+import { searchData as data } from "../dummy-data";
 
 export const SearchBar: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -39,10 +41,10 @@ export const SearchBar: React.FC = () => {
             }
           />
 
-          <button className="grid place-items-center h-full w-12 text-gray-300">
+          <button className="grid w-12 h-full text-gray-300 place-items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
+              className="w-6 h-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -58,7 +60,7 @@ export const SearchBar: React.FC = () => {
         </div>
       </div>
       {results.show && (
-        <div className="absolute flex justify-center pt-4 items-center w-full">
+        <div className="absolute flex items-center justify-center w-full pt-4">
           <div className="centered-div">
             <ul className="bg-white sm:w-3/4 md:w-[476px] rounded-xl focus-within:shadow-lg p-4  shadow-md">
               {results.items.slice(0, 3).map((item: string) => (

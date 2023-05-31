@@ -1,8 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";
-import type { ButtonVariant } from "./types";
 import type { PropsWithChildren } from "react";
+
+type ButtonVariant = "primary" | "light" | "borderless";
 
 const classMap: Record<ButtonVariant, string> = {
   primary:

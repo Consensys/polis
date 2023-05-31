@@ -31,7 +31,6 @@ const NewApplicationSteps: FC = () => {
       screenshots: [""],
     },
   });
-  console.log("foo", formData);
 
   const [steps] = useState<Steps>({
     basicInfo: {

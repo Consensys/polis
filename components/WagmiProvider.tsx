@@ -1,13 +1,16 @@
-import "@/styles/globals.css";
-import type { AppProps } from "next/app";
+'use client';
+
 import { WagmiConfig, createConfig, configureChains } from "wagmi";
 
 import { infuraProvider } from "@wagmi/core/providers/infura";
 import { publicProvider } from "wagmi/providers/public";
 
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { mainnet, goerli } from "@wagmi/core/chains";
+
+type Props = {
+  children: React.ReactNode;
+};
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet, goerli],
@@ -19,17 +22,13 @@ const { chains, publicClient, webSocketPublicClient } = configureChains(
 
 const config = createConfig({
   autoConnect: false,
-  connectors: [
-    new MetaMaskConnector({ chains }),
-  ],
+  connectors: [new MetaMaskConnector({ chains })],
   publicClient,
   webSocketPublicClient,
 });
 
-export default function App({ Component, pageProps }: AppProps) {
-  return (
-    <WagmiConfig config={config}>
-      <Component {...pageProps} />
-    </WagmiConfig>
-  );
-}
+const WagmiProvider: React.FC<Props> = ({ children }) => (
+  <WagmiConfig config={config}>{children}</WagmiConfig>
+);
+
+export default WagmiProvider;

@@ -1,8 +1,12 @@
-import Link from "next/link";
+import Link, { LinkProps } from "next/link";
 import { HTMLProps, ReactElement } from "react";
 import React from "react";
-import { UrlProps } from "./types";
 import { twMerge } from "tailwind-merge";
+
+interface UrlProps extends LinkProps {
+  text: string;
+  className?: string;
+}
 
 export const H1 = (props: HTMLProps<HTMLHeadingElement>): ReactElement => {
   const rootClassName = twMerge(

@@ -1,3 +1,5 @@
+'use client';
+
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import { Bars4Icon, CheckIcon } from "@heroicons/react/24/outline";
@@ -14,18 +16,18 @@ export const Nav = () => {
       <nav className="flex items-center justify-between py-4">
         <Link href="/" className="flex gap-4">
           <PolisLogo />
-          <span className="font-bold text-primary text-2xl">Polis</span>
+          <span className="text-2xl font-bold text-primary">Polis</span>
         </Link>
         <div className="hidden lg:block">
-          <div className="flex gap-7 items-center">
+          <div className="flex items-center gap-7">
             <Link
               href="/application"
-              className="hover:opacity-50 ease-in-out duration-200"
+              className="duration-200 ease-in-out hover:opacity-50"
             >
               My Application
             </Link>
             <button
-              className="hover:opacity-50 ease-in-out duration-200"
+              className="duration-200 ease-in-out hover:opacity-50"
               onClick={() => setOpen(true)}
             >
               Submit New Application
@@ -50,10 +52,10 @@ export const Nav = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 w-60 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute right-0 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg w-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="flex flex-col items-center rounded-lg">
                   <Menu.Item>
-                    <div className="flex w-full py-4 hover:bg-slate-100 ease-in-out duration-200">
+                    <div className="flex w-full py-4 duration-200 ease-in-out hover:bg-slate-100">
                       <Link href="/application" className="w-full text-center">
                         My Application
                       </Link>
@@ -61,7 +63,7 @@ export const Nav = () => {
                   </Menu.Item>
                   <Menu.Item>
                     <button
-                      className="w-full py-4 hover:bg-slate-100 ease-in-out duration-200"
+                      className="w-full py-4 duration-200 ease-in-out hover:bg-slate-100"
                       onClick={() => setOpen(true)}
                     >
                       Submit New Application
