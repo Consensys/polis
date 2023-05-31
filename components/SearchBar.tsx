@@ -25,9 +25,9 @@ export const SearchBar: React.FC = () => {
   return (
     <div className="relative">
       <div className="flex flex-col mt-8 space-y-3 sm:-mx-2 sm:flex-row sm:justify-center sm:space-y-0">
-        <div className="search-box flex items-center w-full sm:w-3/4 md:w-[476px] h-[52px] rounded-xl focus-within:shadow-lg bg-white">
+        <div className="search-box flex items-center w-full sm:w-3/4 md:w-[476px] h-[52px] rounded-xl focus-within:shadow-lg bg-gray-100">
           <input
-            className="peer h-full w-full outline-none text-sm text-gray-700 pr-2 border border-gray-300 rounded-l-xl bg-[#F9FAFB]"
+            className="bg-transparent border-0 h-full w-full outline-none text-sm text-gray-700 pr-2 border-gray-300 rounded-l-xl bg-[#F9FAFB]"
             type="text"
             value={query}
             onChange={handleSearch}
@@ -39,7 +39,7 @@ export const SearchBar: React.FC = () => {
             }
           />
 
-          <div className="grid place-items-center h-full w-12 text-gray-300">
+          <button className="grid place-items-center h-full w-12 text-gray-300">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -54,7 +54,7 @@ export const SearchBar: React.FC = () => {
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-          </div>
+          </button>
         </div>
       </div>
       {results.show && (
