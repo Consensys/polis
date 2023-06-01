@@ -13,7 +13,9 @@ module.exports = {
       fontFamily: {
         first: ["Inter"],
       },
-
+      backgroundImage: {
+        'hero-pattern': "url('/light-bg.png')",
+      },
       colors: {
         primary: "#202328",
         secondary: "#454C57",

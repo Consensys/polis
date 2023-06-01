@@ -3,40 +3,32 @@ import Image from "next/image";
 
 type AppDetailsProps = {
   category: string[];
-  tags: string[];
   description: string;
-  externalLinks: {
-    name: string;
-    url: string;
-  }[];
-  images: {
-    url: string;
-    alt: string;
-  }[];
+  externalLinks: string[];
+  images: string[];
 };
 
 const AppDetails: React.FC<AppDetailsProps> = ({
   category,
-  tags,
   description,
   externalLinks,
   images,
 }) => {
   return (
-    <div className="py-10 px-4 lg:px-16 container mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="container px-4 py-10 mx-auto lg:px-16">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         {/* First Column */}
         <div className="grid grid-rows-3 gap-6">
           {/* Category */}
-          <div className="bg-gradient-to-b from-white to-transparent border border-white shadow-lg backdrop-blur rounded-md p-6">
-            <h2 className="text-2xl text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary font-bold mb-2">
+          <div className="p-6 border border-white rounded-md shadow-lg bg-gradient-to-b from-white to-transparent backdrop-blur">
+            <h2 className="mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
               Category
             </h2>
             <div className="flex pt-8 space-x-2">
               {category.map((cat, index) => (
                 <span
                   key={index}
-                  className="border border-gray-500 text-gray-500 rounded-lg px-2 py-1 text-lg  hover:bg-slate-200 hover:text-gray-800"
+                  className="px-2 py-1 text-lg text-gray-500 border border-gray-500 rounded-lg hover:bg-slate-200 hover:text-gray-800"
                 >
                   {cat}
                 </span>
@@ -44,25 +36,25 @@ const AppDetails: React.FC<AppDetailsProps> = ({
             </div>
           </div>
           {/* Description */}
-          <div className="bg-gradient-to-b from-white to-transparent border border-white shadow-lg backdrop-blur rounded-md p-6">
-            <h2 className="text-2xl text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary font-bold mb-2">
+          <div className="p-6 border border-white rounded-md shadow-lg bg-gradient-to-b from-white to-transparent backdrop-blur">
+            <h2 className="mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
               Description
             </h2>
             <p className="text-gray-600">{description}</p>
           </div>
           {/* External Links */}
-          <div className="bg-gradient-to-b from-white to-transparent border border-white shadow-lg backdrop-blur rounded-md p-6">
-            <h2 className="text-2xl text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary font-bold mb-2">
+          <div className="p-6 border border-white rounded-md shadow-lg bg-gradient-to-b from-white to-transparent backdrop-blur">
+            <h2 className="mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
               External Links
             </h2>
-            <div className="flex space-x-4 pt-8">
+            <div className="flex pt-8 space-x-4">
               {externalLinks.map((link, index) => (
                 <a
                   key={index}
-                  href={link.url}
+                  href={link}
                   className="text-gray-950 hover:underline"
                 >
-                  {link.name}
+                  {link}
                 </a>
               ))}
             </div>
@@ -70,16 +62,16 @@ const AppDetails: React.FC<AppDetailsProps> = ({
         </div>
 
         {/* Second Column */}
-        <div className="bg-gradient-to-b from-white to-transparent border border-white shadow-lg backdrop-blur rounded-md flex flex-col justify-between p-6">
+        <div className="flex flex-col justify-between p-6 border border-white rounded-md shadow-lg bg-gradient-to-b from-white to-transparent backdrop-blur">
           {/* Preview Title */}
-          <h2 className="text-2xl text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary font-bold mb-2 pt-8 pb-4">
+          <h2 className="pt-8 pb-4 mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
             Preview
           </h2>
           {/* Preview Images */}
           <div className="flex flex-col space-y-12">
             <Image
-              src={images[0].url}
-              alt={images[0].alt}
+              src={images[0]}
+              alt=""
               width={400}
               height={300}
               layout="responsive"
@@ -87,16 +79,16 @@ const AppDetails: React.FC<AppDetailsProps> = ({
             />
             <div className="flex space-x-8">
               <Image
-                src={images[1].url}
-                alt={images[1].alt}
+                src={images[1]}
+                alt={"image-1"}
                 width={200}
                 height={150}
                 layout="responsive"
                 className="rounded-lg shadow-md"
               />
               <Image
-                src={images[2].url}
-                alt={images[2].alt}
+                src={images[2]}
+                alt={"image-2"}
                 width={200}
                 height={150}
                 layout="responsive"
