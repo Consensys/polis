@@ -8,6 +8,7 @@ module.exports = {
   },
   experimental: {
     serverActions: true,
+    appDir: true,
   },
   images: {
     domains: ["i.imgur.com"],

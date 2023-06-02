@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import Hero from "../components/Hero";
 import EditorsPick from "../components/EditorsPick";
+import AllApps from "../components/AllApps";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,6 +13,7 @@ const Home = async () => {
       <Hero />
       {/* @ts-expect-error Async Server Component */}
       <EditorsPick />
+      <AllApps />
     </div>
   );
 };
