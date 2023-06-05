@@ -11,6 +11,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
+    "@prisma/client": "^4.15.0",
     "@types/node": "18.15.10",
     "@types/react": "18.0.30",
     "@types/react-dom": "18.0.11",
@@ -25,12 +26,15 @@
     "tailwind-merge": "^1.12.0",
     "typescript": "5.0.2",
     "viem": "^0.3.19",
-    "wagmi": "^1.0.1"
+    "w3name": "^1.0.8",
+    "wagmi": "^1.0.1",
+    "web3.storage": "^4.5.4"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
+    "prisma": "^4.15.0",
     "tailwindcss": "^3.3.2"
   }
 }

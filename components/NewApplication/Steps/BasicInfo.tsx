@@ -2,7 +2,7 @@ import { FC, useRef, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Combobox } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { BasicInfoData, StepProps } from "../types";
+import { StepProps } from "../types";
 
 const popularTags = [
   "Marketplace",
@@ -13,7 +13,7 @@ const popularTags = [
   "Blockchain Market",
 ] as const;
 
-const BasicInfo: FC<StepProps<BasicInfoData>> = ({
+const BasicInfo: FC<StepProps<IApplicationBasicInfo>> = ({
   data,
   handleUpdateData,
 }) => {
@@ -116,7 +116,7 @@ const BasicInfo: FC<StepProps<BasicInfoData>> = ({
                   className="block w-full px-2 py-1 overflow-auto rounded-md text-[#4E5B6C] m-1 text-xs bg-gray-200 cursor-pointer"
                   value={query}
                 >
-                  Create "{query}"
+                  Create &quot;{query}&quot;
                 </Combobox.Option>
               )}
               {filteredTags.length > 0 && (

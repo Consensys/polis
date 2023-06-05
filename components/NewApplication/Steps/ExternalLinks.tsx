@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { StepProps, ExternalLinksData } from "../types";
+import { StepProps } from "../types";
 
-const ExternalLinks: FC<StepProps<ExternalLinksData>> = ({
+const ExternalLinks: FC<StepProps<IApplicationExternalLinks>> = ({
   data,
   handleUpdateData,
 }) => {
