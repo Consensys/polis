@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
-import { StepProps, PreviewData } from "../types";
+import { StepProps } from "../types";
 
-const Preview: FC<StepProps<PreviewData>> = () => {
+const Preview: FC<StepProps<IApplicationPreview>> = () => {
   return (
     <div className="grid grid-cols-1 mt-4 gap-x-6 gap-y-2">
       <div className="col-span-full">
