@@ -6,7 +6,8 @@ import AllApps from "../components/AllApps";
 const inter = Inter({ subsets: ["latin"] });
 
 const Home = async () => {
-  const response = await fetch("http://localhost:3000/api", { next: { revalidate: 5 } });
+
+  const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api`, { next: { revalidate: 5 } });
   const applications = await response.json();
 
   return (

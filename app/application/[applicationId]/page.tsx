@@ -5,7 +5,7 @@ import AppDetails from "../../../components/AppDetails";
 
 const ApplicationPage = async ({ params }: { params: any }) => {
   const response = await fetch(
-    `http://localhost:3000/api/application/${params.applicationId}`
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/application/${params.applicationId}`
   );
 
   const application: IApplication = await response.json();
