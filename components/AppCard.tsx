@@ -4,19 +4,20 @@ import { H2, Text } from "./Text";
 import Link from "next/link";
 
 interface AppCardProps {
-  data: IApplication;
+  key: string;
+  application: IApplication;
 }
 
 const AppCard: React.FC<AppCardProps> = ({
-  data: { id, title, screenshots, description },
+  application: { id, title, description, screenshots },
 }) => {
   return (
-    <div className="flex flex-col justify-between max-w-sm p-4 transition duration-200 border border-white shadow-md bg-gradient-to-b from-slate-100 to-transparent w-fit rounded-2xl transform-gpu hover:shadow-lg hover:scale-105">
+    <div className="flex flex-col justify-between w-full max-w-sm p-4 transition duration-200 border border-white shadow-md bg-gradient-to-b from-slate-100 to-transparent rounded-2xl transform-gpu hover:shadow-lg hover:scale-105">
       <Link href={`/application/${id}`}>
         <div className="flex justify-end">
           <div className="w-12 h-12">
             <Image
-              src={screenshots[0]}
+              src={`https://polis.infura-ipfs.io/ipfs/${screenshots[0]}`}
               alt={title}
               width={48}
               height={48}

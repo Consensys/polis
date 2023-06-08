@@ -10,6 +10,6 @@ module.exports = {
     serverActions: true,
   },
   images: {
-    domains: ["i.imgur.com"],
+    domains: ["i.imgur.com", "polis.infura-ipfs.io"],
   },
 };

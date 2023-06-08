@@ -1,83 +1,63 @@
-"use server";
-
-import { applications } from "../dummy-data";
-//import { addToIpfs } from "./ipfs";
-//import { publish } from "./ipns";
 import { prisma } from "./db";
 
-export const addApplication = async (newApplication: any) => {
-  // const hash = await addToIpfs(newApplication);
-  // const { name, key } = await publish(hash.toString());
-  // const application = await prisma.application.create({
-  //   data: {
-  //     name,
-  //     key: JSON.stringify(Array.from(key)),
-  //   },
-  // });
-};
-
 export const getApplications = async (): Promise<IApplication[]> => {
-  // returning dummy data for now
+  const applicationsMeta = await prisma.application.findMany();
 
-  return new Promise((resolve) => {
-    resolve(applications);
+  const nameServiceUrl = process.env.WEB3_NAME_SERVICE_URL;
+
+  if (!nameServiceUrl) {
+    throw new Error("WEB3_NAME_SERVICE_URL is not set");
+  }
+
+  const response = applicationsMeta.map(async (application) => {
+    return getApplication(application.name);
   });
 
-  // const applications = await prisma.application.findMany();
-  // const nameServiceUrl = process.env.WEB3_NAME_SERVICE_URL;
-
-  // if (!nameServiceUrl) {
-  //   throw new Error("WEB3_NAME_SERVICE_URL is not set");
-  // }
-
-  // const response = applications.map(async (application) => {
-  //   const res = await fetch(`${nameServiceUrl}/${application.name}`);
-  //   const hash = (await res.json()).value;
-  //   const resp = await fetch(`https://${hash}.ipfs.w3s.link/data.json`);
-  //   const data = await resp.json();
-  //   return {
-  //     name: application.name,
-  //     data,
-  //   };
-  // });
-
-  // return Promise.all(response);
+  return (await Promise.all(response)).filter(Boolean) as IApplication[];
 };
 
 export const getApplication = async (
-  id: string
+  name: string
 ): Promise<IApplication | undefined> => {
-  return new Promise((resolve) => {
-    applications.find((application) => application.id === id);
-    resolve(applications.find((application) => application.id === id));
-  });
+  try {
+    const application = await prisma.application.findFirstOrThrow({
+      where: {
+        name,
+      },
+    });
 
-  // const application = await prisma.application.findFirstOrThrow({
-  //   where: {
-  //     name: ipns,
-  //   },
-  // });
+    const nameServiceUrl = process.env.WEB3_NAME_SERVICE_URL;
 
-  // const nameServiceUrl = process.env.WEB3_NAME_SERVICE_URL;
+    if (!nameServiceUrl) {
+      throw new Error("WEB3_NAME_SERVICE_URL is not set");
+    }
 
-  // if (!nameServiceUrl) {
-  //   throw new Error("WEB3_NAME_SERVICE_URL is not set");
-  // }
+    const res = await fetch(`${nameServiceUrl}/${application.name}`);
 
-  // const res = await fetch(`${nameServiceUrl}/${application.name}`);
-  // const hash = (await res.json()).value;
-  // const resp = await fetch(`https://${hash}.ipfs.w3s.link/data.json`);
-  // return await resp.json();
+    const cid = (await res.json()).value;
+
+    // get the directory contents
+    const dirResponse = await fetch(`https://dweb.link/api/v0/ls?arg=${cid}`);
+
+    const directory = await dirResponse.json();
+
+    const dataHash = directory.Objects[0].Links.find(
+      (link: any) => link.Name === "data.json"
+    ).Hash;
+
+    const dataResponse = await fetch(
+      `https://polis.infura-ipfs.io/ipfs/${dataHash}`
+    );
+
+    const data: IApplication = await dataResponse.json();
+
+    const screenshots =
+      directory.Objects[0].Links.filter(
+        (link: any) => link.Name !== "data.json"
+      ).map((sc: any) => sc.Hash) || [];
+
+    return { ...data, screenshots, id: application.name };
+  } catch (error) {
+    console.error("Error getting application", error);
+  }
 };
-
-// export const updateApplication = async (data: any, ipns: any) => {
-//   const hash = await addToIpfs(data);
-
-//   const application = await prisma.application.findFirstOrThrow({
-//     where: {
-//       name: ipns,
-//     },
-//   });
-
-//   update(ipns, application.key, hash.toString());
-// };

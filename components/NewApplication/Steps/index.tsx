@@ -1,4 +1,5 @@
-import { FC, useState } from "react";
+"use client";
+import { FC, useState, useTransition } from "react";
 import cn from "classnames";
 import { Tab } from "@headlessui/react";
 import {
@@ -13,11 +14,16 @@ import { stepKeys, Steps, StepsData } from "../types";
 import Preview from "./Preview";
 import Button from "../../Button";
 
-const NewApplicationSteps: FC = () => {
+type NewApplicationStepsProps = {
+  closeModal: () => void;
+};
+
+const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
   const TOTAL_STEPS = 3;
   const [currentStep, setCurrentStep] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const [formData, setFormData] = useState<StepsData>({
+  const [data, setData] = useState<StepsData>({
     basicInfo: {
       title: "",
       category: [""],
@@ -28,7 +34,7 @@ const NewApplicationSteps: FC = () => {
       repoUrl: "",
     },
     preview: {
-      screenshots: [""],
+      screenshots: [],
     },
   });
 
@@ -50,10 +56,6 @@ const NewApplicationSteps: FC = () => {
     },
   });
 
-  const handleUpdateData = (data: StepsData) => {
-    // TODO handle data once decide on the storage solution
-  };
-
   const moveToNext = () => {
     if (currentStep === TOTAL_STEPS - 1) return;
     setCurrentStep((currentStep) => currentStep + 1);
@@ -61,6 +63,30 @@ const NewApplicationSteps: FC = () => {
 
   const moveToPrev = () => {
     setCurrentStep((currentStep) => currentStep - 1);
+  };
+
+  const handleSubmitApllication = async () => {
+    setIsLoading(true);
+
+    const buffer = Buffer.from(JSON.stringify({...data.basicInfo, ...data.externalLinks}));
+    const file = new File([buffer], "data.json", { type: "application/json" });
+
+    const formData = new FormData();
+    formData.append("data", file);
+
+    if (data.preview.screenshots.length > 0) {
+      data.preview.screenshots.forEach((screenshot) => {
+        formData.append("screenshots", screenshot);
+      });
+    }
+
+    await fetch("/api", {
+      method: "POST",
+      body: formData,
+    });
+
+    setIsLoading(false);
+    closeModal();
   };
 
   return (
@@ -98,20 +124,22 @@ const NewApplicationSteps: FC = () => {
         </h2>
         <Tab.Panel>
           <BasicInfo
-            data={formData.basicInfo}
-            handleUpdateData={(data) => console.log(data)}
+            data={data.basicInfo}
+            handleUpdateData={(basicInfo) => setData({ ...data, basicInfo })}
           />
         </Tab.Panel>
         <Tab.Panel>
           <ExternalLinks
-            data={formData.externalLinks}
-            handleUpdateData={(data) => console.log(data)}
+            data={data.externalLinks}
+            handleUpdateData={(externalLinks) =>
+              setData({ ...data, externalLinks })
+            }
           />
         </Tab.Panel>
         <Tab.Panel>
           <Preview
-            data={formData.preview}
-            handleUpdateData={(data) => console.log(data)}
+            data={data.preview}
+            handleUpdateData={(preview) => setData({ ...data, preview })}
           />
         </Tab.Panel>
         <div className="absolute bottom-0 right-0 flex">
@@ -122,7 +150,10 @@ const NewApplicationSteps: FC = () => {
             </div>
           </button>
           {currentStep === TOTAL_STEPS - 1 ? (
-            <Button className="px-2 text-xs" onClick={moveToNext}>
+            <Button
+              className="px-2 text-xs"
+              onClick={handleSubmitApllication}
+            >
               <ArrowRightCircleIcon className="w-6 h-6" />
               Submit New Application
             </Button>

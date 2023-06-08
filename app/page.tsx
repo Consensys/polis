@@ -6,14 +6,16 @@ import AllApps from "../components/AllApps";
 const inter = Inter({ subsets: ["latin"] });
 
 const Home = async () => {
+  const response = await fetch("http://localhost:3000/api", { next: { revalidate: 5 } });
+  const applications = await response.json();
+
   return (
     <div className={inter.className}>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-6"></div>
 
       <Hero />
-      {/* @ts-expect-error Async Server Component */}
-      <EditorsPick />
-      <AllApps />
+      <EditorsPick applications={applications?.slice(0,3)} />
+      <AllApps applications={applications} />
     </div>
   );
 };

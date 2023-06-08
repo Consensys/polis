@@ -1,8 +1,8 @@
-import { FC, useRef, useState } from "react";
+import { FC, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Combobox } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { StepProps } from "../types";
+import {  StepProps } from "../types";
 
 const popularTags = [
   "Marketplace",
@@ -29,13 +29,17 @@ const BasicInfo: FC<StepProps<IApplicationBasicInfo>> = ({
     );
   });
 
+
   const handleTagPicked = (tags: (typeof popularTags)[number][]) => {
     setSelectedTags(tags);
+    handleUpdateData({ ...data, category: tags })
     setQuery("");
   };
 
   const handleTagRemoved = (tag: (typeof selectedTags)[number]) => {
-    setSelectedTags(selectedTags.filter((st) => st !== tag));
+    const newTags = selectedTags.filter((st) => st !== tag);
+    setSelectedTags(newTags);
+    handleUpdateData({ ...data, category: newTags })
   };
 
   return (

@@ -2,7 +2,10 @@ import { FC } from "react";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { StepProps } from "../types";
 
-const Preview: FC<StepProps<IApplicationPreview>> = () => {
+const Preview: FC<StepProps<IApplicationPreview>> = ({
+  data,
+  handleUpdateData,
+}) => {
   return (
     <div className="grid grid-cols-1 mt-4 gap-x-6 gap-y-2">
       <div className="col-span-full">
@@ -28,6 +31,15 @@ const Preview: FC<StepProps<IApplicationPreview>> = () => {
                   id="file-upload"
                   name="file-upload"
                   type="file"
+                  multiple
+                  onChange={(e) => {
+
+                    e.target.files &&
+                      handleUpdateData({
+                        ...data,
+                        screenshots: [e.target.files[0]],
+                      });
+                  }}
                   className="sr-only"
                 />
               </label>
