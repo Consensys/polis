@@ -1,13 +1,23 @@
 import { FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Steps from "./Steps";
+import { StepsData } from "./types";
 
 interface NewApplicationProps {
   modalOpen: boolean;
   closeModal: () => void;
+  defaultData?: StepsData
+  isUpdate?: boolean;
+  applicationId?: string;
 }
 
-const NewApplication: FC<NewApplicationProps> = ({ modalOpen, closeModal }) => {
+const NewApplication: FC<NewApplicationProps> = ({
+  modalOpen,
+  defaultData,
+  isUpdate,
+  applicationId,
+  closeModal,
+}) => {
   return (
     <Transition.Root show={modalOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -35,7 +45,7 @@ const NewApplication: FC<NewApplicationProps> = ({ modalOpen, closeModal }) => {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative px-4 pt-5 pb-4 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-xl sm:p-6">
-                <Steps closeModal={closeModal} />
+                <Steps closeModal={closeModal} isUpdate={isUpdate} applicationId={applicationId} defaultdata={defaultData} />
               </Dialog.Panel>
             </Transition.Child>
           </div>

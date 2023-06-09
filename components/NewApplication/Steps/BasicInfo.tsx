@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Combobox } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {  StepProps } from "../types";
+import { StepProps } from "../types";
 
 const popularTags = [
   "Marketplace",
@@ -19,7 +19,8 @@ const BasicInfo: FC<StepProps<IApplicationBasicInfo>> = ({
 }) => {
   const [selectedTags, setSelectedTags] = useState<
     (typeof popularTags)[number][]
-  >([]);
+  >((data.category as (typeof popularTags)[number][]) || []);
+   
   const [query, setQuery] = useState("");
 
   const filteredTags = popularTags.filter((tag) => {
@@ -29,17 +30,16 @@ const BasicInfo: FC<StepProps<IApplicationBasicInfo>> = ({
     );
   });
 
-
   const handleTagPicked = (tags: (typeof popularTags)[number][]) => {
     setSelectedTags(tags);
-    handleUpdateData({ ...data, category: tags })
+    handleUpdateData({ ...data, category: tags });
     setQuery("");
   };
 
   const handleTagRemoved = (tag: (typeof selectedTags)[number]) => {
     const newTags = selectedTags.filter((st) => st !== tag);
     setSelectedTags(newTags);
-    handleUpdateData({ ...data, category: newTags })
+    handleUpdateData({ ...data, category: newTags });
   };
 
   return (
@@ -57,6 +57,7 @@ const BasicInfo: FC<StepProps<IApplicationBasicInfo>> = ({
               <input
                 type="text"
                 name="title"
+                value={data.title}
                 onChange={(e) =>
                   handleUpdateData({ ...data, title: e.target.value })
                 }
@@ -152,6 +153,7 @@ const BasicInfo: FC<StepProps<IApplicationBasicInfo>> = ({
             <textarea
               id="description"
               name="description"
+              value={data.description}
               placeholder="Write text here..."
               onChange={(e) =>
                 handleUpdateData({ ...data, description: e.target.value })

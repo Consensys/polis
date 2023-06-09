@@ -5,7 +5,7 @@ import AppDetails from "../../../components/AppDetails";
 
 const ApplicationPage = async ({ params }: { params: any }) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/application/${params.applicationId}`
+    `${process.env.NEXT_PUBLIC_SITE_URL}/api/application/${params.applicationId}`, { cache: "no-cache"}
   );
 
   const application: IApplication = await response.json();
@@ -20,9 +20,7 @@ const ApplicationPage = async ({ params }: { params: any }) => {
   return (
     <div>
       <AppHeader
-        title={title}
-        logoSrc={screenshots[0]}
-        applicationUrl={applicationUrl}
+        application={application}
       />
 
       <AppDetails

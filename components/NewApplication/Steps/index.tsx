@@ -1,5 +1,6 @@
 "use client";
-import { FC, useState, useTransition } from "react";
+import { FC, useState } from "react";
+import { useRouter } from "next/navigation";
 import cn from "classnames";
 import { Tab } from "@headlessui/react";
 import {
@@ -16,27 +17,38 @@ import Button from "../../Button";
 
 type NewApplicationStepsProps = {
   closeModal: () => void;
+  defaultdata?: StepsData;
+  isUpdate?: boolean;
+  applicationId?: string;
 };
 
-const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
+const NewApplicationSteps: FC<NewApplicationStepsProps> = ({
+  closeModal,
+  defaultdata,
+  isUpdate,
+  applicationId,
+}) => {
   const TOTAL_STEPS = 3;
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
-  const [data, setData] = useState<StepsData>({
-    basicInfo: {
-      title: "",
-      category: [""],
-      description: "",
-    },
-    externalLinks: {
-      applicationUrl: "",
-      repoUrl: "",
-    },
-    preview: {
-      screenshots: [],
-    },
-  });
+  const [data, setData] = useState<StepsData>(
+    defaultdata || {
+      basicInfo: {
+        title: "",
+        category: [],
+        description: "",
+      },
+      externalLinks: {
+        applicationUrl: "",
+        repoUrl: "",
+      },
+      preview: {
+        screenshots: [],
+      },
+    }
+  );
 
   const [steps] = useState<Steps>({
     basicInfo: {
@@ -68,7 +80,9 @@ const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
   const handleSubmitApllication = async () => {
     setIsLoading(true);
 
-    const buffer = Buffer.from(JSON.stringify({...data.basicInfo, ...data.externalLinks}));
+    const buffer = Buffer.from(
+      JSON.stringify({ ...data.basicInfo, ...data.externalLinks })
+    );
     const file = new File([buffer], "data.json", { type: "application/json" });
 
     const formData = new FormData();
@@ -87,6 +101,34 @@ const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
 
     setIsLoading(false);
     closeModal();
+    // TODO use caching instead of refresh
+    router.refresh();
+  };
+
+  const handleUpdateApplication = async () => {
+    if (!isUpdate) return;
+
+    const buffer = Buffer.from(
+      JSON.stringify({ ...data.basicInfo, ...data.externalLinks })
+    );
+
+    const file = new File([buffer], "data.json", { type: "application/json" });
+
+    const formData = new FormData();
+    formData.append("data", file);
+
+    await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/application/${applicationId}`,
+      {
+        method: "PUT",
+        body: formData,
+      }
+    );
+
+    setIsLoading(false);
+    closeModal();
+    // TODO use caching instead of refresh
+    router.refresh();
   };
 
   return (
@@ -120,7 +162,7 @@ const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
       </Tab.List>
       <Tab.Panels className="relative h-[450px]">
         <h2 className="text-[#202328] mt-8 text-2xl font-medium">
-          Submit New Application
+          {isUpdate ? "Update Application" : "Submit New Application"}
         </h2>
         <Tab.Panel>
           <BasicInfo
@@ -152,7 +194,9 @@ const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
           {currentStep === TOTAL_STEPS - 1 ? (
             <Button
               className="px-2 text-xs"
-              onClick={handleSubmitApllication}
+              onClick={
+                isUpdate ? handleUpdateApplication : handleSubmitApllication
+              }
             >
               <ArrowRightCircleIcon className="w-6 h-6" />
               Submit New Application
