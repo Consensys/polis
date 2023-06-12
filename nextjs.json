@@ -6,10 +6,7 @@
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "baseUrl": "../..",
-    "paths": {
-      "@ui/*": ["apps/web/ui/*"]
-    },
+    "paths": {},
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
