@@ -6,6 +6,7 @@ export const applications: IApplication[] = [
     description: "Sed tempor vitae urna quis imperdiet. In vehicula cursus sodales. Nullam consequat massa id rhoncus tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur interdum, tellus in tincidunt maximus, nibh risus viverra sapien, id fermentum odio mi vel dolor. Vivamus vitae diam sit amet nibh elementum suscipit non sed odio. Donec porttitor sollicitudin turpis, ultricies consequat velit gravida nec.",
     applicationUrl: "https://daodesk.org",
     repoUrl: "https://github.com/daodesk/daodesk",
+    user: "",
     screenshots: [
       "https://i.imgur.com/nh12vjO.png",
       "https://i.imgur.com/samibbK.png",
@@ -22,6 +23,7 @@ export const applications: IApplication[] = [
       "Vestibulum tempor feugiat congue. Donec pretium eros enim. Fusce luctus velit consequat, tristique diam at, pulvinar nibh.",
     applicationUrl: "https://daodesk.org",
     repoUrl: "https://github.com/daodesk/TokenSquare",
+    user: "",
     screenshots: [
       "https://i.imgur.com/hK2Narh.png",
       "https://i.imgur.com/samibbK.png",
@@ -38,6 +40,7 @@ export const applications: IApplication[] = [
       "Sed tempor vitae urna quis imperdiet. In vehicula cursus sodales. Nullam consequat massa id rhoncus tristique.",
     applicationUrl: "https://daodesk.org",
     repoUrl: "https://github.com/daodesk/CryptoCouncil",
+    user: "",
     screenshots: [
       "https://i.imgur.com/7cdCRdQ.png",
       "https://i.imgur.com/samibbK.png",
@@ -54,6 +57,7 @@ export const applications: IApplication[] = [
       "Sed tempor vitae urna quis imperdiet. In vehicula cursus sodales. Nullam consequat massa id rhoncus tristique.",
     applicationUrl: "https://daodesk.org",
     repoUrl: "https://github.com/daodesk/daodesk",
+    user: "",
     screenshots: [
       "https://i.imgur.com/nh12vjO.png",
       "https://i.imgur.com/samibbK.png",
@@ -70,6 +74,7 @@ export const applications: IApplication[] = [
       "Vestibulum tempor feugiat congue. Donec pretium eros enim. Fusce luctus velit consequat, tristique diam at, pulvinar nibh.",
     applicationUrl: "https://daodesk.org",
     repoUrl: "https://github.com/daodesk/TokenSquare",
+    user: "",
     screenshots: [
       "https://i.imgur.com/hK2Narh.png",
       "https://i.imgur.com/samibbK.png",
@@ -86,6 +91,7 @@ export const applications: IApplication[] = [
       "Sed tempor vitae urna quis imperdiet. In vehicula cursus sodales. Nullam consequat massa id rhoncus tristique.",
     applicationUrl: "https://daodesk.org",
     repoUrl: "https://github.com/daodesk/CryptoCouncil",
+    user: "",
     screenshots: [
       "https://i.imgur.com/7cdCRdQ.png",
       "https://i.imgur.com/samibbK.png",
@@ -102,6 +108,7 @@ export const applications: IApplication[] = [
       "Sed tempor vitae urna quis imperdiet. In vehicula cursus sodales. Nullam consequat massa id rhoncus tristique.",
     applicationUrl: "https://daodesk.org",
     repoUrl: "https://github.com/daodesk/daodesk",
+    user: "",
     screenshots: [
       "https://i.imgur.com/nh12vjO.png",
       "https://i.imgur.com/samibbK.png",
@@ -118,6 +125,7 @@ export const applications: IApplication[] = [
       "Vestibulum tempor feugiat congue. Donec pretium eros enim. Fusce luctus velit consequat, tristique diam at, pulvinar nibh.",
     applicationUrl: "https://daodesk.org",
     repoUrl: "https://github.com/daodesk/TokenSquare",
+    user: "",
     screenshots: [
       "https://i.imgur.com/hK2Narh.png",
       "https://i.imgur.com/samibbK.png",
@@ -134,6 +142,7 @@ export const applications: IApplication[] = [
       "Sed tempor vitae urna quis imperdiet. In vehicula cursus sodales. Nullam consequat massa id rhoncus tristique.",
     applicationUrl: "https://daodesk.org",
     repoUrl: "https://github.com/daodesk/CryptoCouncil",
+    user: "",
     screenshots: [
       "https://i.imgur.com/7cdCRdQ.png",
       "https://i.imgur.com/samibbK.png",
