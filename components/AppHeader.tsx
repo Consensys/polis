@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import Button from "./Button";
+import LinkIcon from "./icons/LinkIcon";
+import EditIcon from "./icons/EditIcon";
 
 type AppHeaderProps = {
   title: string;
