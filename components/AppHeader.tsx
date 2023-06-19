@@ -13,7 +13,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({
   applicationUrl,
 }) => {
   return (
-    <header className="flex flex-col items-center justify-between px-2 py-2 mx-16 mt-8 sm:flex-row sm:mx-32 sm:px-32">
+    <header className="flex items-center justify-between px-2 py-2 mt-8">
       <div className="flex items-center justify-start sm:justify-center">
         {logo && (
           <Image
