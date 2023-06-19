@@ -3,8 +3,7 @@ export const applications: IApplication[] = [
     id: "1",
     title: "DaoDesk",
     category: ["DeFi", "DAO"],
-    description:
-      "Sed tempor vitae urna quis imperdiet. In vehicula cursus sodales. Nullam consequat massa id rhoncus tristique.",
+    description: "Sed tempor vitae urna quis imperdiet. In vehicula cursus sodales. Nullam consequat massa id rhoncus tristique. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur interdum, tellus in tincidunt maximus, nibh risus viverra sapien, id fermentum odio mi vel dolor. Vivamus vitae diam sit amet nibh elementum suscipit non sed odio. Donec porttitor sollicitudin turpis, ultricies consequat velit gravida nec.",
     applicationUrl: "https://daodesk.org",
     repoUrl: "https://github.com/daodesk/daodesk",
     screenshots: [
@@ -12,6 +11,8 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
+    isEditorsPick: true,
+    createdBy: "0xd836D2c9a6e014c2056093BdC4FaA7343CAe80c9",
   },
   {
     id: "2",
@@ -26,6 +27,8 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
+    isEditorsPick: true,
+    createdBy: "0xd836D2c9a6e014c2056093BdC4FaA7343CAe80c9",
   },
   {
     id: "3",
@@ -40,6 +43,8 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
+    isEditorsPick: true,
+    createdBy: "0xd836D2c9a6e014c2056093BdC4FaA7343CAe80c9",
   },
   {
     id: "4",
@@ -54,6 +59,8 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
+    isEditorsPick: false,
+    createdBy: "",
   },
   {
     id: "5",
@@ -68,6 +75,8 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
+    isEditorsPick: false,
+    createdBy: "",
   },
   {
     id: "6",
@@ -82,6 +91,8 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
+    isEditorsPick: false,
+    createdBy: "",
   },
   {
     id: "7",
@@ -96,6 +107,8 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
+    isEditorsPick: false,
+    createdBy: "",
   },
   {
     id: "8",
@@ -110,6 +123,8 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
+    isEditorsPick: false,
+    createdBy: "",
   },
   {
     id: "9",
@@ -124,6 +139,8 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
+    isEditorsPick: false,
+    createdBy: "",
   },
 ];
 
