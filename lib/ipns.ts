@@ -1,4 +1,3 @@
-"use server";
 import * as Name from "w3name";
 
 export const publish = async (

@@ -1,4 +1,6 @@
+"use client";
 import { FC, useState } from "react";
+import { useRouter } from "next/navigation";
 import cn from "classnames";
 import { Tab } from "@headlessui/react";
 import {
@@ -13,24 +15,40 @@ import { stepKeys, Steps, StepsData } from "../types";
 import Preview from "./Preview";
 import Button from "../../Button";
 
-const NewApplicationSteps: FC = () => {
+type NewApplicationStepsProps = {
+  closeModal: () => void;
+  defaultdata?: StepsData;
+  isUpdate?: boolean;
+  applicationId?: string;
+};
+
+const NewApplicationSteps: FC<NewApplicationStepsProps> = ({
+  closeModal,
+  defaultdata,
+  isUpdate,
+  applicationId,
+}) => {
   const TOTAL_STEPS = 3;
   const [currentStep, setCurrentStep] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
-  const [formData, setFormData] = useState<StepsData>({
-    basicInfo: {
-      title: "",
-      category: [""],
-      description: "",
-    },
-    externalLinks: {
-      applicationUrl: "",
-      repoUrl: "",
-    },
-    preview: {
-      screenshots: [""],
-    },
-  });
+  const [data, setData] = useState<StepsData>(
+    defaultdata || {
+      basicInfo: {
+        title: "",
+        category: [],
+        description: "",
+      },
+      externalLinks: {
+        applicationUrl: "",
+        repoUrl: "",
+      },
+      preview: {
+        screenshots: [],
+      },
+    }
+  );
 
   const [steps] = useState<Steps>({
     basicInfo: {
@@ -50,10 +68,6 @@ const NewApplicationSteps: FC = () => {
     },
   });
 
-  const handleUpdateData = (data: StepsData) => {
-    // TODO handle data once decide on the storage solution
-  };
-
   const moveToNext = () => {
     if (currentStep === TOTAL_STEPS - 1) return;
     setCurrentStep((currentStep) => currentStep + 1);
@@ -61,6 +75,60 @@ const NewApplicationSteps: FC = () => {
 
   const moveToPrev = () => {
     setCurrentStep((currentStep) => currentStep - 1);
+  };
+
+  const handleSubmitApllication = async () => {
+    setIsLoading(true);
+
+    const buffer = Buffer.from(
+      JSON.stringify({ ...data.basicInfo, ...data.externalLinks })
+    );
+    const file = new File([buffer], "data.json", { type: "application/json" });
+
+    const formData = new FormData();
+    formData.append("data", file);
+
+    if (data.preview.screenshots.length > 0) {
+      data.preview.screenshots.forEach((screenshot) => {
+        formData.append("screenshots", screenshot);
+      });
+    }
+
+    await fetch("/api", {
+      method: "POST",
+      body: formData,
+    });
+
+    setIsLoading(false);
+    closeModal();
+    // TODO use caching instead of refresh
+    router.refresh();
+  };
+
+  const handleUpdateApplication = async () => {
+    if (!isUpdate) return;
+
+    const buffer = Buffer.from(
+      JSON.stringify({ ...data.basicInfo, ...data.externalLinks })
+    );
+
+    const file = new File([buffer], "data.json", { type: "application/json" });
+
+    const formData = new FormData();
+    formData.append("data", file);
+
+    await fetch(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/api/application/${applicationId}`,
+      {
+        method: "PUT",
+        body: formData,
+      }
+    );
+
+    setIsLoading(false);
+    closeModal();
+    // TODO use caching instead of refresh
+    router.refresh();
   };
 
   return (
@@ -94,24 +162,26 @@ const NewApplicationSteps: FC = () => {
       </Tab.List>
       <Tab.Panels className="relative h-[450px]">
         <h2 className="text-[#202328] mt-8 text-2xl font-medium">
-          Submit New Application
+          {isUpdate ? "Update Application" : "Submit New Application"}
         </h2>
         <Tab.Panel>
           <BasicInfo
-            data={formData.basicInfo}
-            handleUpdateData={(data) => console.log(data)}
+            data={data.basicInfo}
+            handleUpdateData={(basicInfo) => setData({ ...data, basicInfo })}
           />
         </Tab.Panel>
         <Tab.Panel>
           <ExternalLinks
-            data={formData.externalLinks}
-            handleUpdateData={(data) => console.log(data)}
+            data={data.externalLinks}
+            handleUpdateData={(externalLinks) =>
+              setData({ ...data, externalLinks })
+            }
           />
         </Tab.Panel>
         <Tab.Panel>
           <Preview
-            data={formData.preview}
-            handleUpdateData={(data) => console.log(data)}
+            data={data.preview}
+            handleUpdateData={(preview) => setData({ ...data, preview })}
           />
         </Tab.Panel>
         <div className="absolute bottom-0 right-0 flex">
@@ -122,7 +192,12 @@ const NewApplicationSteps: FC = () => {
             </div>
           </button>
           {currentStep === TOTAL_STEPS - 1 ? (
-            <Button className="px-2 text-xs" onClick={moveToNext}>
+            <Button
+              className="px-2 text-xs"
+              onClick={
+                isUpdate ? handleUpdateApplication : handleSubmitApllication
+              }
+            >
               <ArrowRightCircleIcon className="w-6 h-6" />
               Submit New Application
             </Button>

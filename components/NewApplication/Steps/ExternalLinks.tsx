@@ -19,6 +19,7 @@ const ExternalLinks: FC<StepProps<IApplicationExternalLinks>> = ({
             <input
               type="text"
               name="applicationUrl"
+              value={data.applicationUrl}
               id="applicationUrl"
               onChange={(e) =>
                 handleUpdateData({ ...data, applicationUrl: e.target.value })
@@ -41,6 +42,7 @@ const ExternalLinks: FC<StepProps<IApplicationExternalLinks>> = ({
             <input
               type="text"
               name="repoUrl"
+              value={data.repoUrl}
               id="repoUrl"
               onChange={(e) =>
                 handleUpdateData({ ...data, repoUrl: e.target.value })
