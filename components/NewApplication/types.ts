@@ -1,27 +1,27 @@
 import { FC } from "react";
+import { Control } from "react-hook-form";
 
 export type stepKeys = "basicInfo" | "externalLinks" | "preview";
-export interface StepProps<T> {
-  data: T;
-  handleUpdateData: (data: T) => void;
+export interface IApplicationInput {
+  title: string;
+  category: string[];
+  description: string;
+  applicationUrl?: string;
+  repoUrl?: string;
+  logo?: File;
+  screenshots?: {
+    value: File;
+  }[];
 }
 
-type StepDataType<K extends stepKeys> = K extends "basicInfo"
-  ? IApplicationBasicInfo
-  : K extends "externalLinks"
-  ? IApplicationExternalLinks
-  : K extends "preview"
-  ? IApplicationPreview
-  : never;
+export interface StepProps {
+  control: Control<IApplicationInput>;
+}
 
 export type Steps = {
   [K in stepKeys]: {
     id: number;
     title: string;
-    component: FC<StepProps<StepDataType<K>>>;
+    component: FC<StepProps>;
   };
-};
-
-export type StepsData = {
-  [K in stepKeys]: StepDataType<K>;
 };

@@ -2,18 +2,13 @@ import React from "react";
 import Image from "next/image";
 
 type AppDetailsProps = {
-  category: string[];
-  description: string;
-  externalLinks: string[];
-  images: string[];
+  application: IApplication;
 };
 
-const AppDetails: React.FC<AppDetailsProps> = ({
-  category,
-  description,
-  externalLinks,
-  images,
-}) => {
+const AppDetails: React.FC<AppDetailsProps> = ({ application }) => {
+  const { category, description, repoUrl, applicationUrl, logo, screenshots } =
+    application;
+
   return (
     <div className="container px-4 py-10 mx-auto lg:px-16">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
@@ -48,15 +43,19 @@ const AppDetails: React.FC<AppDetailsProps> = ({
               External Links
             </h2>
             <div className="flex pt-8 space-x-4">
-              {externalLinks.map((link, index) => (
+              {repoUrl && (
+                <a href={repoUrl} className="text-gray-950 hover:underline">
+                  View Repository
+                </a>
+              )}
+              {applicationUrl && (
                 <a
-                  key={index}
-                  href={link}
+                  href={applicationUrl}
                   className="text-gray-950 hover:underline"
                 >
-                  {link}
+                  Visit website
                 </a>
-              ))}
+              )}
             </div>
           </div>
         </div>
@@ -69,32 +68,21 @@ const AppDetails: React.FC<AppDetailsProps> = ({
           </h2>
           {/* Preview Images */}
           <div className="flex flex-col space-y-12">
-            <Image
-              src={images[0]}
-              alt=""
-              width={400}
-              height={300}
-              layout="responsive"
-              className="rounded-lg shadow-md"
-            />
-            <div className="flex space-x-8">
-              <Image
-                src={images[1]}
-                alt={"image-1"}
-                width={200}
-                height={150}
-                layout="responsive"
-                className="rounded-lg shadow-md"
-              />
-              <Image
-                src={images[2]}
-                alt={"image-2"}
-                width={200}
-                height={150}
-                layout="responsive"
-                className="rounded-lg shadow-md"
-              />
-            </div>
+            {screenshots && (
+              <div className="flex space-x-8">
+                {screenshots.map((sc) => (
+                  <Image
+                    key={sc}
+                    src={sc}
+                    alt={"image-1"}
+                    width={200}
+                    height={150}
+                    layout="responsive"
+                    className="rounded-lg shadow-md"
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

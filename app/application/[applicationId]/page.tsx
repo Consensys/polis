@@ -2,33 +2,26 @@ import React from "react";
 import { notFound } from "next/navigation";
 import AppHeader from "../../../components/AppHeader";
 import AppDetails from "../../../components/AppDetails";
+import { getApplication } from "../../../lib/actions";
 
 const ApplicationPage = async ({ params }: { params: any }) => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SITE_URL}/api/application/${params.applicationId}`, { cache: "no-cache"}
+  const application: IApplication | undefined = await getApplication(
+    params.applicationId
   );
-
-  const application: IApplication = await response.json();
 
   if (!application) {
     return notFound();
   }
 
-  const { title, screenshots, applicationUrl, category, description, repoUrl } =
-    application;
-
   return (
     <div>
       <AppHeader
-        application={application}
+        title={application.title}
+        logo={application.logo}
+        applicationUrl={application.applicationUrl}
       />
 
-      <AppDetails
-        category={category}
-        description={description}
-        externalLinks={[repoUrl]}
-        images={screenshots.slice(1)}
-      />
+      <AppDetails application={application} />
     </div>
   );
 };

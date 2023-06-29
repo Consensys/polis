@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import AppCard from "./AppCard";
 import { H2 } from "./Text";
-import { getApplications } from "../lib/applications";
 
 type EditorsPickProps = {
   applications: IApplication[]
