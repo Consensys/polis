@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Fragment, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
@@ -7,6 +7,7 @@ import NewApplication from "./NewApplication";
 import Link from "next/link";
 import PolisLogo from "./icons/PolisLogo";
 import { ConnectButton } from "./ConnectButton";
+import ThemeButton from "./ThemeButton";
 
 export const Nav = () => {
   const [open, setOpen] = useState(false);
@@ -26,12 +27,14 @@ export const Nav = () => {
             >
               My Application
             </Link>
+
             <button
               className="duration-200 ease-in-out hover:opacity-50"
               onClick={() => setOpen(true)}
             >
               Submit New Application
             </button>
+            <ThemeButton />
             <ConnectButton />
           </div>
         </div>
