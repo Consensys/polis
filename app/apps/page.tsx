@@ -4,7 +4,7 @@ import MyAppsSearchBar from "../../components/MyAppsSearchBar";
 import UserApps from "../../components/UserApplications";
 import { getApplications } from "../../lib/applications";
 
-const MyApplications = async ({}) => {
+const MyApplications = async () => {
   const allApplications = await getApplications();
 
   return (

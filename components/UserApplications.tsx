@@ -12,7 +12,7 @@ const UserApps: React.FC<Props> = ({ allApplications }) => {
   const { address, isConnected } = useAccount();
   const router = useRouter();
 
-  if (!isConnected) {
+  if (!isConnected && typeof window !== "undefined") {
     router.push("/");
     return null;
   }
