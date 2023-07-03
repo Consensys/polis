@@ -1,5 +1,5 @@
 "use client";
-import { FC, useState } from "react";
+import { FC, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import cn from "classnames";
 import { Tab } from "@headlessui/react";
@@ -10,45 +10,27 @@ import {
 } from "@heroicons/react/20/solid";
 import BasicInfo from "./BasicInfo";
 import ExternalLinks from "./ExternalLinks";
-import { stepKeys, Steps, StepsData } from "../types";
+import { IApplicationInput, stepKeys, Steps } from "../types";
 
-import Preview from "./Preview";
+import Media from "./Media";
 import Button from "../../Button";
+import { FormProvider, useForm } from "react-hook-form";
+import { submitApplication } from "../../../lib/actions";
 
 type NewApplicationStepsProps = {
   closeModal: () => void;
-  defaultdata?: StepsData;
-  isUpdate?: boolean;
-  applicationId?: string;
 };
 
-const NewApplicationSteps: FC<NewApplicationStepsProps> = ({
-  closeModal,
-  defaultdata,
-  isUpdate,
-  applicationId,
-}) => {
+const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
   const TOTAL_STEPS = 3;
   const [currentStep, setCurrentStep] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
-  const [data, setData] = useState<StepsData>(
-    defaultdata || {
-      basicInfo: {
-        title: "",
-        category: [],
-        description: "",
-      },
-      externalLinks: {
-        applicationUrl: "",
-        repoUrl: "",
-      },
-      preview: {
-        screenshots: [],
-      },
-    }
-  );
+  const [isPending, startTransition] = useTransition();
+  const methods = useForm<IApplicationInput>({
+    defaultValues: {
+      category: [],
+    },
+  });
 
   const [steps] = useState<Steps>({
     basicInfo: {
@@ -63,8 +45,8 @@ const NewApplicationSteps: FC<NewApplicationStepsProps> = ({
     },
     preview: {
       id: 3,
-      title: "Preview",
-      component: Preview,
+      title: "Media",
+      component: Media,
     },
   });
 
@@ -77,59 +59,24 @@ const NewApplicationSteps: FC<NewApplicationStepsProps> = ({
     setCurrentStep((currentStep) => currentStep - 1);
   };
 
-  const handleSubmitApllication = async () => {
-    setIsLoading(true);
-
-    const buffer = Buffer.from(
-      JSON.stringify({ ...data.basicInfo, ...data.externalLinks })
-    );
-    const file = new File([buffer], "data.json", { type: "application/json" });
-
+  const submit = methods.handleSubmit(({ screenshots, logo, ...rest }) => {
     const formData = new FormData();
-    formData.append("data", file);
 
-    if (data.preview.screenshots.length > 0) {
-      data.preview.screenshots.forEach((screenshot) => {
-        formData.append("screenshots", screenshot);
+    if (screenshots && screenshots.length > 0) {
+      screenshots.forEach((image) => {
+        formData.append("screenshots", image.value);
       });
     }
 
-    await fetch("/api", {
-      method: "POST",
-      body: formData,
+    if (logo) {
+      formData.append("logo", logo);
+    }
+
+    startTransition(() => {
+      submitApplication({ images: formData, data: JSON.stringify(rest) });
+      closeModal();
     });
-
-    setIsLoading(false);
-    closeModal();
-    // TODO use caching instead of refresh
-    router.refresh();
-  };
-
-  const handleUpdateApplication = async () => {
-    if (!isUpdate) return;
-
-    const buffer = Buffer.from(
-      JSON.stringify({ ...data.basicInfo, ...data.externalLinks })
-    );
-
-    const file = new File([buffer], "data.json", { type: "application/json" });
-
-    const formData = new FormData();
-    formData.append("data", file);
-
-    await fetch(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/api/application/${applicationId}`,
-      {
-        method: "PUT",
-        body: formData,
-      }
-    );
-
-    setIsLoading(false);
-    closeModal();
-    // TODO use caching instead of refresh
-    router.refresh();
-  };
+  });
 
   return (
     <Tab.Group selectedIndex={currentStep} as="div" className="px-2">
@@ -160,54 +107,60 @@ const NewApplicationSteps: FC<NewApplicationStepsProps> = ({
           </Tab>
         ))}
       </Tab.List>
-      <Tab.Panels className="relative h-[450px]">
+      <Tab.Panels className="relative h-[500px]">
         <h2 className="text-[#202328] mt-8 text-2xl font-medium">
-          {isUpdate ? "Update Application" : "Submit New Application"}
+          Submit New Application
         </h2>
-        <Tab.Panel>
-          <BasicInfo
-            data={data.basicInfo}
-            handleUpdateData={(basicInfo) => setData({ ...data, basicInfo })}
-          />
-        </Tab.Panel>
-        <Tab.Panel>
-          <ExternalLinks
-            data={data.externalLinks}
-            handleUpdateData={(externalLinks) =>
-              setData({ ...data, externalLinks })
-            }
-          />
-        </Tab.Panel>
-        <Tab.Panel>
-          <Preview
-            data={data.preview}
-            handleUpdateData={(preview) => setData({ ...data, preview })}
-          />
-        </Tab.Panel>
-        <div className="absolute bottom-0 right-0 flex">
-          <button onClick={moveToPrev} className="mr-12">
-            <div className="flex items-center text-xs">
-              <ArrowLeftCircleIcon className="w-6 h-6 mr-1" />
-              Previous Step
+        <FormProvider {...methods}>
+          <form onSubmit={submit}>
+            <Tab.Panel>
+              <BasicInfo control={methods.control} />
+            </Tab.Panel>
+            <Tab.Panel>
+              <ExternalLinks control={methods.control} />
+            </Tab.Panel>
+            <Tab.Panel>
+              <Media control={methods.control} />
+            </Tab.Panel>
+            <div className="absolute bottom-0 right-0 flex">
+              {currentStep > 0 && (
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    moveToPrev();
+                  }}
+                  className="mr-12"
+                >
+                  <div className="flex items-center text-xs">
+                    <ArrowLeftCircleIcon className="w-6 h-6 mr-1" />
+                    Previous Step
+                  </div>
+                </button>
+              )}
+              {currentStep === TOTAL_STEPS - 1 ? (
+                <Button
+                  disabled={isPending}
+                  className="px-2 text-xs"
+                  type="submit"
+                >
+                  <ArrowRightCircleIcon className="w-6 h-6" />
+                  Submit New Application
+                </Button>
+              ) : (
+                <Button
+                  className="text-xs"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    moveToNext();
+                  }}
+                >
+                  <ArrowRightCircleIcon className="w-6 h-6" />
+                  Next Step
+                </Button>
+              )}
             </div>
-          </button>
-          {currentStep === TOTAL_STEPS - 1 ? (
-            <Button
-              className="px-2 text-xs"
-              onClick={
-                isUpdate ? handleUpdateApplication : handleSubmitApllication
-              }
-            >
-              <ArrowRightCircleIcon className="w-6 h-6" />
-              Submit New Application
-            </Button>
-          ) : (
-            <Button className="text-xs" onClick={moveToNext}>
-              <ArrowRightCircleIcon className="w-6 h-6" />
-              Next Step
-            </Button>
-          )}
-        </div>
+          </form>
+        </FormProvider>
       </Tab.Panels>
     </Tab.Group>
   );

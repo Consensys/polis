@@ -12,7 +12,6 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
-    isEditorsPick: true,
   },
   {
     id: "2",
@@ -27,7 +26,6 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
-    isEditorsPick: true,
   },
   {
     id: "3",
@@ -42,7 +40,6 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
-    isEditorsPick: true,
   },
   {
     id: "4",
@@ -57,7 +54,6 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
-    isEditorsPick: false,
   },
   {
     id: "5",
@@ -72,7 +68,6 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
-    isEditorsPick: false,
   },
   {
     id: "6",
@@ -87,7 +82,6 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
-    isEditorsPick: false,
   },
   {
     id: "7",
@@ -102,7 +96,6 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
-    isEditorsPick: false,
   },
   {
     id: "8",
@@ -117,7 +110,6 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
-    isEditorsPick: false,
   },
   {
     id: "9",
@@ -132,7 +124,6 @@ export const applications: IApplication[] = [
       "https://i.imgur.com/samibbK.png",
       "https://i.imgur.com/zVIB9Em.png",
     ],
-    isEditorsPick: false,
   },
 ];
 

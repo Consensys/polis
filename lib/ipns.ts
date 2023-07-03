@@ -29,6 +29,18 @@ export const update = async (ipns: string, keyStr: string, content: string) => {
   await Name.publish(nextRevision, name2.key);
 };
 
+export const getcurrentHash = async () => {
+  const nameServiceUrl = process.env.WEB3_NAME_SERVICE_URL;
+
+  if (!nameServiceUrl) {
+    throw new Error("WEB3_NAME_SERVICE_URL is not set");
+  }
+
+  const res = await fetch(`${nameServiceUrl}/${process.env.DB_HASH}`);
+
+  return (await res.json()).value;
+};
+
 export const resolve = async () => {
   const keyStr = localStorage.getItem("name-key");
   if (!keyStr) {
@@ -38,6 +50,5 @@ export const resolve = async () => {
 
   const name = await Name.from(key);
   const revition = await Name.resolve(name);
-  console.log(revition);
   return revition.value;
 };

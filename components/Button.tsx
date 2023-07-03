@@ -1,7 +1,6 @@
 import React from "react";
-import Link from "next/link";
 import { twMerge } from "tailwind-merge";
-import type { PropsWithChildren } from "react";
+import type { ButtonHTMLAttributes, PropsWithChildren } from "react";
 
 type ButtonVariant = "primary" | "light" | "borderless";
 
@@ -12,33 +11,21 @@ const classMap: Record<ButtonVariant, string> = {
   borderless: "",
 };
 
-type Props = {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   variant?: ButtonVariant;
-  onClick?: () => void;
-  href?: string;
-  type?: "button" | "submit" | "reset";
   disabled?: boolean;
-};
+}
 
 const Button: React.FC<PropsWithChildren<Props>> = ({
   children,
   className,
   variant = "primary",
   onClick,
-  href,
   disabled = false,
   ...props
 }) => {
   const rootClassName = twMerge(classMap[variant], className ? className : "");
-
-  if (href) {
-    return (
-      <Link href={href} className={rootClassName} {...props}>
-        {children}
-      </Link>
-    );
-  }
 
   return (
     <button
