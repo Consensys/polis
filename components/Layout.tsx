@@ -30,7 +30,7 @@ const Layout: React.FC<Props> = ({
         <Nav />
         <main className="">{children}</main>
       </div>
-      <div className="-z-10 w-full h-[130vh] absolute top-5 left-0 bg-hero-pattern bg-no-repeat bg-cover lg:bg-[length:100%_100%]"></div>
+      <div className="-z-10 w-full h-[130vh] absolute top-5 left-0 bg-light-pattern dark:bg-dark-pattern bg-no-repeat bg-cover lg:bg-[length:100%_100%]"></div>
     </div>
   );
 };
