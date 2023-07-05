@@ -10,5 +10,7 @@ declare global {
     repoUrl?: string;
     logo?: string;
     screenshots?: string[];
+    createdBy?: string;
+    isEditorsPick?: boolean;
   }
 }

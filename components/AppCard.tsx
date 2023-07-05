@@ -5,11 +5,11 @@ import Link from "next/link";
 
 interface AppCardProps {
   key: string;
-  application: IApplication;
+  data: IApplication;
 }
 
 const AppCard: React.FC<AppCardProps> = ({
-  application: { id, title, description, logo },
+  data: { id, title, description, logo },
 }) => {
   const truncateDescription = (description: string | undefined) => {
     if (description && description.length > 140) {

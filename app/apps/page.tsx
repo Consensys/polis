@@ -2,7 +2,7 @@ import Button from "../../components/Button";
 import AddIcon from "../../components/icons/AddIcon";
 import MyAppsSearchBar from "../../components/MyAppsSearchBar";
 import UserApps from "../../components/UserApplications";
-import { getApplications } from "../../lib/applications";
+import { getApplications } from "../../lib/actions";
 
 const MyApplications = async () => {
   const allApplications = await getApplications();
