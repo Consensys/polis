@@ -1,22 +1,8 @@
-import { getApplications } from "@/lib/actions";
-import Button from "@/components/Button";
-import MyAppsSearchBar from "@/components/MyAppsSearchBar";
-import UserApps from "@/components/UserApplications";
-import AddIcon from "@/components/icons/AddIcon";
-import { notFound } from "next/navigation";
-
-type PageProps = {
-  searchParams: {
-    user: string;
-  };
-};
-
-const MyApplications = async ({ searchParams }: PageProps) => {
-  const user = searchParams.user;
-
-  if (!user) {
-    return notFound();
-  }
+import Button from "../../components/Button";
+import AddIcon from "../../components/icons/AddIcon";
+import MyAppsSearchBar from "../../components/MyAppsSearchBar";
+import UserApps from "../../components/UserApplications";
+import { getApplications } from "../../lib/applications";
 
   const applications = await getApplications(
     (applications) => applications.user === user
