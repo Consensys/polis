@@ -15,6 +15,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   variant?: ButtonVariant;
   disabled?: boolean;
+  href?: string;
 }
 
 const Button: React.FC<PropsWithChildren<Props>> = ({
