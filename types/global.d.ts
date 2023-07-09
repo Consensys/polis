@@ -7,6 +7,7 @@ declare global {
     user: string;
     category: string[];
     description: string;
+    user: string;
     applicationUrl?: string;
     repoUrl?: string;
     logo?: string;
