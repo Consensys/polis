@@ -6,12 +6,15 @@ import {
   storeDatabase,
   ApplicationNode,
   query,
+  Filter,
 } from "./database";
 import { getDirectoryContent, add } from "./ipfs";
 import { revalidatePath } from "next/cache";
 
-export const getApplications = async (): Promise<IApplication[]> => {
-  const applicationNodes = await retrieveDatabase();
+export const getApplications = async (
+  filter?: Filter
+): Promise<IApplication[]> => {
+  const applicationNodes = await query(filter);
 
   const applications = Array.from(applicationNodes.values()).map(
     async ({ screenshots: screenshotsHash, logo: logoHash, ...rest }) => {
@@ -105,5 +108,5 @@ export const submitApplication = async ({
   });
 
   await storeDatabase(newState);
-  revalidatePath("/")
+  revalidatePath("/");
 };

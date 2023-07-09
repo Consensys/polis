@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
 import { Fragment, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
-import { Bars4Icon, CheckIcon } from "@heroicons/react/24/outline";
+import { useAccount } from "wagmi";
+import { Menu, Transition } from "@headlessui/react";
+import { Bars4Icon } from "@heroicons/react/24/outline";
 import NewApplication from "./NewApplication";
 import Link from "next/link";
 import PolisLogo from "./icons/PolisLogo";
@@ -10,6 +11,7 @@ import { ConnectButton } from "./ConnectButton";
 
 export const Nav = () => {
   const [open, setOpen] = useState(false);
+  const { address } = useAccount();
 
   return (
     <>
@@ -21,7 +23,7 @@ export const Nav = () => {
         <div className="hidden lg:block">
           <div className="flex items-center gap-7">
             <Link
-              href="/application"
+              href={`/applications?user=${address}`}
               className="duration-200 ease-in-out hover:opacity-50"
             >
               My Application
