@@ -1,15 +1,16 @@
 "use client";
+
 import { ReactNode } from "react";
-import { ThemeProvider } from "next-themes";
 import { WagmiConfig, createConfig, configureChains } from "wagmi";
 import { infuraProvider } from "@wagmi/core/providers/infura";
 import { publicProvider } from "wagmi/providers/public";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { mainnet, goerli } from "@wagmi/core/chains";
+import { ThemeProvider } from "next-themes";
 
-interface ProvidersProps {
+type Props = {
   children: ReactNode;
-}
+};
 
 const { chains, publicClient, webSocketPublicClient } = configureChains(
   [mainnet, goerli],
@@ -26,16 +27,10 @@ const config = createConfig({
   webSocketPublicClient,
 });
 
-const WagmiProvider: React.FC<ProvidersProps> = ({ children }) => (
-  <WagmiConfig config={config}>{children}</WagmiConfig>
+const Providers: React.FC<Props> = ({ children }) => (
+  <WagmiConfig config={config}>
+    <ThemeProvider attribute="class">{children}</ThemeProvider>
+  </WagmiConfig>
 );
-
-const Providers: React.FC<ProvidersProps> = ({ children }) => {
-  return (
-    <ThemeProvider attribute="class">
-      <WagmiProvider>{children}</WagmiProvider>
-    </ThemeProvider>
-  );
-};
 
 export default Providers;
