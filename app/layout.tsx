@@ -2,7 +2,7 @@ import Head from "next/head";
 import { twMerge } from "tailwind-merge";
 import { Nav } from "../components/Nav";
 import WagmiProvider from "../components/WagmiProvider";
-import Providers from "../components/Providers";
+
 import "../styles/globals.css";
 
 type Props = {
@@ -25,24 +25,22 @@ const Layout: React.FC<Props> = ({
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <Providers>
-        <body className="transition-colors bg-white dark:bg-black">
-          <WagmiProvider>
-            <div className={rootClassName}>
-              <div className="max-w-screen-xl mx-auto">
-                <Head>
-                  <title>{title}</title>
-                  <meta name="description" content={`${description}`} />
-                  <link rel="icon" href="/favicon.ico" />
-                </Head>
-                <Nav />
-                <main className="">{children}</main>
-              </div>
-              <div className="-z-10 w-full h-[130vh] absolute top-5 left-0 bg-light-pattern dark:bg-dark-pattern bg-no-repeat bg-cover lg:bg-[length:100%_100%]"></div>
+      <body className="transition-colors bg-white dark:bg-black">
+        <WagmiProvider>
+          <div className={rootClassName}>
+            <div className="max-w-screen-xl mx-auto">
+              <Head>
+                <title>{title}</title>
+                <meta name="description" content={`${description}`} />
+                <link rel="icon" href="/favicon.ico" />
+              </Head>
+              <Nav />
+              <main className="">{children}</main>
             </div>
-          </WagmiProvider>
-        </body>
-      </Providers>
+            <div className="-z-10 w-full h-[130vh] absolute top-5 left-0 bg-light-pattern dark:bg-dark-pattern bg-no-repeat bg-cover lg:bg-[length:100%_100%]"></div>
+          </div>
+        </WagmiProvider>
+      </body>
     </html>
   );
 };
