@@ -1,5 +1,5 @@
-import { add, cat } from "./ipfs";
 import { getcurrentHash, update } from "./ipns";
+import { add, cat } from "./ipfs";
 
 export type ApplicationNode = {
   id: string;
