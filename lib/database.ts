@@ -1,5 +1,5 @@
-import { add, cat } from "./ipfs";
 import { getcurrentHash, update } from "./ipns";
+import { add, cat } from "./ipfs";
 
 export type ApplicationNode = {
   id: string;
@@ -49,7 +49,7 @@ export const storeDatabase = async (state: Map<string, ApplicationNode>) => {
 
 export const retrieveDatabase = async () => {
   const hash = await getcurrentHash();
-  
+
   const json = await cat(hash);
   return deserializeDatabase(json);
 };
