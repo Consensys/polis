@@ -3,9 +3,24 @@ import Button from "@/components/Button";
 import MyAppsSearchBar from "@/components/MyAppsSearchBar";
 import UserApps from "@/components/UserApplications";
 import AddIcon from "@/components/icons/AddIcon";
+import { notFound } from "next/navigation";
 
-const MyApplications = async ({}) => {
-  const allApplications = await getApplications();
+type PageProps = {
+  searchParams: {
+    user: string;
+  };
+};
+
+const MyApplications = async ({ searchParams }: PageProps) => {
+  const user = searchParams.user;
+
+  if (!user) {
+    return notFound();
+  }
+
+  const applications = await getApplications(
+    (applications) => applications.user === user
+  );
 
   return (
     <div>
@@ -15,7 +30,7 @@ const MyApplications = async ({}) => {
           <AddIcon /> <span className="hidden lg:block">New Application</span>
         </Button>
       </div>
-      <UserApps allApplications={allApplications} />
+      <UserApps allApplications={applications} />
     </div>
   );
 };
