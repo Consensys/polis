@@ -6,13 +6,14 @@ export type ApplicationNode = {
   title: string;
   category: string[];
   description: string;
+  user: string;
   applicationUrl?: string;
   repoUrl?: string;
   logo?: string;
   screenshots?: string;
 };
 
-type Query = (node: ApplicationNode) => boolean;
+export type Filter = (node: ApplicationNode) => boolean;
 
 export const addNode = (
   state: Map<string, ApplicationNode>,
@@ -54,9 +55,9 @@ export const retrieveDatabase = async () => {
   return deserializeDatabase(json);
 };
 
-export const query = async (predicate: Query) => {
+export const query = async (predicate?: Filter) => {
   const state = await retrieveDatabase();
   const nodes = Array.from(state.values());
-  const matches = nodes.filter(predicate);
+  const matches = nodes.filter(predicate || Boolean);
   return matches;
 };

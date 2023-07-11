@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import Button from "./Button";
+import LinkIcon from "./icons/LinkIcon";
+import EditIcon from "./icons/EditIcon";
 
 type AppHeaderProps = {
   title: string;
@@ -13,29 +16,43 @@ const AppHeader: React.FC<AppHeaderProps> = ({
   applicationUrl,
 }) => {
   return (
-    <header className="flex flex-col items-center justify-between px-2 py-2 mx-16 mt-8 sm:flex-row sm:mx-32 sm:px-32">
+    <header className="flex items-center justify-between px-2 py-2 mt-8">
       <div className="flex items-center justify-start sm:justify-center">
         {logo && (
-          <Image
-            src={logo}
-            alt="logo"
-            className="w-10 h-10 logo sm:w-14 sm:h-14"
-            width={50}
-            height={50}
-          />
+          <div className="flex items-center justify-start sm:justify-center">
+            <Image
+              src={logo}
+              alt={`${title} Logo`}
+              className="w-8 h-8 md:w-10 md:h-10"
+              width={50}
+              height={50}
+            />
+          </div>
         )}
         <h1 className="ml-2 text-4xl font-bold text-transparent sm:text-5xl font-inter bg-gradient-to-br bg-clip-text from-primary to-secondary">
           {title}
         </h1>
       </div>
-      {applicationUrl && (
-        <Link href={applicationUrl} passHref>
-          <button className="flex items-center px-3 py-2 mt-2 font-bold text-gray-500 border border-gray-500 rounded-full sm:mt-0 sm:ml-4 hover:bg-gray-100 hover:text-gray-700">
-            Visit Website
-            <i className="fa-sharp fa-solid fa-arrow-up-right-from-square"></i>
-          </button>
-        </Link>
-      )}
+      <div className="flex gap-2 lg:gap-4">
+        <Button
+          variant="borderless"
+          href={applicationUrl}
+          className="px-4 rounded-3xl lg:rounded-full md:px-7 cursor-not-allowed opacity-40"
+        >
+          <EditIcon />
+          <span className="hidden lg:block"> Edit Application</span>
+        </Button>
+
+        {applicationUrl && (
+          <Button
+            variant="borderless"
+            href={applicationUrl}
+            className="px-4 rounded-3xl lg:rounded-full md:px-7"
+          >
+            <LinkIcon /> <span className="hidden lg:block"> Visit Website</span>
+          </Button>
+        )}
+      </div>
     </header>
   );
 };

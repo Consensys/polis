@@ -1,7 +1,7 @@
 "use client";
 import { FC, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
 import cn from "classnames";
+import { useAccount } from "wagmi";
 import { Tab } from "@headlessui/react";
 import {
   ChevronDoubleRightIcon,
@@ -24,7 +24,7 @@ type NewApplicationStepsProps = {
 const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
   const TOTAL_STEPS = 3;
   const [currentStep, setCurrentStep] = useState(0);
-  const router = useRouter();
+  const { address } = useAccount();
   const [isPending, startTransition] = useTransition();
   const methods = useForm<IApplicationInput>({
     defaultValues: {
@@ -73,7 +73,10 @@ const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
     }
 
     startTransition(() => {
-      submitApplication({ images: formData, data: JSON.stringify(rest) });
+      submitApplication({
+        images: formData,
+        data: JSON.stringify({ ...rest, user: address }),
+      });
       closeModal();
     });
   });

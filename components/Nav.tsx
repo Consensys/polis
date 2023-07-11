@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
 import { Fragment, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
-import { Bars4Icon, CheckIcon } from "@heroicons/react/24/outline";
+import { useAccount } from "wagmi";
+import { Menu, Transition } from "@headlessui/react";
+import { Bars4Icon } from "@heroicons/react/24/outline";
 import NewApplication from "./NewApplication";
 import Link from "next/link";
 import PolisLogo from "./icons/PolisLogo";
@@ -10,6 +11,7 @@ import { ConnectButton } from "./ConnectButton";
 
 export const Nav = () => {
   const [open, setOpen] = useState(false);
+  const { isConnected, address } = useAccount();
 
   return (
     <>
@@ -18,22 +20,24 @@ export const Nav = () => {
           <PolisLogo />
           <span className="text-2xl font-bold text-primary">Polis</span>
         </Link>
-        <div className="hidden lg:block">
-          <div className="flex items-center gap-7">
-            <Link
-              href="/application"
-              className="duration-200 ease-in-out hover:opacity-50"
-            >
-              My Application
-            </Link>
-            <button
-              className="duration-200 ease-in-out hover:opacity-50"
-              onClick={() => setOpen(true)}
-            >
-              Submit New Application
-            </button>
-            <ConnectButton />
-          </div>
+        <div className="hidden lg:flex">
+          {isConnected && (
+            <div className="flex items-center gap-7">
+              <Link
+                href={`/apps?user=${address}`}
+                className="duration-200 ease-in-out hover:opacity-50"
+              >
+                My Applications
+              </Link>
+              <button
+                className="duration-200 ease-in-out hover:opacity-50"
+                onClick={() => setOpen(true)}
+              >
+                Submit New Application
+              </button>
+            </div>
+          )}
+          <ConnectButton />
         </div>
         <div className="z-10 lg:hidden">
           <Menu as="div" className="relative inline-block text-left">
@@ -56,8 +60,8 @@ export const Nav = () => {
                 <div className="flex flex-col items-center rounded-lg">
                   <Menu.Item>
                     <div className="flex w-full py-4 duration-200 ease-in-out hover:bg-slate-100">
-                      <Link href="/application" className="w-full text-center">
-                        My Application
+                      <Link href={`/apps?user=${address}`} className="w-full text-center">
+                        My Applications
                       </Link>
                     </div>
                   </Menu.Item>
