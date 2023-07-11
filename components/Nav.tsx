@@ -1,17 +1,17 @@
 "use client";
 
 import { Fragment, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
-import { Bars4Icon, CheckIcon } from "@heroicons/react/24/outline";
+import { useAccount } from "wagmi";
+import { Menu, Transition } from "@headlessui/react";
+import { Bars4Icon } from "@heroicons/react/24/outline";
 import NewApplication from "./NewApplication";
 import Link from "next/link";
 import PolisLogo from "./icons/PolisLogo";
 import { ConnectButton } from "./ConnectButton";
-import { useAccount } from "wagmi";
 
 export const Nav = () => {
   const [open, setOpen] = useState(false);
-  const { isConnected } = useAccount();
+  const { isConnected, address } = useAccount();
 
   return (
     <>
@@ -24,7 +24,7 @@ export const Nav = () => {
           {isConnected && (
             <div className="flex items-center gap-7">
               <Link
-                href="/apps"
+                href={`/apps?user=${address}`}
                 className="duration-200 ease-in-out hover:opacity-50"
               >
                 My Applications
@@ -60,8 +60,8 @@ export const Nav = () => {
                 <div className="flex flex-col items-center rounded-lg">
                   <Menu.Item>
                     <div className="flex w-full py-4 duration-200 ease-in-out hover:bg-slate-100">
-                      <Link href="/application" className="w-full text-center">
-                        My Application
+                      <Link href={`/apps?user=${address}`} className="w-full text-center">
+                        My Applications
                       </Link>
                     </div>
                   </Menu.Item>
