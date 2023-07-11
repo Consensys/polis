@@ -5,11 +5,11 @@ import Link from "next/link";
 
 interface AppCardProps {
   key: string;
-  data: IApplication;
+  application: IApplication;
 }
 
 const AppCard: React.FC<AppCardProps> = ({
-  data: { id, title, description, logo },
+  application: { id, title, description, logo },
 }) => {
   return (
     <div className="flex flex-col justify-between w-full max-w-sm p-4 transition duration-200 border border-white shadow-md bg-gradient-to-b from-slate-100 to-transparent rounded-2xl transform-gpu hover:shadow-lg hover:scale-105">
