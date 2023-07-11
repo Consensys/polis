@@ -4,6 +4,7 @@ declare global {
   interface IApplication {
     id: string;
     title: string;
+    user: string;
     category: string[];
     description: string;
     applicationUrl?: string;

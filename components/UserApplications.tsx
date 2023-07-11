@@ -22,7 +22,7 @@ const UserApps: React.FC<Props> = ({ allApplications }) => {
       {allApplications
         .filter((app) => app.createdBy === address)
         .map((data) => (
-          <AppCard key={data.id} data={data} />
+          <AppCard key={data.id} application={data} />
         ))}
     </div>
   );
