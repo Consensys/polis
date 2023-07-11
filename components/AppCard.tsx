@@ -11,6 +11,7 @@ interface AppCardProps {
 const AppCard: React.FC<AppCardProps> = ({
   application: { id, title, description, logo },
 }) => {
+
   const truncateDescription = (description: string | undefined) => {
     if (description && description.length > 140) {
       return description.slice(0, 140).trim() + "...";
@@ -20,7 +21,7 @@ const AppCard: React.FC<AppCardProps> = ({
 
   return (
     <div className="flex flex-col justify-between w-full max-w-sm p-4 transition duration-200 border border-white shadow-md bg-gradient-to-b from-slate-100 to-transparent rounded-2xl transform-gpu hover:shadow-lg hover:scale-105">
-      <Link href={`/application/${id}`}>
+      <Link href={`/apps/${id}`}>
         <div className="flex justify-end">
           <div className="w-12 h-12">
             {logo && (
