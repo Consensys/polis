@@ -11,6 +11,9 @@ export type ApplicationNode = {
   repoUrl?: string;
   logo?: string;
   screenshots?: string;
+  createdAt?: string;
+  updatedAt?: string;
+  isEditorsPick?: boolean;
 };
 
 export type Filter = (node: ApplicationNode) => boolean;
