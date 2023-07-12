@@ -105,6 +105,8 @@ export const submitApplication = async ({
     ...application,
     screenshots: screenshotsHash,
     logo: logoHash,
+    createdAt: new Date().toLocaleString('en-US', { timeZone: 'UTC' }),
+    isEditorsPick: false,
   });
 
   await storeDatabase(newState);
