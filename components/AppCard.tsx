@@ -11,6 +11,7 @@ interface AppCardProps {
 const AppCard: React.FC<AppCardProps> = ({
   application: { id, title, description, logo },
 }) => {
+  
   const truncateDescription = (description: string | undefined) => {
     if (description && description.length > 140) {
       return description.slice(0, 140).trim() + "...";
