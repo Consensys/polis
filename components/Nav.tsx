@@ -8,6 +8,7 @@ import NewApplication from "./NewApplication";
 import Link from "next/link";
 import PolisLogo from "./icons/PolisLogo";
 import { ConnectButton } from "./ConnectButton";
+import ThemeButton from "./ThemeButton";
 
 export const Nav = () => {
   const [open, setOpen] = useState(false);
@@ -18,7 +19,9 @@ export const Nav = () => {
       <nav className="flex items-center justify-between py-4">
         <Link href="/" className="flex gap-4">
           <PolisLogo />
-          <span className="text-2xl font-bold text-primary">Polis</span>
+          <span className="text-2xl font-bold text-primary dark:text-white">
+            Polis
+          </span>
         </Link>
         <div className="hidden lg:flex">
           {isConnected && (
@@ -37,6 +40,10 @@ export const Nav = () => {
               </button>
             </div>
           )}
+          <div className="pl-2 pr-2 pt-2 content-center">
+            <ThemeButton />
+          </div>
+
           <ConnectButton />
         </div>
         <div className="z-10 lg:hidden">
@@ -60,7 +67,10 @@ export const Nav = () => {
                 <div className="flex flex-col items-center rounded-lg">
                   <Menu.Item>
                     <div className="flex w-full py-4 duration-200 ease-in-out hover:bg-slate-100">
-                      <Link href={`/apps?user=${address}`} className="w-full text-center">
+                      <Link
+                        href={`/apps?user=${address}`}
+                        className="w-full text-center"
+                      >
                         My Applications
                       </Link>
                     </div>
