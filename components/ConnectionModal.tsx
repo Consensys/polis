@@ -47,7 +47,7 @@ export const ConnectionModal: React.FC<Props> = ({ open, setOpen }) => {
                   <div className="flex p-4 border-b">
                     <Dialog.Title
                       as="h3"
-                      className="text-base font-semibold leading-6 text-gray-900"
+                      className="text-base font-semibold leading-6 text-gray-900 dark:text-white"
                     >
                       Connect Wallet
                     </Dialog.Title>

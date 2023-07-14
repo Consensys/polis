@@ -11,7 +11,6 @@ interface AppCardProps {
 const AppCard: React.FC<AppCardProps> = ({
   application: { id, title, description, logo },
 }) => {
-  
   const truncateDescription = (description: string | undefined) => {
     if (description && description.length > 140) {
       return description.slice(0, 140).trim() + "...";
@@ -20,7 +19,7 @@ const AppCard: React.FC<AppCardProps> = ({
   };
 
   return (
-    <div className="flex flex-col justify-between w-full max-w-sm p-4 transition duration-200 border border-white shadow-md bg-gradient-to-b from-slate-100 to-transparent rounded-2xl transform-gpu hover:shadow-lg hover:scale-105">
+    <div className="flex flex-col justify-between w-full max-w-sm p-4 transition duration-200 border border-white bg-gradient-to-b from-slate-100 to-transparent  rounded-2xl transform-gpu hover:shadow-lg hover:scale-105 dark:bg-gradient-to-b dark:border-gray-700 dark:from-gray-800 dark:via-gray-700 dark:to-gray-600 shadow-md dark:backdrop-filter dark:backdrop-blur-md dark:border-gray-300">
       <Link href={`/apps/${id}`}>
         <div className="flex justify-end">
           <div className="w-12 h-12">
@@ -37,10 +36,10 @@ const AppCard: React.FC<AppCardProps> = ({
           </div>
         </div>
         <div className="px-4 py-2 text-left">
-          <H2 className="mb-2 text-xl font-bold md:text-2xl lg:text-2xl">
+          <H2 className="mb-2 text-xl font-bold md:text-2xl lg:text-2xl dark:text-white">
             {title}
           </H2>
-          <Text className="text-sm md:text-base lg:text-base">
+          <Text className="text-sm md:text-base lg:text-base dark:text-white">
             {truncateDescription(description)}
           </Text>
         </div>

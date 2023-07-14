@@ -20,7 +20,7 @@ export const ConnectButton: React.FC = () => {
   if (isConnected) {
     return (
       <Button
-        className="mx-auto bg-opacity-0 text-primary shadow-none hover:bg-opacity-0 hover:shadow-none mb-2 lg:mb-0"
+        className="mx-auto bg-black text-white dark:text-primary shadow-none hover:shadow-none mb-2 lg:mb-0 dark:bg-white"
         onClick={handleDisconnect}
       >
         <DisconnectIcon /> Disconnect
@@ -30,7 +30,10 @@ export const ConnectButton: React.FC = () => {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} className="mb-4 rounded-full mt-2 mx-2 gap-2 lg:mb-0 lg:mt-0 lg:mx-0 lg:gap-4">
+      <Button
+        onClick={() => setOpen(true)}
+        className="mb-4 rounded-full mt-2 mx-2 gap-2 lg:mb-0 lg:mt-0 lg:mx-0 lg:gap-4 dark:bg-white dark:text-primary"
+      >
         <WalletIcon /> Connect Wallet
       </Button>
 

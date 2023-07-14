@@ -29,7 +29,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({
             />
           </div>
         )}
-        <h1 className="ml-2 text-4xl font-bold text-transparent sm:text-5xl font-inter bg-gradient-to-br bg-clip-text from-primary to-secondary">
+        <h1 className="ml-2 text-4xl font-bold text-transparent sm:text-5xl font-inter bg-gradient-to-br bg-clip-text from-primary to-secondary dark:text-white">
           {title}
         </h1>
       </div>
@@ -37,19 +37,26 @@ const AppHeader: React.FC<AppHeaderProps> = ({
         <Button
           variant="borderless"
           href={applicationUrl}
-          className="px-4 rounded-3xl lg:rounded-full md:px-7 cursor-not-allowed opacity-40"
+          className="px-4 rounded-3xl lg:rounded-full md:px-7 cursor-not-allowed opacity-40 dark:opacity-100 dark:border-gray-400"
         >
           <EditIcon />
-          <span className="hidden lg:block"> Edit Application</span>
+          <span className="hidden lg:block dark:text-gray-400">
+            {" "}
+            Edit Application
+          </span>
         </Button>
 
         {applicationUrl && (
           <Button
             variant="borderless"
             href={applicationUrl}
-            className="px-4 rounded-3xl lg:rounded-full md:px-7"
+            className="px-4 rounded-3xl lg:rounded-full md:px-7 dark:border-white"
           >
-            <LinkIcon /> <span className="hidden lg:block"> Visit Website</span>
+            <LinkIcon />{" "}
+            <span className="hidden lg:block dark:text-white">
+              {" "}
+              Visit Website
+            </span>
           </Button>
         )}
       </div>

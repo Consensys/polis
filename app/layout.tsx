@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { twMerge } from "tailwind-merge";
 import { Nav } from "../components/Nav";
-import WagmiProvider from "../components/WagmiProvider";
+import Providers from "@/components/Providers";
 
 import "../styles/globals.css";
 
@@ -24,9 +24,9 @@ const Layout: React.FC<Props> = ({
   );
 
   return (
-    <html lang="en">
-      <body>
-        <WagmiProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className="transition-colors bg-white dark:bg-black">
+        <Providers>
           <div className={rootClassName}>
             <div className="max-w-screen-xl mx-auto">
               <Head>
@@ -37,9 +37,9 @@ const Layout: React.FC<Props> = ({
               <Nav />
               <main className="">{children}</main>
             </div>
-            <div className="-z-10 w-full h-[130vh] absolute top-5 left-0 bg-hero-pattern bg-no-repeat bg-cover lg:bg-[length:100%_100%]"></div>
+            <div className="-z-10 w-full h-[130vh] absolute top-5 left-0 bg-light-pattern dark:bg-dark-pattern bg-no-repeat bg-cover lg:bg-[length:100%_100%]"></div>
           </div>
-        </WagmiProvider>
+        </Providers>
       </body>
     </html>
   );

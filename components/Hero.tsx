@@ -6,7 +6,7 @@ const Hero = () => {
     <section className="flex items-center flex-1 mt-24">
       <div className="flex flex-col w-full">
         <H1 className="font-extrabold text-center">
-          <span className="text-transparent bg-gradient-to-br bg-clip-text from-primary to-slate-500">
+          <span className="text-transparent bg-gradient-to-br bg-clip-text from-primary to-slate-500 dark:text-gray-300">
             Explore Amazing DAO <br />
             and Web3 tools
           </span>

@@ -8,13 +8,15 @@ module.exports = {
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
         first: ["Inter"],
       },
       backgroundImage: {
-        'hero-pattern': "url('/light-bg.png')",
+        "light-pattern": "url('/light-bg.png')",
+        "dark-pattern": "url('/dark-bg.png')",
       },
       colors: {
         primary: "#202328",

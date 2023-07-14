@@ -16,7 +16,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({ application }) => {
         {/* First Column */}
         <div className="flex flex-col gap-6">
           {/* Category */}
-          <div className="p-6 border border-white rounded-lg shadow-lg bg-gradient-to-b from-white to-slate-200 backdrop-blur h-fit">
+          <div className="p-6 border border-white dark:border-gray-900 rounded-lg shadow-lg bg-gradient-to-b from-white to-slate-200 backdrop-blur h-fit dark:from-gray-900 dark:to-gray-700">
             <H2 className="mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
               Category
             </H2>
@@ -24,7 +24,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({ application }) => {
               {category.map((cat, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 hover:cursor-pointer hover:shadow-lg ease-in-out duration-150 text-primary text-opacity-70 rounded-lg bg-gray-200"
+                  className="px-3 py-1 hover:cursor-pointer hover:shadow-lg ease-in-out duration-150 text-primary text-opacity-70 rounded-lg bg-gray-200 dark:bg-gray-800 dark:text-gray-300"
                 >
                   {cat}
                 </span>
@@ -32,27 +32,32 @@ const AppDetails: React.FC<AppDetailsProps> = ({ application }) => {
             </div>
           </div>
           {/* Description */}
-          <div className="p-6 border border-white rounded-lg shadow-lg bg-gradient-to-b from-white to-slate-200 backdrop-blur">
+          <div className="p-6 border border-white dark:border-gray-900 rounded-lg shadow-lg bg-gradient-to-b from-white to-slate-200 backdrop-blur dark:from-gray-900 dark:to-gray-700">
             <H2 className="mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
               Description
             </H2>
-            <Text className="text-gray-600">{description}</Text>
+            <Text className="text-gray-600 dark:text-gray-300">
+              {description}
+            </Text>
           </div>
           {/* External Links */}
-          <div className="p-6 border border-white rounded-lg shadow-lg bg-gradient-to-b from-white to-slate-200 backdrop-blur">
+          <div className="p-6 border border-white dark:border-gray-900 rounded-lg shadow-lg bg-gradient-to-b from-white to-slate-200 backdrop-blur dark:from-gray-900 dark:to-gray-700">
             <H2 className="mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
               External Links
             </H2>
             <div className="flex pt-8 space-x-4">
               {repoUrl && (
-                <a href={repoUrl} className="text-gray-950 hover:underline">
+                <a
+                  href={repoUrl}
+                  className="text-gray-950 hover:underline dark:text-gray-300"
+                >
                   View Repository
                 </a>
               )}
               {applicationUrl && (
                 <a
                   href={applicationUrl}
-                  className="text-gray-950 hover:underline"
+                  className="text-gray-950 hover:underline dark:text-gray-300"
                 >
                   Visit website
                 </a>
@@ -62,7 +67,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({ application }) => {
         </div>
 
         {/* Second Column */}
-        <div className="flex flex-col justify-between p-6 border border-white rounded-lg shadow-lg bg-gradient-to-b from-white to-slate-200 backdrop-blur">
+        <div className="flex flex-col justify-between p-6 border border-white dark:border-gray-900 rounded-lg shadow-lg bg-gradient-to-b from-white to-slate-200 backdrop-blur dark:from-gray-900 dark:to-gray-700">
           {/* Preview Title */}
           <H2 className="pt-8 pb-4 mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
             Preview
