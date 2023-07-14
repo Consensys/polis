@@ -20,7 +20,7 @@ export const ConnectButton: React.FC = () => {
   if (isConnected) {
     return (
       <Button
-        className="mx-auto bg-black text-white dark:text-primary shadow-none hover:bg-opacity-0 hover:shadow-none mb-2 lg:mb-0 dark:bg-white"
+        className="mx-auto bg-black text-white dark:text-primary shadow-none hover:shadow-none mb-2 lg:mb-0 dark:bg-white"
         onClick={handleDisconnect}
       >
         <DisconnectIcon /> Disconnect
