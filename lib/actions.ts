@@ -11,12 +11,23 @@ import {
 import { getDirectoryContent, add } from "./ipfs";
 import { revalidatePath } from "next/cache";
 
-export const getApplications = async (
-  filter?: Filter
-): Promise<IApplication[]> => {
-  const applicationNodes = await query(filter);
+type getApplicationsParams = {
+  filter?: Filter;
+  page?: number;
+  limit?: number;
+};
 
-  const applications = Array.from(applicationNodes.values()).map(
+export const getApplications = async ({
+  filter,
+  page,
+  limit,
+}: getApplicationsParams): Promise<{
+  applications: IApplication[];
+  total: number;
+}> => {
+  const applicationNodes = await query(filter, page, limit);
+
+  const applications = Array.from(applicationNodes.data.values()).map(
     async ({ screenshots: screenshotsHash, logo: logoHash, ...rest }) => {
       let screenshots: string[] = [],
         logo = undefined;
@@ -40,16 +51,18 @@ export const getApplications = async (
     }
   );
 
-  return Promise.all(applications);
+  return {
+    applications: await Promise.all(applications),
+    total: applicationNodes.total,
+  };
 };
 
 export const getApplication = async (
   id: string
 ): Promise<IApplication | undefined> => {
   try {
-    const application = (
-      await query((node: ApplicationNode) => node.id === id)
-    )[0];
+    const application = (await query((node: ApplicationNode) => node.id === id))
+      .data[0];
 
     const { screenshots: screenshotsHash, logo: logoHash } = application;
 
@@ -105,7 +118,7 @@ export const submitApplication = async ({
     ...application,
     screenshots: screenshotsHash,
     logo: logoHash,
-    createdAt: new Date().toLocaleString('en-US', { timeZone: 'UTC' }),
+    createdAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
     isEditorsPick: false,
   });
 

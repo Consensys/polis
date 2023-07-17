@@ -58,9 +58,16 @@ export const retrieveDatabase = async () => {
   return deserializeDatabase(json);
 };
 
-export const query = async (predicate?: Filter) => {
+export const query = async (predicate?: Filter, page = 1, limit = 2) => {
   const state = await retrieveDatabase();
   const nodes = Array.from(state.values());
   const matches = nodes.filter(predicate || Boolean);
-  return matches;
+  const endIndex = page * limit;
+
+  const paginatedResults = matches.slice(0, endIndex);
+
+  return {
+    data: paginatedResults,
+    total: nodes.length,
+  };
 };

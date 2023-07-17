@@ -19,8 +19,8 @@ const AppCard: React.FC<AppCardProps> = ({
   };
 
   return (
-    <div className="flex flex-col justify-between w-full max-w-sm p-4 transition duration-200 border border-white bg-gradient-to-b from-slate-100 to-transparent  rounded-2xl transform-gpu hover:shadow-lg hover:scale-105 dark:bg-gradient-to-b dark:border-gray-700 dark:from-gray-800 dark:via-gray-700 dark:to-gray-600 shadow-md dark:backdrop-filter dark:backdrop-blur-md dark:border-gray-300">
-      <Link href={`/apps/${id}`}>
+    <div className="flex flex-col justify-between w-full max-w-sm p-4 transition duration-200 border border-white shadow-md bg-gradient-to-b from-slate-100 to-transparent rounded-2xl transform-gpu hover:shadow-lg hover:scale-105 dark:bg-gradient-to-b dark:border-gray-700 dark:from-gray-800 dark:via-gray-700 dark:to-gray-600 dark:backdrop-filter dark:backdrop-blur-md dark:border-gray-300">
+      <Link href={`/applications/${id}`}>
         <div className="flex justify-end">
           <div className="w-12 h-12">
             {logo && (

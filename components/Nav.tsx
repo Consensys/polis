@@ -27,7 +27,7 @@ export const Nav = () => {
           {isConnected && (
             <div className="flex items-center gap-7">
               <Link
-                href={`/apps?user=${address}`}
+                href={`/applications?user=${address}`}
                 className="duration-200 ease-in-out hover:opacity-50"
               >
                 My Applications
@@ -40,7 +40,7 @@ export const Nav = () => {
               </button>
             </div>
           )}
-          <div className="pl-2 pr-2 pt-2 content-center">
+          <div className="content-center pt-2 pl-2 pr-2">
             <ThemeButton />
           </div>
 
