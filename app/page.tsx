@@ -37,11 +37,15 @@ const Home = async ({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-6"></div>
 
       <Hero />
-      <ApplicationsContainer
-        header="Our Editor's Pick"
-        applications={editorPickedApplications}
-        className="mt-24"
-      />
+
+      {editorPickedApplications.length > 0 ? (
+        <ApplicationsContainer
+          header="Our Editor's Pick"
+          applications={editorPickedApplications}
+          className="mt-24"
+        />
+      ) : null}
+      
       <ApplicationsContainer
         header="All Available Tools"
         applications={applications}
