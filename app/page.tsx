@@ -4,6 +4,7 @@ import { getApplications } from "@/lib/actions";
 import ApplicationsContainer from "@/components/ApplicationsContainer";
 import Pagination from "@/components/Pagination";
 import { cn } from "@/lib/utils";
+import { DEFAULT_FETCH_LIMIT } from "@/lib/constants";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +19,7 @@ const Home = async ({
   searchParams: { page: pageStr, limit: limitStr },
 }: PageProps) => {
   const page = pageStr ? parseInt(pageStr) : 1;
-  const limit = limitStr ? parseInt(limitStr) : 2;
+  const limit = limitStr ? parseInt(limitStr) : DEFAULT_FETCH_LIMIT;
 
   const { applications, total } = await getApplications({
     page,
