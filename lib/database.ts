@@ -1,5 +1,6 @@
 import { getcurrentHash, update } from "./ipns";
 import { add, cat } from "./ipfs";
+import { DEFAULT_FETCH_LIMIT } from "./constants";
 
 export type ApplicationNode = {
   id: string;
@@ -58,9 +59,16 @@ export const retrieveDatabase = async () => {
   return deserializeDatabase(json);
 };
 
-export const query = async (predicate?: Filter) => {
+export const query = async (predicate?: Filter, page = 1, limit = DEFAULT_FETCH_LIMIT) => {
   const state = await retrieveDatabase();
   const nodes = Array.from(state.values());
   const matches = nodes.filter(predicate || Boolean);
-  return matches;
+  const endIndex = page * limit;
+
+  const paginatedResults = matches.slice(0, endIndex);
+
+  return {
+    data: paginatedResults,
+    total: nodes.length,
+  };
 };

@@ -4,9 +4,15 @@ import AppHeader from "../../../components/AppHeader";
 import AppDetails from "../../../components/AppDetails";
 import { getApplication } from "../../../lib/actions";
 
-const ApplicationPage = async ({ params }: { params: any }) => {
+type PageProps = {
+  params: {
+    applicationId: string;
+  };
+};
+
+const ApplicationPage = async ({ params: { applicationId } }: PageProps) => {
   const application: IApplication | undefined = await getApplication(
-    params.applicationId
+    applicationId
   );
 
   if (!application) {

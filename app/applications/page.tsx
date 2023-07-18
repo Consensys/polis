@@ -8,20 +8,18 @@ type PageProps = {
   };
 };
 
-const MyApplications = async ({ searchParams }: PageProps) => {
-  const user = searchParams.user;
+const Applications = async ({ searchParams: { user } }: PageProps) => {
+  const { applications } = await getApplications({
+    filter: (applications) => applications.user === user,
+  });
 
-  if (!user) {
+  if (!applications?.length) {
     return notFound();
   }
-
-  const applications = await getApplications(
-    (applications) => applications.user === user
-  );
 
   return (
     <ApplicationsContainer applications={applications} className="mt-24" />
   );
 };
 
-export default MyApplications;
+export default Applications;
