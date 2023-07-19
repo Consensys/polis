@@ -68,7 +68,7 @@ export const Nav = () => {
                   <Menu.Item>
                     <div className="flex w-full py-4 duration-200 ease-in-out hover:bg-slate-100">
                       <Link
-                        href={`/apps?user=${address}`}
+                        href={`/applications?user=${address}`}
                         className="w-full text-center"
                       >
                         My Applications

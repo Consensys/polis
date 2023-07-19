@@ -17,7 +17,7 @@ export type ApplicationNode = {
   isEditorsPick?: boolean;
 };
 
-export type Filter = (node: ApplicationNode) => boolean;
+export type Filter = (node: ApplicationNode) => boolean | undefined;
 
 export const addNode = (
   state: Map<string, ApplicationNode>,

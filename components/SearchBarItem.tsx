@@ -14,7 +14,7 @@ export const SearchItem: React.FC<IApplication> = ({
 
   return (
     <Link
-      href={`apps/${id}`}
+      href={`applications/${id}`}
       className="flex items-center gap-3 py-2 px-6 justify-between hover:bg-slate-100 cursor-pointer"
     >
       <div className="flex items-center gap-3">
@@ -27,7 +27,7 @@ export const SearchItem: React.FC<IApplication> = ({
             height={25}
           />
         )}
-        <span>{title}</span>
+        <span className="dark:text-primary">{title}</span>
       </div>
 
       <SearchIcon />

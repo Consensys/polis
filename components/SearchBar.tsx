@@ -1,12 +1,15 @@
 "use client";
 
-import { getApplications } from "@/lib/actions";
 import { useEffect, useState } from "react";
 import { useDebounce } from "@/lib/hooks";
 import { SearchResults } from "./SearchResults";
 import { LatestAndEditorsPick } from "./LatestAndEditorsPick";
 
-export const SearchBar: React.FC = () => {
+type Props = {
+  data: Promise<{ applications: IApplication[]; total: number }>;
+};
+
+export const SearchBar: React.FC<Props> = ({ data }) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<{
     items: IApplication[];
@@ -16,15 +19,19 @@ export const SearchBar: React.FC = () => {
     show: false,
   });
 
-  const [data, setData] = useState<IApplication[]>([]);
+  const [applications, setApplications] = useState<
+    IApplication[]
+  >([]);
 
   useEffect(() => {
-    getApplications().then((data) => setData(data));
+    data.then(({ applications }) => {
+      setApplications(applications);
+    });
   }, [results.show]);
 
   const search = () => {
     const items = query
-      ? data.filter((item) =>
+      ? applications.filter((item) =>
           item.title.toLowerCase().includes(query.toLowerCase())
         )
       : [];
@@ -81,7 +88,7 @@ export const SearchBar: React.FC = () => {
             {results.items.length > 0 ? (
               <SearchResults results={results} />
             ) : (
-              <LatestAndEditorsPick data={data} />
+              <LatestAndEditorsPick data={applications} />
             )}
           </ul>
         </div>

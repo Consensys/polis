@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 
 const DisconnectIcon = (props: SVGProps<SVGSVGElement>) => {
   const { resolvedTheme } = useTheme();
-  const stroke = resolvedTheme === "dark" ? "#202328" : "#fff";
+  const stroke = resolvedTheme === "dark" ? "#fff" : "#202328";
 
   return (
     <svg

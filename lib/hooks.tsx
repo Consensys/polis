@@ -9,7 +9,6 @@ export const useDebounce = (
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      console.log("debounce")
       debouncedCallback();
     }, delay);
 
