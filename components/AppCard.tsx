@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import { H2, Text } from "./Text";
 import Link from "next/link";
@@ -11,6 +13,8 @@ interface AppCardProps {
 const AppCard: React.FC<AppCardProps> = ({
   application: { id, title, description, logo },
 }) => {
+  const [error, setError] = useState(false);
+
   const truncateDescription = (description: string | undefined) => {
     if (description && description.length > 140) {
       return description.slice(0, 140).trim() + "...";
@@ -25,11 +29,12 @@ const AppCard: React.FC<AppCardProps> = ({
           <div className="w-12 h-12">
             {logo && (
               <Image
-                src={logo}
+                src={error ? "/cardplaceholderimg.svg" : logo}
+                onError={() => setError(true)}
                 alt={title}
                 width={48}
                 height={48}
-                className="rounded-lg shadow-md"
+                className="rounded-lg"
                 sizes="100vw"
               />
             )}
