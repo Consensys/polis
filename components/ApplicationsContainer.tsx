@@ -21,7 +21,7 @@ const ApplicationsContainer: FC<ApplicationsContainerProps> = ({
           {header}
         </H2>
       )}
-      <div className="grid justify-center gap-4 cursor-pointer md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-12">
+      <div className="grid justify-center gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-12">
         {applications?.map((data) => (
           <AppCard key={data.id} application={data} />
         ))}
