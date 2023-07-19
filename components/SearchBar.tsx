@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { useDebounce } from "@/lib/hooks";
 import { SearchResults } from "./SearchResults";
 import { LatestAndEditorsPick } from "./LatestAndEditorsPick";
+import { getApplications } from "@/lib/actions";
 
 type Props = {
-  data: Promise<{ applications: IApplication[]; total: number }>;
+  total: number;
 };
 
-export const SearchBar: React.FC<Props> = ({ data }) => {
+export const SearchBar: React.FC<Props> = ({ total }) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<{
     items: IApplication[];
@@ -19,12 +20,16 @@ export const SearchBar: React.FC<Props> = ({ data }) => {
     show: false,
   });
 
+  const apps = getApplications({
+    limit: total,
+  });
+
   const [applications, setApplications] = useState<
     IApplication[]
   >([]);
 
   useEffect(() => {
-    data.then(({ applications }) => {
+    apps.then(({ applications }) => {
       setApplications(applications);
     });
   }, [results.show]);

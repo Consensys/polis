@@ -7,9 +7,6 @@ type Props = {
 };
 
 const Hero: React.FC<Props> = ({ total }) => {
-  const apps = getApplications({
-    limit: total,
-  });
 
   return (
     <section className="flex items-center flex-1 mt-24">
@@ -24,7 +21,7 @@ const Hero: React.FC<Props> = ({ total }) => {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quam
           ipsum, convallis vel orci sed, lacinia posuere dolor.
         </Text>
-        <SearchBar data={apps} />
+        <SearchBar total={total} />
       </div>
     </section>
   );
