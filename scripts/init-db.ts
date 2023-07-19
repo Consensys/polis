@@ -35,7 +35,7 @@ import ora from "ora";
     {
       type: "input",
       name: "infurakey",
-      message: "what is the infura ipfs api key ?",
+      message: "what is your infura ipfs api key ?",
       validate: (value: string) => {
         if (value.trim().length === 0) {
           return "Please enter a valid key.";
@@ -46,7 +46,7 @@ import ora from "ora";
     {
       type: "input",
       name: "infuraSecret",
-      message: "what is the infura ipfs api secret ?",
+      message: "what is your infura ipfs api secret ?",
       validate: (value: string) => {
         if (value.trim().length === 0) {
           return "Please enter a valid api secret.";
@@ -89,7 +89,7 @@ import ora from "ora";
 
     spinner.succeed(`Sucessfully created a db in ipfs Hash: ${hash}\n`);
 
-    const spinner2 = ora("Publishing the has to ipns...\n").start();
+    const spinner2 = ora("Publishing the hash to ipns...\n").start();
 
     const name = await Name.create();
 
