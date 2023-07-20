@@ -59,11 +59,7 @@ export const retrieveDatabase = async () => {
   return deserializeDatabase(json);
 };
 
-export const query = async (
-  predicate?: Filter,
-  page = 1,
-  limit = DEFAULT_FETCH_LIMIT
-) => {
+export const query = async (predicate?: Filter, page = 1, limit = DEFAULT_FETCH_LIMIT) => {
   const state = await retrieveDatabase();
   const nodes = Array.from(state.values());
   const matches = nodes.filter(predicate || Boolean);
