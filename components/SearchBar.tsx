@@ -7,10 +7,10 @@ import { LatestAndEditorsPick } from "./LatestAndEditorsPick";
 import { getApplications } from "@/lib/actions";
 
 type Props = {
-  total: number;
+  apps: Promise<{ applications: IApplication[] }>;
 };
 
-export const SearchBar: React.FC<Props> = ({ total }) => {
+export const SearchBar: React.FC<Props> = ({ apps }) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<{
     items: IApplication[];
@@ -20,13 +20,7 @@ export const SearchBar: React.FC<Props> = ({ total }) => {
     show: false,
   });
 
-  const apps = getApplications({
-    limit: total,
-  });
-
-  const [applications, setApplications] = useState<
-    IApplication[]
-  >([]);
+  const [applications, setApplications] = useState<IApplication[]>([]);
 
   useEffect(() => {
     apps.then(({ applications }) => {
