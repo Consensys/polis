@@ -27,7 +27,7 @@ const Home = async ({
   });
 
   const { applications: editorPickedApplications } = await getApplications({
-    filter: (node) => Boolean(node.isEditorsPick),
+    filter: (node) => node.isEditorsPick,
   });
 
   const isAllFetched = applications.length === total;
