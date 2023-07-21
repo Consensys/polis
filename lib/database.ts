@@ -50,11 +50,7 @@ export const storeDatabase = async (state: Map<string, ApplicationNode>) => {
   if (!hash) {
     throw new Error("couldn't store database");
   }
-  await update(
-    isProduction ? process.env.DB_HASH! : process.env.DB_HASH_DEV!,
-    isProduction ? process.env.DB_KEY! : process.env.DB_KEY_DEV!,
-    hash
-  );
+  await update(process.env.DB_HASH!, process.env.DB_KEY!, hash);
 };
 
 export const retrieveDatabase = async () => {
