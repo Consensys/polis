@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useDebounce } from "@/lib/hooks";
 import { SearchResults } from "./SearchResults";
 import { LatestAndEditorsPick } from "./LatestAndEditorsPick";
-import { getApplications } from "@/lib/actions";
 
 type Props = {
   apps: Promise<{ applications: IApplication[] }>;

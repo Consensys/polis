@@ -5,20 +5,34 @@ type Props = {
   data: IApplication[];
 };
 
-export const LatestAndEditorsPick: React.FC<Props> = ({ data }) => (
+const Section: React.FC<{ title: string; data: IApplication[] }> = ({
+  title,
+  data,
+}) => (
   <>
-    <H4 className="dark:text-primary font-normal opacity-50 px-4 py-4">Latest apps added 🔥</H4>
-    {data.slice(data.length - 3).map((item: IApplication) => (
+    <H4 className="dark:text-primary font-normal opacity-50 px-4 py-4">
+      {title}
+    </H4>
+    {data.slice(0, 3).map((item: IApplication) => (
       <SearchItem key={item.id} {...item} />
     ))}
-    <H4 className="dark:text-primary font-normal opacity-50 px-4 py-4">
-      Our Editor&apos;s pick ✨
-    </H4>
-    {data
-      .filter((app) => app.isEditorsPick)
-      .slice(0, 3)
-      .map((item: IApplication) => (
-        <SearchItem key={item.id} {...item} />
-      ))}
   </>
 );
+
+export const LatestAndEditorsPick: React.FC<Props> = ({ data }) => {
+  if (data.length === 0) {
+    return <H4>No apps found 😥</H4>;
+  }
+
+  const latestApps = data.slice(data.length - 3);
+  const editorsPickApps = data.filter((app) => app.isEditorsPick);
+
+  return (
+    <>
+      <Section title="Latest apps added 🔥" data={latestApps} />
+      {editorsPickApps.length > 0 && (
+        <Section title="Our Editor's pick ✨" data={editorsPickApps} />
+      )}
+    </>
+  );
+};
