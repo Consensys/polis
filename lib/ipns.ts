@@ -22,6 +22,8 @@ export const getcurrentHash = async () => {
     throw new Error("WEB3_NAME_SERVICE_URL is not set");
   }
 
+  console.log("DB_HASH", process.env.DB_HASH)
+
   const res = await fetch(`${nameServiceUrl}/${process.env.DB_HASH}`);
 
   return (await res.json()).value;
