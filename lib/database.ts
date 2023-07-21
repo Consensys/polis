@@ -37,6 +37,7 @@ export const serializeDatabase = (state: Map<string, ApplicationNode>) => {
 };
 
 export const deserializeDatabase = (nodes: ApplicationNode[]) => {
+  console.log(nodes)
   const state = new Map(nodes.map((node: ApplicationNode) => [node.id, node]));
   return state;
 };
