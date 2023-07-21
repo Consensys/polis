@@ -1,4 +1,5 @@
 import * as Name from "w3name";
+import { isProduction } from "./constants";
 
 export const update = async (ipns: string, keyStr: string, content: string) => {
   const name = Name.parse(ipns);
@@ -22,7 +23,7 @@ export const getcurrentHash = async () => {
     throw new Error("WEB3_NAME_SERVICE_URL is not set");
   }
 
-  const res = await fetch(`${nameServiceUrl}/${process.env.DB_HASH}`);
+  const res = await fetch(`${nameServiceUrl}/${isProduction ? process.env.DB_HASH : process.env.DB_HASH_DEV}`);
 
   return (await res.json()).value;
 };

@@ -1,6 +1,7 @@
 import { getcurrentHash, update } from "./ipns";
 import { add, cat } from "./ipfs";
 import { DEFAULT_FETCH_LIMIT } from "./constants";
+import { isProduction } from "./constants";
 
 export type ApplicationNode = {
   id: string;
@@ -37,7 +38,6 @@ export const serializeDatabase = (state: Map<string, ApplicationNode>) => {
 };
 
 export const deserializeDatabase = (nodes: ApplicationNode[]) => {
-  console.log(nodes)
   const state = new Map(nodes.map((node: ApplicationNode) => [node.id, node]));
   return state;
 };
@@ -50,7 +50,11 @@ export const storeDatabase = async (state: Map<string, ApplicationNode>) => {
   if (!hash) {
     throw new Error("couldn't store database");
   }
-  await update(process.env.DB_HASH!, process.env.DB_KEY!, hash);
+  await update(
+    isProduction ? process.env.DB_HASH! : process.env.DB_HASH_DEV!,
+    isProduction ? process.env.DB_KEY! : process.env.DB_KEY_DEV!,
+    hash
+  );
 };
 
 export const retrieveDatabase = async () => {
@@ -60,7 +64,11 @@ export const retrieveDatabase = async () => {
   return deserializeDatabase(json);
 };
 
-export const query = async (predicate?: Filter, page = 1, limit = DEFAULT_FETCH_LIMIT) => {
+export const query = async (
+  predicate?: Filter,
+  page = 1,
+  limit = DEFAULT_FETCH_LIMIT
+) => {
   const state = await retrieveDatabase();
   const nodes = Array.from(state.values());
   const matches = nodes.filter(predicate || Boolean);
