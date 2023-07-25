@@ -82,7 +82,7 @@ export const SearchBar: React.FC<Props> = ({ apps }) => {
 
       {results.show && (
         <div className="absolute z-10 flex items-center justify-center w-full pt-4">
-          <ul className="relative bg-white sm:w-3/4 md:w-[476px] rounded-xl focus-within:shadow-lg pb-4 shadow-md">
+          <ul className="relative w-full bg-white sm:w-3/4 md:w-[476px] rounded-xl focus-within:shadow-lg pb-4 shadow-md">
             {results.items.length > 0 ? (
               <SearchResults results={results} />
             ) : (

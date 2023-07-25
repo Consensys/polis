@@ -12,21 +12,21 @@ export const SearchItem: React.FC<IApplication> = ({
 }: IApplication) => {
   const [error, setError] = useState(false);
 
+  const logoPlaceholder = !logo ? "/cardplaceholderimg.svg" : logo;
+
   return (
     <Link
       href={`applications/${id}`}
       className="flex items-center gap-3 py-2 px-6 justify-between hover:bg-slate-100 cursor-pointer"
     >
       <div className="flex items-center gap-3">
-        {logo && (
-          <Image
-            src={error ? "/cardplaceholderimg.svg" : logo}
-            onError={() => setError(true)}
-            alt=""
-            width={25}
-            height={25}
-          />
-        )}
+        <Image
+          src={error ? "/cardplaceholderimg.svg" : logoPlaceholder}
+          onError={() => setError(true)}
+          alt=""
+          width={25}
+          height={25}
+        />
         <span className="dark:text-primary">{title}</span>
       </div>
 
