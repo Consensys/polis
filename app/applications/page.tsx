@@ -18,11 +18,7 @@ const Applications = async ({ searchParams }: PageProps) => {
     filter: (applications) => applications.user === user,
   });
 
-  return (
-    <>
-      <UserApps applications={applications} />
-    </>
-  );
+  return <UserApps applications={applications} />;
 };
 
 export default Applications;
