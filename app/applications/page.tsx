@@ -1,6 +1,6 @@
 import { getApplications } from "@/lib/actions";
+import UserApps from "@/components/UserApplications";
 import { notFound } from "next/navigation";
-import ApplicationsContainer from "@/components/ApplicationsContainer";
 
 type PageProps = {
   searchParams: {
@@ -8,18 +8,17 @@ type PageProps = {
   };
 };
 
-const Applications = async ({ searchParams: { user } }: PageProps) => {
+const Applications = async ({ searchParams }: PageProps) => {
+  const user = searchParams.user;
+  if (!user) {
+    return notFound();
+  }
+
   const { applications } = await getApplications({
     filter: (applications) => applications.user === user,
   });
 
-  if (!applications?.length) {
-    return notFound();
-  }
-
-  return (
-    <ApplicationsContainer applications={applications} className="mt-24" />
-  );
+  return <UserApps applications={applications} />;
 };
 
 export default Applications;

@@ -1,6 +1,7 @@
 import { getcurrentHash, update } from "./ipns";
 import { add, cat } from "./ipfs";
 import { DEFAULT_FETCH_LIMIT } from "./constants";
+import { isProduction } from "./constants";
 
 export type ApplicationNode = {
   id: string;
@@ -17,7 +18,7 @@ export type ApplicationNode = {
   isEditorsPick?: boolean;
 };
 
-export type Filter = (node: ApplicationNode) => boolean;
+export type Filter = (node: ApplicationNode) => boolean | undefined;
 
 export const addNode = (
   state: Map<string, ApplicationNode>,
@@ -59,7 +60,11 @@ export const retrieveDatabase = async () => {
   return deserializeDatabase(json);
 };
 
-export const query = async (predicate?: Filter, page = 1, limit = DEFAULT_FETCH_LIMIT) => {
+export const query = async (
+  predicate?: Filter,
+  page = 1,
+  limit = DEFAULT_FETCH_LIMIT
+) => {
   const state = await retrieveDatabase();
   const nodes = Array.from(state.values());
   const matches = nodes.filter(predicate || Boolean);

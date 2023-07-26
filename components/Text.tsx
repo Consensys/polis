@@ -37,7 +37,7 @@ export const H3 = (props: HTMLProps<HTMLHeadingElement>): ReactElement => {
 
 export const H4 = (props: HTMLProps<HTMLHeadingElement>): ReactElement => {
   const rootClassName = twMerge(
-    "block text-md leading-8 font-extrabold tracking-tight md:text-lg",
+    "block text-md leading-8 font-extrabold tracking-tight md:text-sm",
     props.className ? props.className : ""
   );
 

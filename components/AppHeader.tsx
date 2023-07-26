@@ -1,8 +1,10 @@
+"use client";
+
 import Image from "next/image";
-import Link from "next/link";
 import Button from "./Button";
 import LinkIcon from "./icons/LinkIcon";
 import EditIcon from "./icons/EditIcon";
+import { useState } from "react";
 
 type AppHeaderProps = {
   title: string;
@@ -15,14 +17,16 @@ const AppHeader: React.FC<AppHeaderProps> = ({
   logo,
   applicationUrl,
 }) => {
+  const [error, setError] = useState(false);
   return (
     <header className="flex items-center justify-between px-2 py-2 mt-8">
       <div className="flex items-center justify-start sm:justify-center">
         {logo && (
           <div className="flex items-center justify-start sm:justify-center">
             <Image
-              src={logo}
+              src={error ? "/cardplaceholderimg.svg" : logo}
               alt={`${title} Logo`}
+              onError={() => setError(true)}
               className="w-8 h-8 md:w-10 md:h-10"
               width={50}
               height={50}
