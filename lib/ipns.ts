@@ -1,4 +1,5 @@
 import * as Name from "w3name";
+import { isProduction } from "./constants";
 
 export const update = async (ipns: string, keyStr: string, content: string) => {
   const name = Name.parse(ipns);

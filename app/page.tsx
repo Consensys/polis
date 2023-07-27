@@ -36,7 +36,7 @@ const Home = async ({
     <div className={cn(inter.className, "pb-10")}>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-6"></div>
 
-      <Hero />
+      <Hero total={total} />
 
       {editorPickedApplications.length > 0 ? (
         <ApplicationsContainer
@@ -45,7 +45,7 @@ const Home = async ({
           className="mt-24"
         />
       ) : null}
-      
+
       <ApplicationsContainer
         header="All Available Tools"
         applications={applications}
