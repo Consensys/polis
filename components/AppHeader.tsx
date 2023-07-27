@@ -1,23 +1,26 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Button from "./Button";
 import LinkIcon from "./icons/LinkIcon";
 import EditIcon from "./icons/EditIcon";
-import { useState } from "react";
+import { useAccount } from "wagmi";
+import UpadateApplication from "./ApplicationForm";
 
 type AppHeaderProps = {
-  title: string;
-  logo?: string;
-  applicationUrl?: string;
+  application: IApplication;
 };
 
-const AppHeader: React.FC<AppHeaderProps> = ({
-  title,
-  logo,
-  applicationUrl,
-}) => {
+const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
   const [error, setError] = useState(false);
+
+  const [open, setOpen] = useState(false);
+  const { address } = useAccount();
+  const { title, logo, applicationUrl, user } = application;
+
+  const isMyApplication = user === address;
+
   return (
     <header className="flex items-center justify-between px-2 py-2 mt-8">
       <div className="flex items-center justify-start sm:justify-center">
@@ -38,17 +41,20 @@ const AppHeader: React.FC<AppHeaderProps> = ({
         </h1>
       </div>
       <div className="flex gap-2 lg:gap-4">
-        <Button
-          variant="borderless"
-          href={applicationUrl}
-          className="px-4 rounded-3xl lg:rounded-full md:px-7 cursor-not-allowed opacity-40 dark:opacity-100 dark:border-gray-400"
-        >
-          <EditIcon />
-          <span className="hidden lg:block dark:text-gray-400">
-            {" "}
-            Edit Application
-          </span>
-        </Button>
+        {isMyApplication ? (
+          <Button
+            onClick={() => setOpen(true)}
+            variant="borderless"
+            href={applicationUrl}
+            className="px-4 rounded-3xl lg:rounded-full md:px-7 dark:border-white"
+          >
+            <EditIcon />
+            <span className="hidden lg:block dark:text-gray-400">
+              {" "}
+              Edit Application
+            </span>
+          </Button>
+        ) : null}
 
         {applicationUrl && (
           <Button
@@ -64,6 +70,12 @@ const AppHeader: React.FC<AppHeaderProps> = ({
           </Button>
         )}
       </div>
+      <UpadateApplication
+        modalOpen={open}
+        closeModal={() => setOpen(false)}
+        isEditMode={true}
+        application={application}
+      />
     </header>
   );
 };

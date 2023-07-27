@@ -60,7 +60,7 @@ import ora from "ora";
 
   console.log("\n");
 
-  const spinner = ora("Adding a empty database to IPFS...\n").start();
+  const spinner = ora("Adding an empty database to IPFS...\n").start();
 
   const { infuraUrl, infurakey, infuraSecret } = answers;
 
