@@ -6,9 +6,9 @@ type ButtonVariant = "primary" | "light" | "borderless";
 
 const classMap: Record<ButtonVariant, string> = {
   primary:
-    "px-10 py-3 bg-primary text-white rounded-2xl flex items-center justify-center gap-4 w-fit max-w-xs shadow-md hover:bg-opacity-80 hover:shadow-lg ease-in-out duration-200",
+    "px-10 py-3 bg-primary text-white rounded-2xl flex items-center justify-center gap-2 w-fit max-w-xs shadow-md hover:bg-opacity-80 hover:shadow-lg ease-in-out duration-200",
   light: "",
-  borderless: "px-10 py-3 border border-primary text-primary rounded-2xl flex items-center justify-center gap-4 w-fit max-w-xs shadow-md hover:shadow-lg ease-in-out duration-200",
+  borderless: "px-10 py-3 border border-primary text-primary rounded-2xl flex items-center justify-center gap-2 w-fit max-w-xs shadow-md hover:shadow-lg ease-in-out duration-200",
 };
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -29,14 +29,17 @@ const Button: React.FC<PropsWithChildren<Props>> = ({
   const rootClassName = twMerge(classMap[variant], className ? className : "");
 
   return (
+ 
     <button
       onClick={onClick}
       disabled={disabled}
       className={rootClassName}
       {...props}
     >
+    
       {children}
     </button>
+  
   );
 };
 

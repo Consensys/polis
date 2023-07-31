@@ -14,14 +14,10 @@ export interface IApplicationInput {
   }[];
 }
 
-export interface StepProps {
-  control: Control<IApplicationInput>;
-}
-
 export type Steps = {
   [K in stepKeys]: {
     id: number;
     title: string;
-    component: FC<StepProps>;
+    component: FC;
   };
 };

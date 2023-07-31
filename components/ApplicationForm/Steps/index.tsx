@@ -7,6 +7,7 @@ import { Tab } from "@headlessui/react";
 import {
   ChevronDoubleRightIcon,
   ArrowRightCircleIcon,
+  PlusCircleIcon,
   ArrowLeftCircleIcon,
 } from "@heroicons/react/20/solid";
 import BasicInfo from "./BasicInfo";
@@ -17,6 +18,7 @@ import Media from "./Media";
 import Button from "../../Button";
 import { FormProvider, useForm } from "react-hook-form";
 import { submitApplication } from "../../../lib/actions";
+import Loading from "../Loading";
 
 interface ApplicationFormStepsProps {
   closeModal: () => void;
@@ -43,6 +45,7 @@ const ApplicationFormSteps: FC<
     defaultValues: {
       category: [],
     },
+    mode: "onChange",
   });
 
   const createFileFromImageUrl = async (
@@ -90,7 +93,7 @@ const ApplicationFormSteps: FC<
 
   useEffect(() => {
     getDefaultValues();
-  }, []);
+  }, [otherProps.isEditMode]);
 
   const [steps] = useState<Steps>({
     basicInfo: {
@@ -143,10 +146,17 @@ const ApplicationFormSteps: FC<
         ? otherProps.application.id
         : undefined;
 
+      const currentTimestamp = new Date().toISOString();
+
       startTransition(() => {
         submitApplication({
           images: formData,
-          data: JSON.stringify({ id, user: address, ...otherApplicationProps }),
+          data: JSON.stringify({
+            id,
+            user: address,
+            [isEditMode ? "updatedAt" : "createdAt"]: currentTimestamp,
+            ...otherApplicationProps,
+          }),
         });
         closeModal();
       });
@@ -188,15 +198,10 @@ const ApplicationFormSteps: FC<
         </h2>
         <FormProvider {...methods}>
           <form onSubmit={submit}>
-            <Tab.Panel>
-              <BasicInfo control={methods.control} />
-            </Tab.Panel>
-            <Tab.Panel>
-              <ExternalLinks control={methods.control} />
-            </Tab.Panel>
-            <Tab.Panel>
-              <Media control={methods.control} />
-            </Tab.Panel>
+            {Object.keys(steps).map((step, index) => {
+              const Step = steps[step as stepKeys].component;
+              return <Tab.Panel key={index}>{<Step />}</Tab.Panel>;
+            })}
             <div className="absolute bottom-0 right-0 flex">
               {currentStep > 0 && (
                 <button
@@ -218,15 +223,22 @@ const ApplicationFormSteps: FC<
                   className="px-2 text-xs"
                   type="submit"
                 >
-                  <ArrowRightCircleIcon className="w-6 h-6" />
+                  {isPending ? (
+                    <Loading />
+                  ) : (
+                    <PlusCircleIcon className="w-6 h-6" />
+                  )}
                   Submit New Application
                 </Button>
               ) : (
                 <Button
                   className="text-xs"
-                  onClick={(e) => {
+                  onClick={async (e) => {
                     e.preventDefault();
-                    moveToNext();
+                    const isValid = await methods.trigger();
+                    if (isValid) {
+                      moveToNext();
+                    }
                   }}
                 >
                   <ArrowRightCircleIcon className="w-6 h-6" />

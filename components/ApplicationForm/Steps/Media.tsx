@@ -1,11 +1,11 @@
 import { FC, useRef } from "react";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
-import { IApplicationInput, StepProps } from "../types";
+import { IApplicationInput } from "../types";
 import {  useFieldArray, useFormContext } from "react-hook-form";
 import ImagePreview from "../../ImagePreview";
 
-const Media: FC<StepProps> = ({ control }) => {
-  const { watch, setValue } = useFormContext<IApplicationInput>();
+const Media: FC = () => {
+  const { watch, control, setValue } = useFormContext<IApplicationInput>();
 
   const logo = watch("logo");
 
@@ -63,6 +63,7 @@ const Media: FC<StepProps> = ({ control }) => {
                   <input
                     id="logo"
                     type="file"
+                    accept=".jpg, .jpeg, .png"
                     onChange={(e) => setValue("logo", e.target.files?.[0])}
                     className="sr-only"
                   />
@@ -99,6 +100,7 @@ const Media: FC<StepProps> = ({ control }) => {
                 </button>
                 <input
                   type="file"
+                  accept=".jpg, .jpeg, .png"
                   className="hidden"
                   ref={fileInputRef}
                   onChange={handleFileChange}
