@@ -21,11 +21,7 @@ const ApplicationPage = async ({ params: { applicationId } }: PageProps) => {
 
   return (
     <div>
-      <AppHeader
-        title={application.title}
-        logo={application.logo}
-        applicationUrl={application.applicationUrl}
-      />
+      <AppHeader application={application} />
 
       <AppDetails application={application} />
     </div>

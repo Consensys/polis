@@ -1,16 +1,25 @@
 import { FC, Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import Steps from "./Steps";
+import { IApplicationInput } from "./types";
 
-interface NewApplicationProps {
+interface ApplicationFormProps {
   modalOpen: boolean;
   closeModal: () => void;
 }
 
-const NewApplication: FC<NewApplicationProps> = ({
-  modalOpen,
-  closeModal,
-}) => {
+interface ApplicationFormCreateProps extends ApplicationFormProps {
+  isEditMode: false;
+}
+
+interface ApplicationFormEditProps extends ApplicationFormProps {
+  isEditMode: true;
+  application: IApplication;
+}
+
+const ApplicationForm: FC<
+  ApplicationFormCreateProps | ApplicationFormEditProps
+> = ({ closeModal, modalOpen, ...rest }) => {
   return (
     <Transition.Root show={modalOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -38,7 +47,7 @@ const NewApplication: FC<NewApplicationProps> = ({
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative px-4 pt-5 pb-4 overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-xl sm:p-6">
-                <Steps closeModal={closeModal} />
+                <Steps closeModal={closeModal} {...rest} />
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -48,4 +57,4 @@ const NewApplication: FC<NewApplicationProps> = ({
   );
 };
 
-export default NewApplication;
+export default ApplicationForm;

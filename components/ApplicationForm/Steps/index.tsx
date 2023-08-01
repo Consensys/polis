@@ -1,11 +1,13 @@
 "use client";
-import { FC, useState, useTransition } from "react";
+
+import { FC, useEffect, useState, useTransition } from "react";
 import cn from "classnames";
 import { useAccount } from "wagmi";
 import { Tab } from "@headlessui/react";
 import {
   ChevronDoubleRightIcon,
   ArrowRightCircleIcon,
+  PlusCircleIcon,
   ArrowLeftCircleIcon,
 } from "@heroicons/react/20/solid";
 import BasicInfo from "./BasicInfo";
@@ -16,21 +18,82 @@ import Media from "./Media";
 import Button from "../../Button";
 import { FormProvider, useForm } from "react-hook-form";
 import { submitApplication } from "../../../lib/actions";
+import Loading from "../Loading";
 
-type NewApplicationStepsProps = {
+interface ApplicationFormStepsProps {
   closeModal: () => void;
-};
+}
 
-const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
+interface CreateApplicationFormStepsProps extends ApplicationFormStepsProps {
+  isEditMode: false;
+}
+
+interface EditApplicationFormStepsProps extends ApplicationFormStepsProps {
+  isEditMode: true;
+  application: IApplication;
+}
+
+const ApplicationFormSteps: FC<
+  CreateApplicationFormStepsProps | EditApplicationFormStepsProps
+> = ({ closeModal, ...otherProps }) => {
   const TOTAL_STEPS = 3;
   const [currentStep, setCurrentStep] = useState(0);
   const { address } = useAccount();
   const [isPending, startTransition] = useTransition();
+
   const methods = useForm<IApplicationInput>({
     defaultValues: {
       category: [],
     },
+    mode: "onChange",
   });
+
+  const createFileFromImageUrl = async (
+    imageUrl: string,
+    fileName: string
+  ): Promise<File> => {
+    const response = await fetch(imageUrl);
+    const blob = await response.blob();
+    return new File([blob], fileName);
+  };
+
+  const getDefaultValues = async () => {
+    if (otherProps.isEditMode === true) {
+      const {
+        id,
+        logo: logoUrl,
+        screenshots: screenshotUrls,
+        ...otherApplicationProps
+      } = otherProps.application;
+
+      let logo: File | undefined = undefined;
+      let screenshots: { value: File }[] | undefined = undefined;
+
+      // logo and screenshot we receive from the db are just the CIDs
+      // converting those to File objects here
+      if (logoUrl) {
+        logo = await createFileFromImageUrl(logoUrl, "logo");
+      }
+
+      if (screenshotUrls?.length) {
+        screenshots = await Promise.all(
+          screenshotUrls.map(async (url, index) => ({
+            value: await createFileFromImageUrl(url, `screenshot-${index}`),
+          }))
+        );
+      }
+
+      methods.reset({
+        logo,
+        screenshots,
+        ...otherApplicationProps,
+      });
+    }
+  };
+
+  useEffect(() => {
+    getDefaultValues();
+  }, [otherProps.isEditMode]);
 
   const [steps] = useState<Steps>({
     basicInfo: {
@@ -59,27 +122,46 @@ const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
     setCurrentStep((currentStep) => currentStep - 1);
   };
 
-  const submit = methods.handleSubmit(({ screenshots, logo, ...rest }) => {
-    const formData = new FormData();
+  const submit = methods.handleSubmit(
+    ({ screenshots, logo, ...otherApplicationProps }) => {
+      const formData = new FormData();
 
-    if (screenshots && screenshots.length > 0) {
-      screenshots.forEach((image) => {
-        formData.append("screenshots", image.value);
+      if (screenshots && screenshots.length > 0) {
+        screenshots.forEach((image) => {
+          formData.append("screenshots", image.value);
+        });
+      }
+
+      if (logo) {
+        formData.append("logo", logo);
+      }
+
+      const isEditMode = otherProps.isEditMode;
+
+      // If there is an id in the application data,
+      // the application in the  db will  be overwritten with the latest data
+      // because we have a js Map
+      // see the `addNode` in the database implementation.
+      const id: string | undefined = isEditMode
+        ? otherProps.application.id
+        : undefined;
+
+      const currentTimestamp = new Date().toISOString();
+
+      startTransition(() => {
+        submitApplication({
+          images: formData,
+          data: JSON.stringify({
+            id,
+            user: address,
+            [isEditMode ? "updatedAt" : "createdAt"]: currentTimestamp,
+            ...otherApplicationProps,
+          }),
+        });
+        closeModal();
       });
     }
-
-    if (logo) {
-      formData.append("logo", logo);
-    }
-
-    startTransition(() => {
-      submitApplication({
-        images: formData,
-        data: JSON.stringify({ ...rest, user: address }),
-      });
-      closeModal();
-    });
-  });
+  );
 
   return (
     <Tab.Group selectedIndex={currentStep} as="div" className="px-2">
@@ -116,15 +198,10 @@ const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
         </h2>
         <FormProvider {...methods}>
           <form onSubmit={submit}>
-            <Tab.Panel>
-              <BasicInfo control={methods.control} />
-            </Tab.Panel>
-            <Tab.Panel>
-              <ExternalLinks control={methods.control} />
-            </Tab.Panel>
-            <Tab.Panel>
-              <Media control={methods.control} />
-            </Tab.Panel>
+            {Object.keys(steps).map((step, index) => {
+              const Step = steps[step as stepKeys].component;
+              return <Tab.Panel key={index}>{<Step />}</Tab.Panel>;
+            })}
             <div className="absolute bottom-0 right-0 flex">
               {currentStep > 0 && (
                 <button
@@ -146,15 +223,22 @@ const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
                   className="px-2 text-xs"
                   type="submit"
                 >
-                  <ArrowRightCircleIcon className="w-6 h-6" />
+                  {isPending ? (
+                    <Loading />
+                  ) : (
+                    <PlusCircleIcon className="w-6 h-6" />
+                  )}
                   Submit New Application
                 </Button>
               ) : (
                 <Button
                   className="text-xs"
-                  onClick={(e) => {
+                  onClick={async (e) => {
                     e.preventDefault();
-                    moveToNext();
+                    const isValid = await methods.trigger();
+                    if (isValid) {
+                      moveToNext();
+                    }
                   }}
                 >
                   <ArrowRightCircleIcon className="w-6 h-6" />
@@ -169,4 +253,4 @@ const NewApplicationSteps: FC<NewApplicationStepsProps> = ({ closeModal }) => {
   );
 };
 
-export default NewApplicationSteps;
+export default ApplicationFormSteps;

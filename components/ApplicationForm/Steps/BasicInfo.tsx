@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Combobox } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { IApplicationInput, StepProps } from "../types";
+import { IApplicationInput } from "../types";
 import { Controller, useFormContext } from "react-hook-form";
 
 const popularTags = [
@@ -14,10 +14,16 @@ const popularTags = [
   "Blockchain Market",
 ] as const;
 
-const BasicInfo: FC<StepProps> = ({ control }) => {
+const BasicInfo: FC = () => {
   const [query, setQuery] = useState("");
 
-  const { register, watch, setValue } = useFormContext<IApplicationInput>();
+  const {
+    register,
+    watch,
+    control,
+    formState: { errors },
+    setValue,
+  } = useFormContext<IApplicationInput>();
 
   const selectedTags = watch("category");
 
@@ -47,11 +53,16 @@ const BasicInfo: FC<StepProps> = ({ control }) => {
             <div className="flex h-[42px] rounded-md shadow-sm bg-gray-50 ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
               <input
                 id="title"
-                {...register("title")}
+                {...register("title", { required: "Title is required" })}
                 placeholder="Your awesome application"
                 className="block flex-1 border-0 bg-transparent py-1.5 pl-3 text-gray-900 placeholder:text-gray-500 focus:ring-0 sm:text-sm sm:leading-6"
               />
             </div>
+            {errors.title && (
+              <p className="mt-1 ml-1 text-sm text-red-500">
+                {errors.title.message}
+              </p>
+            )}
           </div>
         </div>
         <div className="mt-4 col-span-full">
@@ -64,6 +75,10 @@ const BasicInfo: FC<StepProps> = ({ control }) => {
           <Controller
             control={control}
             name="category"
+            rules={{
+              validate: (value) =>
+                value.length > 0 ? true : "Pick at least one category",
+            }}
             render={({ field: { onChange, value } }) => (
               <Combobox
                 as="div"
@@ -135,6 +150,11 @@ const BasicInfo: FC<StepProps> = ({ control }) => {
               </Combobox>
             )}
           ></Controller>
+          {errors.category && (
+            <p className="mt-1 ml-1 text-sm text-red-500">
+              {errors.category.message}
+            </p>
+          )}
         </div>
         <div className="mt-4 col-span-full">
           <label
@@ -146,12 +166,19 @@ const BasicInfo: FC<StepProps> = ({ control }) => {
           <div className="mt-2">
             <textarea
               id="description"
-              {...register("description")}
+              {...register("description", {
+                required: "Description is required",
+              })}
               placeholder="Write text here..."
               rows={3}
               className="block w-full rounded-md border-0 py-1.5 bg-gray-50 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               defaultValue={""}
             />
+            {errors.description && (
+              <p className="mt-1 ml-1 text-sm text-red-500">
+                {errors.description.message}
+              </p>
+            )}
           </div>
         </div>
       </div>

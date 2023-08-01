@@ -4,7 +4,7 @@ import { Fragment, useState } from "react";
 import { useAccount } from "wagmi";
 import { Menu, Transition } from "@headlessui/react";
 import { Bars4Icon } from "@heroicons/react/24/outline";
-import NewApplication from "./NewApplication";
+import ApplicationForm from "./ApplicationForm";
 import Link from "next/link";
 import PolisLogo from "./icons/PolisLogo";
 import { ConnectButton } from "./ConnectButton";
@@ -91,7 +91,11 @@ export const Nav = () => {
             </Transition>
           </Menu>
         </div>
-        <NewApplication modalOpen={open} closeModal={() => setOpen(false)} />
+        <ApplicationForm
+          modalOpen={open}
+          closeModal={() => setOpen(false)}
+          isEditMode={false}
+        />
       </nav>
     </>
   );
