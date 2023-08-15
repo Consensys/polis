@@ -8,7 +8,7 @@ Polis is a platform dedicated to showcasing web3 tools, templates, and boilerpla
 
 ## How It Works
 
-![polis](https://hackmd.io/_uploads/SyIparth2.png)
+![polis](./public/polis.png)
 
 **If you are a Contributor:**
 
