@@ -8,7 +8,7 @@ Polis is a platform dedicated to showcasing web3 tools, templates, and boilerpla
 
 ## How It Works
 
-![](https://hackmd.io/_uploads/SyIparth2.png)
+![polis](https://hackmd.io/_uploads/SyIparth2.png)
 
 **If you are a Contributor:**
 
@@ -61,6 +61,8 @@ git@github.com:Consensys/polis.git
 cd polis
 npm install
 ```
+
+3. Grab your Infura API key
 
 ## Architecture
 
