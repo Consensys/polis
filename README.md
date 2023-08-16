@@ -62,7 +62,39 @@ cd polis
 npm install
 ```
 
-3. Grab your Infura API key
+3. You will need to create a new `.env` file following`.env.example` file. Your `.env` file should look like this:
+
+```
+INFURA_API_KEY=
+WEB3_NAME_SERVICE_URL=https://name.web3.storage/name
+INFURA_IPFS_ENDPOINT=
+INFURA_IPFS_GATEWAY=
+INFURA_IPFS_KEY=
+INFURA_IPFS_SECRET=
+
+
+DB_HASH=
+DB_KEY=
+```
+
+You need to:
+
+- Grab your Infura API key and add it to the `.env` file
+- You will need to head over to infura ipfs to get the rest.
+
+![infuraipfs](./public/infuraipfs.png)
+
+- If you want to deploy your own database then you will need to run `npm run init-db` . It will give you `DB_HASH` and `DB_KEY`.
+
+4. Run the development server.
+
+```
+npm run dev
+```
+
+Open http://localhost:3000 with your browser to see the result.
+
+---
 
 ## Architecture
 
