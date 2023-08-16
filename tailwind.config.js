@@ -15,8 +15,8 @@ module.exports = {
         first: ["Inter"],
       },
       backgroundImage: {
-        "light-pattern": "url('/light-bg.png')",
-        "dark-pattern": "url('/dark-bg.png')",
+        "light-pattern": "url('/light-bg.webp')",
+        "dark-pattern": "url('/dark-bg.webp')",
       },
       colors: {
         primary: "#202328",
