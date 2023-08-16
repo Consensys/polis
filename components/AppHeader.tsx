@@ -30,10 +30,10 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
 
   const updateEditorsPick = async ({
     id,
-    isEditorsPick = true,
+    isEditorsPick,
   }: {
     id: string;
-    isEditorsPick?: boolean;
+    isEditorsPick: boolean;
   }) => {
     try {
       setIsLoading(true);
@@ -83,7 +83,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
 
         {isEditors && (
           <Button
-            onClick={() => updateEditorsPick({ id, isEditorsPick: true })}
+            onClick={() => updateEditorsPick({ id, isEditorsPick: !application.isEditorsPick })}
             className="rounded-full"
           >
             {isLoading ? <Loading /> : <span>Is editor&apos;s pick</span>}
