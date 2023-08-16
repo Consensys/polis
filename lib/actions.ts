@@ -110,7 +110,7 @@ export const updateApplication = async ({
 export const submitApplication = async ({
   images,
   data,
-  isEditorsPick = false,
+  isEditorsPick,
 }: {
   images?: FormData;
   data: string;
