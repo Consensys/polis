@@ -1,96 +1,113 @@
-import React from "react";
-import Image from "next/image";
+"use client";
+
+import React, { ReactNode, useState } from "react";
 import { H2, Text } from "./Text";
+import { Gallery } from "./Gallery";
+import { LightBox } from "./LightBox";
 
 type AppDetailsProps = {
   application: IApplication;
 };
 
-const AppDetails: React.FC<AppDetailsProps> = ({ application }) => {
-  const { category, description, repoUrl, applicationUrl, logo, screenshots } =
-    application;
+const SECTION_CLASS = `
+  p-6 
+  border border-white 
+  dark:border-gray-900 
+  rounded-lg 
+  shadow-lg 
+  bg-gradient-to-b 
+  from-white 
+  to-slate-200 
+  backdrop-blur 
+  dark:from-gray-900 
+  dark:to-gray-700
+`;
+
+const LINK_CLASS = `
+  text-gray-950 
+  underline 
+  hover:text-gray-900 
+  dark:text-gray-300
+`;
+
+const AppSection: React.FC<{ title: string; children: ReactNode }> = ({
+  title,
+  children,
+}) => (
+  <div className={`${SECTION_CLASS}`}>
+    <H2 className="mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
+      {title}
+    </H2>
+    {children}
+  </div>
+);
+
+const AppDetails: React.FC<AppDetailsProps> = ({
+  application: {
+    category,
+    description,
+    repoUrl,
+    applicationUrl,
+    title,
+    screenshots,
+  },
+}) => {
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   return (
-    <div className="container py-10 mx-auto ">
+    <div className="container py-10 mx-auto">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {/* First Column */}
         <div className="flex flex-col gap-6">
-          {/* Category */}
-          <div className="p-6 border border-white dark:border-gray-900 rounded-lg shadow-lg bg-gradient-to-b from-white to-slate-200 backdrop-blur h-fit dark:from-gray-900 dark:to-gray-700">
-            <H2 className="mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
-              Category
-            </H2>
+          <AppSection title="Category">
             <div className="flex pt-8 space-x-2">
               {category.map((cat, index) => (
                 <span
                   key={index}
-                  className="px-3 py-1 hover:cursor-pointer hover:shadow-lg ease-in-out duration-150 text-primary text-opacity-70 rounded-lg bg-gray-200 dark:bg-gray-800 dark:text-gray-300"
+                  className="px-3 py-1 transition-all duration-150 ease-in-out rounded-lg bg-gray-200 hover:shadow-lg text-primary text-opacity-70 dark:bg-gray-800 dark:text-gray-300"
                 >
                   {cat}
                 </span>
               ))}
             </div>
-          </div>
-          {/* Description */}
-          <div className="p-6 border border-white dark:border-gray-900 rounded-lg shadow-lg bg-gradient-to-b from-white to-slate-200 backdrop-blur dark:from-gray-900 dark:to-gray-700">
-            <H2 className="mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
-              Description
-            </H2>
+          </AppSection>
+
+          <AppSection title="Description">
             <Text className="text-gray-600 dark:text-gray-300">
               {description}
             </Text>
-          </div>
-          {/* External Links */}
-          <div className="p-6 border border-white dark:border-gray-900 rounded-lg shadow-lg bg-gradient-to-b from-white to-slate-200 backdrop-blur dark:from-gray-900 dark:to-gray-700">
-            <H2 className="mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
-              External Links
-            </H2>
+          </AppSection>
+
+          <AppSection title="External Links">
             <div className="flex pt-8 space-x-4">
               {repoUrl && (
-                <a
-                  href={repoUrl}
-                  className="text-gray-950 hover:underline dark:text-gray-300"
-                >
+                <a href={repoUrl} className={`${LINK_CLASS}`}>
                   View Repository
                 </a>
               )}
               {applicationUrl && (
-                <a
-                  href={applicationUrl}
-                  className="text-gray-950 hover:underline dark:text-gray-300"
-                >
+                <a href={applicationUrl} className={`${LINK_CLASS}`}>
                   Visit website
                 </a>
               )}
             </div>
-          </div>
+          </AppSection>
         </div>
 
-        {/* Second Column */}
-        <div className="flex flex-col justify-between p-6 border border-white dark:border-gray-900 rounded-lg shadow-lg bg-gradient-to-b from-white to-slate-200 backdrop-blur dark:from-gray-900 dark:to-gray-700">
-          {/* Preview Title */}
+        <div className={`flex flex-col justify-between ${SECTION_CLASS}`}>
           <H2 className="pt-8 pb-4 mb-2 text-2xl font-bold text-transparent bg-gradient-to-br bg-clip-text from-primary to-secondary">
             Preview
           </H2>
-          {/* Preview Images */}
-          <div className="flex flex-col space-y-12">
-            {screenshots && (
-              <div className="flex space-x-8">
-                {screenshots.map((sc) => (
-                  <Image
-                    key={sc}
-                    src={sc}
-                    alt={"image-1"}
-                    width={200}
-                    height={150}
-                    layout="responsive"
-                    className="rounded-lg shadow-md"
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+          <Gallery
+            screenshots={screenshots}
+            imgAlt={`${title} screenshots`}
+            onClick={() => setIsLightboxOpen(true)}
+          />
         </div>
+        <LightBox
+          setIsLightboxOpen={setIsLightboxOpen}
+          screenshots={screenshots}
+          isLightboxOpen={isLightboxOpen}
+        />
       </div>
     </div>
   );
