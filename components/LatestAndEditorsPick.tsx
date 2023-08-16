@@ -24,7 +24,7 @@ export const LatestAndEditorsPick: React.FC<Props> = ({ data }) => {
     return <H4>No apps found 😥</H4>;
   }
 
-  const latestApps = data.slice(data.length - 3);
+  const latestApps = data.slice(data.length > 3 ? data.length - 3 : 0);
   const editorsPickApps = data.filter((app) => app.isEditorsPick);
 
   return (
