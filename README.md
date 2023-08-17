@@ -41,9 +41,12 @@ Note: Contributors will need to connect their wallet to be able to submit and ed
 Here's an overview of the included frameworks and tools.
 
 - **Next.js** - A frameworks fo React applications that is focused on server-rendered and minimalistic approach.
+  We have used latest `app` router and [server actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions).
 - **Typescript** - Superset of JavaScript which primarily provides optional static typing, classes and interfaces.
 - **Tailwind CSS**- UI & Styling Library.
-- **[Web3 Storage](https://web3.storage/)**- A decentralized storage solution which natively uses decentralized data and identity protocols like IPFS, Filecoin and UCAN.
+- [**Wagmi** ](https://wagmi.sh/)- wagmi is a React Hooks library for Ethereum.
+- **[Infura IPFS](https://docs.infura.io/networks/ipfs)**- ipfs is a distributed, peer-to-peer (p2p) storage network used for storing and accessing files, websites, applications, and data. IPFS was inegrated with Infura.
+- [**w3name**](https://web3.storage/docs/how-tos/w3name/) - w3name is aservice on the top of [web3 storage](https://web3.storage/), that provides secure, stable identifiers for data that changes over time. It uses the [IPNS](https://docs.ipfs.tech/concepts/ipns/) protocol to seamlessly interoperate with the public IPFS network.
 
 ---
 
@@ -77,14 +80,16 @@ DB_HASH=
 DB_KEY=
 ```
 
+Note: To understand how we got `WEB3_NAME_SERVICE_URL=https://name.web3.storage/name` you can check [this](https://web3.storage/docs/reference/w3name-http-api/) out.
+
 You need to:
 
 - Grab your Infura API key and add it to the `.env` file
 - You will need to head over to infura ipfs to get the rest.
 
-![infuraipfs](./public/infuraipfs.png)
+![](https://hackmd.io/_uploads/SyHjBoqh2.png)
 
-- If you want to deploy your own database then you will need to run `npm run init-db` . It will give you `DB_HASH` and `DB_KEY`.
+- To run the dapp locally, you will need your own database. When you will run, `npm run init-db` . It will give you `DB_HASH` and `DB_KEY`.
 
 4. Run the development server.
 
