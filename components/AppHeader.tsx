@@ -83,7 +83,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
 
         {isEditors && (
           <Button
-            onClick={() => updateEditorsPick({ id, isEditorsPick: !application.isEditorsPick })}
+            onClick={() => updateEditorsPick({ id, isEditorsPick: true })}
             className="rounded-full"
           >
             {isLoading ? <Loading /> : <span>Is editor&apos;s pick</span>}
