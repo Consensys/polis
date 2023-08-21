@@ -87,7 +87,7 @@ export const getApplication = async (
   }
 };
 
-export const updateApplication = async ({
+export const updateEditorsPick = async ({
   id,
   isEditorsPick,
 }: {
@@ -112,14 +112,14 @@ export const submitApplication = async ({
   data,
   isEditorsPick,
 }: {
-  images?: FormData;
+  images: FormData;
   data: string;
   isEditorsPick?: boolean;
 }) => {
   let logoHash, screenshotsHash;
 
-  const logo = images?.get("logo") as File;
-  const screenshots = images?.getAll("screenshots") as File[];
+  const logo = images.get("logo") as File;
+  const screenshots = images.getAll("screenshots") as File[];
 
   if (logo) {
     logoHash = await add({ file: logo });

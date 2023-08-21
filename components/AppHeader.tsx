@@ -7,14 +7,14 @@ import LinkIcon from "./icons/LinkIcon";
 import EditIcon from "./icons/EditIcon";
 import { useAccount } from "wagmi";
 import UpadateApplication from "./ApplicationForm";
-import { updateApplication } from "@/lib/actions";
+import { updateEditorsPick } from "@/lib/actions";
 import Loading from "./ApplicationForm/Loading";
 
 type AppHeaderProps = {
   application: IApplication;
 };
 
-const ALLOW_LIST = ["0xd836D2c9a6e014c2056093BdC4FaA7343CAe80c9"];
+const ALLOW_LIST = process.env.ALLOW_LIST?.split(",");
 
 const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
   const [error, setError] = useState(false);
@@ -24,11 +24,11 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
   const { address } = useAccount();
   const { title, logo, applicationUrl, user, id } = application;
 
-  const isEditors = ALLOW_LIST.includes(address as string);
+  const isEditors = ALLOW_LIST?.includes(address as string);
 
   const isMyApplication = user === address;
 
-  const updateEditorsPick = async ({
+  const handleEditorsPick = async ({
     id,
     isEditorsPick,
   }: {
@@ -37,7 +37,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
   }) => {
     try {
       setIsLoading(true);
-      await updateApplication({
+      await updateEditorsPick({
         id,
         isEditorsPick,
       });
@@ -83,7 +83,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
 
         {isEditors && (
           <Button
-            onClick={() => updateEditorsPick({ id, isEditorsPick: true })}
+            onClick={() => handleEditorsPick({ id, isEditorsPick: true })}
             className="rounded-full"
           >
             {isLoading ? <Loading /> : <span>Is editor&apos;s pick</span>}
