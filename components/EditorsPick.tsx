@@ -10,7 +10,7 @@ const EditorsPick: FC<EditorsPickProps> = ({ applications }) => {
   // Filter the app card data to include only the editor's pick cards
 
   return (
-    <div className="container px-6 pb-2 mx-auto mt-24">
+    <div className="container px-6 pb-2 mx-auto mt-24 bg-secondbg-white dark:bg-secondbg-dark">
       <H2 className="text-center text-transparent mb-14 bg-gradient-to-br bg-clip-text from-primary to-slate-500">
         Our Editor&apos;s Pick
       </H2>

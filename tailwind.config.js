@@ -4,8 +4,6 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
-
-    // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   darkMode: "class",
@@ -17,6 +15,8 @@ module.exports = {
       backgroundImage: {
         "light-pattern": "url('/light-bg.webp')",
         "dark-pattern": "url('/dark-bg.webp')",
+        "secondbg-white": "url('/secondbg-white.webp')",
+        "secondbg-dark": "url('/secondbg-dark.webp')",
       },
       colors: {
         primary: "#202328",
