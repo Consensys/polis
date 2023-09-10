@@ -125,8 +125,6 @@ As the database evolves due to changes, a new version of the file is created. To
 
 - After successful initialization, the CLI will provide you with two values: DB_HASH and DB_KEY.
 
-- Set these values as environment variables for your application. These variables will be essential for accessing and interacting with the database.
-
 **Data Conversion**: After retrieval, the JSON database is converted into a JavaScript Map object. This conversion simplifies and accelerates subsequent database operations.
 
 **Data Manipulation**: Users can interact with the app by adding new applications or updating existing ones. These changes are made to the JavaScript Map representation of the database.
