@@ -46,7 +46,11 @@ export const Nav = () => {
 
           <ConnectButton />
         </div>
-        <div className="z-10 lg:hidden">
+        <div className="flex items-center z-10 lg:hidden">
+          <div className="p-1 text-xs md:text-sm lg:text-base px-2 md:px-3 lg:px-4">
+            <ConnectButton />
+          </div>
+
           <Menu as="div" className="relative inline-block text-left">
             <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white dark:text-gray-300 rounded-md hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white dark:focus-visible:ring-gray-300 focus-visible:ring-opacity-75">
               <Bars4Icon
@@ -84,7 +88,7 @@ export const Nav = () => {
                     </button>
                   </Menu.Item>
                   <Menu.Item>
-                    <ConnectButton />
+                    <ThemeButton />
                   </Menu.Item>
                 </div>
               </Menu.Items>
