@@ -32,7 +32,7 @@ export const ConnectButton: React.FC = () => {
     <>
       <Button
         onClick={() => setOpen(true)}
-        className="mb-4 rounded-full mt-2 mx-2 gap-2 lg:mb-0 lg:mt-0 lg:mx-0 lg:gap-4 dark:bg-white dark:text-primary"
+        className="py-3 px-6 rounded-full gap-2 lg:mb-0 lg:mt-0 lg:mx-0 lg:gap-4 dark:bg-white dark:text-primary"
       >
         <WalletIcon /> Connect Wallet
       </Button>
