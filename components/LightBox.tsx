@@ -34,6 +34,7 @@ export const LightBox: React.FC<Props> = ({
         <Gallery
           screenshots={screenshots}
           imgAlt="screenshots"
+          className={isLightboxOpen && "h-[80vh] w-fit"}
           width={900}
           height={500}
         />

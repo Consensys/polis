@@ -9,12 +9,14 @@ type Props = {
   onClick?: (e: any) => void;
   width?: number;
   height?: number;
+  className?: string;
 };
 
 export const Gallery: React.FC<Props> = ({
   screenshots = [],
   imgAlt,
   onClick,
+  className = "",
   width = 500,
   height = 300,
 }) => {
@@ -46,7 +48,7 @@ export const Gallery: React.FC<Props> = ({
             width={width}
             height={height}
             style={{objectFit: "contain"}}
-            className="rounded-lg shadow-lg w-fit h-full max-h-[60vh]"
+            className={`${className} rounded-lg shadow-lg`}
           />
         )}
       </button>
