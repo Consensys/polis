@@ -48,9 +48,9 @@ export const Nav = () => {
         </div>
         <div className="z-10 lg:hidden">
           <Menu as="div" className="relative inline-block text-left">
-            <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white rounded-md hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+            <Menu.Button className="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-white dark:text-gray-300 rounded-md hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white dark:focus-visible:ring-gray-300 focus-visible:ring-opacity-75">
               <Bars4Icon
-                className="w-5 h-12 ml-2 -mr-1 text-black hover:text-opacity-60"
+                className="w-5 h-12 ml-2 -mr-1 text-black dark:text-gray-300 hover:text-opacity-60"
                 aria-hidden="true"
               />
             </Menu.Button>
@@ -63,13 +63,13 @@ export const Nav = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute right-0 origin-top-right bg-white divide-y divide-gray-100 rounded-md shadow-lg w-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <Menu.Items className="absolute right-0 origin-top-right bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700 rounded-md shadow-lg w-60 ring-1 ring-black dark:ring-gray-600 ring-opacity-5 focus:outline-none">
                 <div className="flex flex-col items-center rounded-lg">
                   <Menu.Item>
-                    <div className="flex w-full py-4 duration-200 ease-in-out hover:bg-slate-100">
+                    <div className="flex w-full py-4 duration-200 ease-in-out hover:bg-slate-100 dark:hover:bg-gray-700">
                       <Link
                         href={`/applications?user=${address}`}
-                        className="w-full text-center"
+                        className="w-full text-center dark:text-gray-300"
                       >
                         My Applications
                       </Link>
@@ -77,7 +77,7 @@ export const Nav = () => {
                   </Menu.Item>
                   <Menu.Item>
                     <button
-                      className="w-full py-4 duration-200 ease-in-out hover:bg-slate-100"
+                      className="w-full py-4 duration-200 ease-in-out hover:bg-slate-100 dark:hover:bg-gray-700 dark:text-gray-300"
                       onClick={() => setOpen(true)}
                     >
                       Submit New Application
