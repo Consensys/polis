@@ -6,7 +6,7 @@ import Button from "./Button";
 import LinkIcon from "./icons/LinkIcon";
 import EditIcon from "./icons/EditIcon";
 import { useAccount } from "wagmi";
-import UpadateApplication from "./ApplicationForm";
+import UpdateApplication from "./ApplicationForm";
 import { updateEditorsPick } from "@/lib/actions";
 import Loading from "./ApplicationForm/Loading";
 
@@ -14,36 +14,29 @@ type AppHeaderProps = {
   application: IApplication;
 };
 
-const ALLOW_LIST = process.env.ALLOW_LIST?.split(",");
+const ALLOW_LIST = process.env.ALLOW_LIST?.split(",") || [];
 
 const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const [open, setOpen] = useState(false);
   const { address } = useAccount();
-  const { title, logo, applicationUrl, user, id } = application;
+  const { title, logo, applicationUrl, user, id, isEditorsPick } = application;
 
-  const isEditors = ALLOW_LIST?.includes(address as string);
+  const isAllowedEditor = ALLOW_LIST.includes(address!);
+  const isUserApplication = user === address;
 
-  const isMyApplication = user === address;
-
-  const handleEditorsPick = async ({
-    id,
-    isEditorsPick,
-  }: {
-    id: string;
-    isEditorsPick: boolean;
-  }) => {
+  const toggleEditorsPick = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       await updateEditorsPick({
         id,
-        isEditorsPick,
+        isEditorsPick: !isEditorsPick,
       });
+    } catch (error) {
+      console.error("Error updating editor's pick:", error);
+    } finally {
       setIsLoading(false);
-    } catch (e) {
-      console.log(e);
     }
   };
 
@@ -67,7 +60,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
         </h1>
       </div>
       <div className="flex gap-2 lg:gap-4">
-        {isMyApplication ? (
+        {isUserApplication && (
           <Button
             onClick={() => setOpen(true)}
             variant="borderless"
@@ -79,14 +72,17 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
               Edit Application
             </span>
           </Button>
-        ) : null}
+        )}
 
-        {isEditors && (
-          <Button
-            onClick={() => handleEditorsPick({ id, isEditorsPick: true })}
-            className="rounded-full"
-          >
-            {isLoading ? <Loading /> : <span>Is editor&apos;s pick</span>}
+        {isAllowedEditor && (
+          <Button onClick={toggleEditorsPick} className="rounded-full">
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <span>
+                {isEditorsPick ? "Remove editor's pick" : "Is editor's pick"}
+              </span>
+            )}
           </Button>
         )}
 
@@ -103,7 +99,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
           </Button>
         )}
       </div>
-      <UpadateApplication
+      <UpdateApplication
         modalOpen={open}
         closeModal={() => setOpen(false)}
         isEditMode={true}
