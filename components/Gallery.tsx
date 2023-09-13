@@ -45,7 +45,8 @@ export const Gallery: React.FC<Props> = ({
             alt={imgAlt}
             width={width}
             height={height}
-            className="rounded-lg shadow-lg"
+            style={{objectFit: "contain"}}
+            className="rounded-lg shadow-lg w-fit max-h-[60vh]"
           />
         )}
       </button>
