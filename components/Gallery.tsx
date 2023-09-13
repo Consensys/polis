@@ -51,7 +51,7 @@ export const Gallery: React.FC<Props> = ({
         )}
       </button>
       <div className="flex gap-4">
-        {screenshots.map((src) => (
+        {screenshots.length > 1 && screenshots.map((src) => (
           <Image
             src={src}
             onClick={setActiveImage}
