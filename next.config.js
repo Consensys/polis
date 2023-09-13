@@ -5,6 +5,7 @@ module.exports = {
   env: {
     INFURA_API_KEY: process.env.INFURA_API_KEY,
     WALLETCONNECT_PROJECT_ID: process.env.WALLETCONNECT_PROJECT_ID,
+    ALLOW_LIST: process.env.ALLOW_LIST,
   },
   experimental: {
     serverActions: true,

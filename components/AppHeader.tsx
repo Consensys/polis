@@ -7,19 +7,45 @@ import LinkIcon from "./icons/LinkIcon";
 import EditIcon from "./icons/EditIcon";
 import { useAccount } from "wagmi";
 import UpadateApplication from "./ApplicationForm";
+import { updateEditorsPick } from "@/lib/actions";
+import Loading from "./ApplicationForm/Loading";
 
 type AppHeaderProps = {
   application: IApplication;
 };
 
+const ALLOW_LIST = process.env.ALLOW_LIST?.split(",");
+
 const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [open, setOpen] = useState(false);
   const { address } = useAccount();
-  const { title, logo, applicationUrl, user } = application;
+  const { title, logo, applicationUrl, user, id } = application;
+
+  const isEditors = ALLOW_LIST?.includes(address as string);
 
   const isMyApplication = user === address;
+
+  const handleEditorsPick = async ({
+    id,
+    isEditorsPick,
+  }: {
+    id: string;
+    isEditorsPick: boolean;
+  }) => {
+    try {
+      setIsLoading(true);
+      await updateEditorsPick({
+        id,
+        isEditorsPick,
+      });
+      setIsLoading(false);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <header className="flex items-center justify-between px-2 py-2 mt-8">
@@ -50,11 +76,19 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
           >
             <EditIcon />
             <span className="hidden lg:block dark:text-gray-400">
-              {" "}
               Edit Application
             </span>
           </Button>
         ) : null}
+
+        {isEditors && (
+          <Button
+            onClick={() => handleEditorsPick({ id, isEditorsPick: true })}
+            className="rounded-full"
+          >
+            {isLoading ? <Loading /> : <span>Is editor&apos;s pick</span>}
+          </Button>
+        )}
 
         {applicationUrl && (
           <Button
@@ -62,9 +96,8 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
             href={applicationUrl}
             className="px-4 rounded-3xl lg:rounded-full md:px-7 dark:border-white"
           >
-            <LinkIcon />{" "}
+            <LinkIcon />
             <span className="hidden lg:block dark:text-white">
-              {" "}
               Visit Website
             </span>
           </Button>

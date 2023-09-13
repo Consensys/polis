@@ -7,6 +7,7 @@ import {
   ApplicationNode,
   query,
   Filter,
+  getNode,
 } from "./database";
 import { getDirectoryContent, add } from "./ipfs";
 import { revalidatePath } from "next/cache";
@@ -86,12 +87,34 @@ export const getApplication = async (
   }
 };
 
+export const updateEditorsPick = async ({
+  id,
+  isEditorsPick,
+}: {
+  id: string;
+  isEditorsPick: boolean;
+}) => {
+  const state = await retrieveDatabase();
+  const application = getNode(state, id);
+
+  const newState = addNode(state, {
+    ...application!,
+    id,
+    isEditorsPick,
+  });
+
+  await storeDatabase(newState);
+  revalidatePath("/");
+};
+
 export const submitApplication = async ({
   images,
   data,
+  isEditorsPick,
 }: {
   images: FormData;
   data: string;
+  isEditorsPick?: boolean;
 }) => {
   let logoHash, screenshotsHash;
 
@@ -102,7 +125,7 @@ export const submitApplication = async ({
     logoHash = await add({ file: logo });
   }
 
-  if (screenshots.length > 0) {
+  if (screenshots && screenshots.length > 0) {
     screenshotsHash = await add({ files: screenshots });
   }
 
@@ -119,7 +142,7 @@ export const submitApplication = async ({
     screenshots: screenshotsHash,
     logo: logoHash,
     createdAt: new Date().toLocaleString("en-US", { timeZone: "UTC" }),
-    isEditorsPick: false,
+    isEditorsPick,
   });
 
   await storeDatabase(newState);

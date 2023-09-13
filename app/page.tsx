@@ -30,6 +30,12 @@ const Home = async ({
     filter: (node) => Boolean(node.isEditorsPick),
   });
 
+  const lastsEditorsPick = editorPickedApplications.slice(
+    editorPickedApplications.length > 3
+      ? editorPickedApplications.length - 3
+      : 0
+  );
+
   const isAllFetched = applications.length === total;
 
   return (
@@ -41,7 +47,7 @@ const Home = async ({
       {editorPickedApplications.length > 0 ? (
         <ApplicationsContainer
           header="Our Editor's Pick"
-          applications={editorPickedApplications}
+          applications={lastsEditorsPick}
           className="mt-24"
         />
       ) : null}

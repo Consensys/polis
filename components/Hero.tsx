@@ -7,7 +7,6 @@ type Props = {
 };
 
 const Hero: React.FC<Props> = ({ total }) => {
-
   const apps = getApplications({
     limit: total,
   });
@@ -17,13 +16,13 @@ const Hero: React.FC<Props> = ({ total }) => {
       <div className="flex flex-col w-full">
         <H1 className="font-extrabold text-center">
           <span className="text-transparent bg-gradient-to-br bg-clip-text from-primary to-slate-500 dark:text-gray-300">
-            Explore Amazing DAO <br />
+            Explore awesome DAO <br />
             and Web3 tools
           </span>
         </H1>
         <Text className="mx-auto mt-6 text-center dark:text-white max-w-2xl text-lg">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quam
-          ipsum, convallis vel orci sed, lacinia posuere dolor.
+          Explore our collection of dapp templates and essential tools, curated
+          to empower developers in their quest to create outstanding projects.
         </Text>
         <SearchBar apps={apps} />
       </div>
