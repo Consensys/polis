@@ -8,7 +8,7 @@ type AllAppsProps = {
 
 const AllApps: FC<AllAppsProps> = ({ applications }) => {
   return (
-    <div className="container px-6 pb-2 mx-auto mt-24">
+    <div className="container px-6 pb-2 mx-auto mt-24 bg-secondbg-white dark:bg-secondbg-dark">
       <H2 className="text-center text-transparent mb-14 bg-gradient-to-br bg-clip-text from-primary to-slate-500 dark:text-gray-300">
         All Available Tools
       </H2>
