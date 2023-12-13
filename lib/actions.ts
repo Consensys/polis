@@ -94,16 +94,16 @@ export const updateEditorsPick = async ({
   id: string;
   isEditorsPick: boolean;
 }) => {
-  // const state = await retrieveDatabase();
-  // const application = getNode(state, id);
+  const state = await retrieveDatabase();
+  const application = getNode(state, id);
 
-  // const newState = addNode(state, {
-  //   ...application!,
-  //   id,
-  //   isEditorsPick,
-  // });
+  const newState = addNode(state, {
+    ...application!,
+    id,
+    isEditorsPick,
+  });
 
-  await storeDatabase();
+  await storeDatabase(newState);
   revalidatePath("/");
 };
 
@@ -145,6 +145,6 @@ export const submitApplication = async ({
     isEditorsPick,
   });
 
-  await storeDatabase();
+  await storeDatabase(newState);
   revalidatePath("/");
 };
