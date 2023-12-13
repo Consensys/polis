@@ -74,7 +74,6 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
           </Button>
         )}
 
-        {isAllowedEditor && (
           <Button onClick={toggleEditorsPick} className="rounded-full">
             {isLoading ? (
               <Loading />
@@ -84,7 +83,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
               </span>
             )}
           </Button>
-        )}
+    
 
         {applicationUrl && (
           <Button
