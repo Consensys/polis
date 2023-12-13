@@ -82,11 +82,16 @@ export const cat = async (hash: string) => {
 };
 
 export const getDirectoryContent = async (hash: string): Promise<string[]> => {
-  const dirResponse = await fetch(`https://dweb.link/api/v0/ls?arg=${hash}`);
+  try {
+    const dirResponse = await fetch(`https://dweb.link/api/v0/ls?arg=${hash}`);
 
-  const directory = await dirResponse.json();
+    const directory = await dirResponse.json();
 
-  console.log("Directory: ", hash, directory)
+    console.log("Directory: ", hash, directory);
 
-  return directory.Objects[0].Links.map((sc: any) => sc.Hash);
+    return directory.Objects[0].Links.map((sc: any) => sc.Hash);
+  } catch (error) {
+    console.error("Error getting directory content", error);
+    return [];
+  }
 };
