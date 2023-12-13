@@ -25,12 +25,12 @@ const Home = async ({
     page,
     limit,
   });
-console.log("applications", applications)
+
 
   const { applications: editorPickedApplications } = await getApplications({
     filter: (node) => Boolean(node.isEditorsPick),
   });
-console.log("editorPickedApplications", editorPickedApplications)
+
   const lastsEditorsPick = editorPickedApplications.slice(
     editorPickedApplications.length > 3
       ? editorPickedApplications.length - 3

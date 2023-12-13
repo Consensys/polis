@@ -87,8 +87,6 @@ export const getDirectoryContent = async (hash: string): Promise<string[]> => {
 
     const directory = await dirResponse.json();
 
-    console.log("Directory: ", hash, directory);
-
     return directory.Objects[0].Links.map((sc: any) => sc.Hash);
   } catch (error) {
     console.error("Error getting directory content", error);
