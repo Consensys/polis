@@ -55,7 +55,7 @@ export const storeDatabase = async (state: Map<string, ApplicationNode>) => {
 
 export const retrieveDatabase = async () => {
   const hash = await getcurrentHash();
-
+console.log("Hash: ", hash)
   const json = await cat(hash);
   return deserializeDatabase(json);
 };
