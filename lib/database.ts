@@ -57,6 +57,7 @@ export const retrieveDatabase = async () => {
   const hash = await getcurrentHash();
 console.log("Hash: ", hash)
   const json = await cat(hash);
+  console.log("JSON: ", json)
   return deserializeDatabase(json);
 };
 
