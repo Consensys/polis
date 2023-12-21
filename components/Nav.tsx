@@ -9,6 +9,7 @@ import Link from "next/link";
 import PolisLogo from "./icons/PolisLogo";
 import { ConnectButton } from "./ConnectButton";
 import ThemeButton from "./ThemeButton";
+import { isAllowedEditor } from "@/lib/utils";
 
 export const Nav = () => {
   const [open, setOpen] = useState(false);
@@ -26,6 +27,14 @@ export const Nav = () => {
         <div className="hidden lg:flex">
           {isConnected && (
             <div className="flex items-center gap-7">
+              {address && isAllowedEditor(address) && (
+                <Link
+                  className="duration-200 ease-in-out hover:opacity-50"
+                  href={`/dashboard?id=${address}`}
+                >
+                  Dashboard
+                </Link>
+              )}
               <Link
                 href={`/applications?user=${address}`}
                 className="duration-200 ease-in-out hover:opacity-50"
