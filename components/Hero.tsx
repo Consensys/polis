@@ -6,10 +6,12 @@ type Props = {
   total: number;
 };
 
-const Hero: React.FC<Props> = ({ total }) => {
-  const apps = getApplications({
+const Hero = async ({ total }: Props) => {
+  const data = await getApplications({
     limit: total,
   });
+
+  const filteredApps = data.applications.filter((app) => app.isEditorsPick);
 
   return (
     <section className="flex items-center flex-1 mt-24">
@@ -24,7 +26,7 @@ const Hero: React.FC<Props> = ({ total }) => {
           Explore our collection of dapp templates and essential tools, curated
           to empower developers in their quest to create outstanding projects.
         </Text>
-        <SearchBar apps={apps} />
+        <SearchBar applications={filteredApps} />
       </div>
     </section>
   );

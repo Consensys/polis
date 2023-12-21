@@ -29,7 +29,6 @@ export const LatestAndEditorsPick: React.FC<Props> = ({ data }) => {
 
   return (
     <>
-      <Section title="Latest apps added 🔥" data={latestApps} />
       {editorsPickApps.length > 0 && (
         <Section title="Our Editor's pick ✨" data={editorsPickApps} />
       )}
