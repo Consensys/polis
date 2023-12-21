@@ -37,6 +37,7 @@ interface EditorsCardProps {
           id,
           isEditorsPick: !isEditorsPick,
         });
+        revalidatePath("/dashboard");
         mutate("/api/get-apps");
       } catch (error) {
         console.error("Error updating editor's pick:", error);
