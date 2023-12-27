@@ -6,10 +6,10 @@ import { SearchResults } from "./SearchResults";
 import { LatestAndEditorsPick } from "./LatestAndEditorsPick";
 
 type Props = {
-  apps: Promise<{ applications: IApplication[] }>;
+  applications: IApplication[];
 };
 
-export const SearchBar: React.FC<Props> = ({ apps }) => {
+export const SearchBar: React.FC<Props> = ({ applications }) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<{
     items: IApplication[];
@@ -18,14 +18,6 @@ export const SearchBar: React.FC<Props> = ({ apps }) => {
     items: [],
     show: false,
   });
-
-  const [applications, setApplications] = useState<IApplication[]>([]);
-
-  useEffect(() => {
-    apps.then(({ applications }) => {
-      setApplications(applications);
-    });
-  }, [results.show]);
 
   const search = () => {
     const items = query

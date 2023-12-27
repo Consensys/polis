@@ -24,12 +24,10 @@ export const LatestAndEditorsPick: React.FC<Props> = ({ data }) => {
     return <H4>No apps found 😥</H4>;
   }
 
-  const latestApps = data.slice(data.length > 3 ? data.length - 3 : 0);
   const editorsPickApps = data.filter((app) => app.isEditorsPick);
 
   return (
     <>
-      <Section title="Latest apps added 🔥" data={latestApps} />
       {editorsPickApps.length > 0 && (
         <Section title="Our Editor's pick ✨" data={editorsPickApps} />
       )}

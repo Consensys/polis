@@ -9,12 +9,11 @@ import { useAccount } from "wagmi";
 import UpdateApplication from "./ApplicationForm";
 import { updateEditorsPick } from "@/lib/actions";
 import Loading from "./ApplicationForm/Loading";
+import { isAllowedEditor } from "@/lib/utils";
 
 type AppHeaderProps = {
   application: IApplication;
 };
-
-const ALLOW_LIST = process.env.ALLOW_LIST?.split(",") || [];
 
 const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
   const [error, setError] = useState(false);
@@ -23,7 +22,6 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
   const { address } = useAccount();
   const { title, logo, applicationUrl, user, id, isEditorsPick } = application;
 
-  const isAllowedEditor = ALLOW_LIST.includes(address!);
   const isUserApplication = user === address;
 
   const toggleEditorsPick = async () => {
@@ -74,7 +72,7 @@ const AppHeader: React.FC<AppHeaderProps> = ({ application }) => {
           </Button>
         )}
 
-        {isAllowedEditor && (
+        {address && isAllowedEditor(address) && (
           <Button onClick={toggleEditorsPick} className="rounded-full">
             {isLoading ? (
               <Loading />
