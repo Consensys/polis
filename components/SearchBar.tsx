@@ -37,10 +37,10 @@ export const SearchBar: React.FC<Props> = ({ applications }) => {
 
   return (
     <div className="relative">
-      <div className="flex flex-col mt-8 space-y-3 sm:-mx-2 sm:flex-row sm:justify-center sm:space-y-0">
-        <div className="search-box flex items-center w-full sm:w-3/4 md:w-[476px] h-[52px] rounded-xl focus-within:shadow-lg bg-gray-100">
+      <div className="flex flex-col mt-8 sm:-mx-2 sm:flex-row sm:justify-center">
+        <div className="search-box flex items-center w-full sm:w-3/4 md:max-w-lg rounded-xl focus-within:shadow-lg bg-gray-100">
           <input
-            className="bg-transparent border-0 h-full w-full outline-none text-sm text-gray-700 pr-2 border-gray-300 rounded-l-xl bg-[#F9FAFB]"
+            className="bg-transparent border-0 h-full py-4 placeholder:opacity-60 w-full outline-none text-sm text-gray-700 pr-2 border-gray-300 rounded-l-xl"
             type="text"
             autoComplete="off"
             value={query}
@@ -73,7 +73,7 @@ export const SearchBar: React.FC<Props> = ({ applications }) => {
       </div>
 
       {results.show && (
-        <div className="absolute z-10 flex items-center justify-center w-full pt-4">
+        <div className="absolute z-20 flex items-center justify-center w-full pt-4">
           <ul className="relative w-full bg-white sm:w-3/4 md:w-[476px] rounded-xl focus-within:shadow-lg pb-4 shadow-md">
             {results.items.length > 0 ? (
               <SearchResults results={results} />
