@@ -29,19 +29,70 @@ const Home = async ({
     filter: (node) => Boolean(node.isEditorsPick),
   });
 
-  const editorsPick = editorPickedApplications;
+  const { applications: marketplacesApps } = await getApplications({
+    filter: (node) =>
+      Boolean(
+        node.category
+          .map((category) => category.toLocaleLowerCase())
+          .includes("marketplace")
+      ),
+  });
+
+  const { applications: blockchainApps } = await getApplications({
+    filter: (node) =>
+      Boolean(
+        node.category
+          .map((category) => category.toLocaleLowerCase())
+          .includes("blockchain")
+      ),
+  });
+
+  const { applications: nftApps } = await getApplications({
+    filter: (node) =>
+      Boolean(
+        node.category
+          .map((category) => category.toLocaleLowerCase())
+          .includes("nft")
+      ),
+  });
 
   const isAllFetched = applications.length === total;
 
   return (
     <div className={cn(inter.className, "pb-10")}>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-6"></div>
       {/* @ts-expect-error Server Component */}
       <Hero total={total} />
       {editorPickedApplications.length > 0 ? (
         <ApplicationsContainer
           header="All Available Tools"
-          applications={editorsPick}
+          applications={editorPickedApplications}
+          className="mt-24"
+        />
+      ) : null}
+
+      {marketplacesApps.length > 0 ? (
+        <ApplicationsContainer
+          header="Marketplaces"
+          applications={marketplacesApps}
+          type="short"
+          className="mt-24"
+        />
+      ) : null}
+
+      {blockchainApps.length > 0 ? (
+        <ApplicationsContainer
+          header="Blockchain"
+          applications={blockchainApps}
+          type="short"
+          className="mt-24"
+        />
+      ) : null}
+
+      {nftApps.length > 0 ? (
+        <ApplicationsContainer
+          header="NFT tools"
+          applications={nftApps}
+          type="short"
           className="mt-24"
         />
       ) : null}

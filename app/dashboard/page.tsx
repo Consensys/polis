@@ -6,7 +6,9 @@ import { redirect } from "next/navigation";
 import { useAccount } from "wagmi";
 import Loading from "./loading";
 import { EditorsPickCard } from "@/components/EditorsPickCard";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
+
+export const revalidate = 0;
 
 const Dashboard = () => {
   const { isConnected, address } = useAccount();
@@ -21,7 +23,7 @@ const Dashboard = () => {
       {!isLoading ? (
         <div>
           <H2 className="text-center my-14">All created tools</H2>
-          <div className="grid md:justify-center gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-12">
+          <div className="grid md:justify-center gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-6">
             {data.applications.map((application: IApplication) => {
               return (
                 <EditorsPickCard
