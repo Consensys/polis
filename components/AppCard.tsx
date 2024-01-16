@@ -31,7 +31,7 @@ export const AppCard: React.FC<AppCardProps> = ({
     <>
       {type === "card" ? (
         <Link
-          className="relative overflow-hidden flex gap-6 min-h-[118px] px-3 py-2 items-center max-w-md border border-purple-100 dark:border-gray-600 rounded-xl bg-gradient-to-b from-purple-100 dark:from-slate-900 to-transparent z-10 hover:shadow-lg hover:scale-105 duration-150"
+          className="relative w-full overflow-hidden flex gap-6 min-h-[118px] px-3 py-2 items-center md:max-w-md border border-purple-100 dark:border-gray-600 rounded-xl bg-gradient-to-b from-purple-100 dark:from-slate-900 to-transparent z-10 hover:shadow-lg hover:scale-105 duration-150"
           href={`/applications/${id}`}
         >
           <div>
@@ -73,7 +73,7 @@ export const AppCard: React.FC<AppCardProps> = ({
       ) : (
         <Link
           href={`/applications/${id}`}
-          className="flex gap-3 px-3 py-2 items-center max-w-md z-10 justify-between dark:hover:bg-slate-800 rounded-xl dark:hover:bg-opacity-40 duration-150 cursor-pointer"
+          className="flex gap-3 px-3 w-full py-2 items-center md:max-w-md z-10 justify-between dark:hover:bg-slate-800 rounded-xl dark:hover:bg-opacity-40 duration-150 cursor-pointer"
         >
           <div className="flex items-center gap-3">
             <div>
