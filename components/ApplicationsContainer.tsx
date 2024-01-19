@@ -16,7 +16,7 @@ const ApplicationsContainer: FC<ApplicationsContainerProps> = ({
   type = "card",
 }) => {
   return (
-    <div className={cn(className, "lg:px-6 pb-2 mx-auto")}>
+    <section className={cn(className, "lg:px-6 pb-2 mx-auto")}>
       {header && (
         <h2 className="text-3xl font-semibold text-transparent mb-14 bg-gradient-to-br bg-clip-text from-primary to-slate-500 dark:from-white dark:to-slate-400">
           {header}
@@ -27,7 +27,7 @@ const ApplicationsContainer: FC<ApplicationsContainerProps> = ({
           <AppCard type={type} key={data.id} application={data} />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

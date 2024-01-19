@@ -20,7 +20,7 @@ const Home = async ({
   const page = pageStr ? parseInt(pageStr) : 1;
   const limit = limitStr ? parseInt(limitStr) : DEFAULT_FETCH_LIMIT;
 
-  const { applications, total } = await getApplications({
+  const { total } = await getApplications({
     page,
     limit,
   });
@@ -29,34 +29,31 @@ const Home = async ({
     filter: (node) => Boolean(node.isEditorsPick),
   });
 
-  const { applications: marketplacesApps } = await getApplications({
-    filter: (node) =>
-      Boolean(
-        node.category
-          .map((category) => category.toLocaleLowerCase())
-          .includes("marketplace")
-      ),
-  });
+  const marketplacesApps = editorPickedApplications.filter((node) =>
+    Boolean(
+      node.category
+        .map((category) => category.toLocaleLowerCase())
+        .includes("marketplace")
+    )
+  );
 
-  const { applications: blockchainApps } = await getApplications({
-    filter: (node) =>
-      Boolean(
-        node.category
-          .map((category) => category.toLocaleLowerCase())
-          .includes("blockchain")
-      ),
-  });
+  const blockchainApps = editorPickedApplications.filter((node) =>
+    Boolean(
+      node.category
+        .map((category) => category.toLocaleLowerCase())
+        .includes("blockchain")
+    )
+  );
 
-  const { applications: nftApps } = await getApplications({
-    filter: (node) =>
-      Boolean(
-        node.category
-          .map((category) => category.toLocaleLowerCase())
-          .includes("nft")
-      ),
-  });
+  const nftApps = editorPickedApplications.filter((node) =>
+    Boolean(
+      node.category
+        .map((category) => category.toLocaleLowerCase())
+        .includes("nft")
+    )
+  );
 
-  const isAllFetched = applications.length === total;
+  // const isAllFetched = applications.length === total;
 
   return (
     <div className={cn(inter.className, "pb-10")}>
@@ -64,7 +61,7 @@ const Home = async ({
       <Hero total={total} />
       {editorPickedApplications.length > 0 ? (
         <ApplicationsContainer
-          header="All Available Tools"
+          header="Most Popular Tools"
           applications={editorPickedApplications}
           className="mt-24"
         />

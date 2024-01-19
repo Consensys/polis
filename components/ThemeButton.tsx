@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 import { useTheme } from "next-themes";
 
@@ -8,7 +8,6 @@ function classNames(...classes: string[]): string {
 
 const ThemeButton: React.FC = () => {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
 
   const toggleTheme = () => {
     if (resolvedTheme === "dark") {
@@ -19,14 +18,6 @@ const ThemeButton: React.FC = () => {
       document.documentElement.classList.add("dark");
     }
   };
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <label

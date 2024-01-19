@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { H4, Text } from "./Text";
+import { H3, H4, Text } from "./Text";
 import Link from "next/link";
 import NewTab from "./icons/NewTab";
 
@@ -44,7 +44,7 @@ export const AppCard: React.FC<AppCardProps> = ({
               className="rounded-lg"
             />
           </div>
-          <div className="flex flex-col justify-between">
+          <div className="flex flex-col justify-between h-full py-2">
             <div className="flex gap-2">
               {category &&
                 category.map((category) => (
@@ -56,7 +56,7 @@ export const AppCard: React.FC<AppCardProps> = ({
                   </span>
                 ))}
             </div>
-            <H4 className="dark:text-gray-200">{title}</H4>
+            <H3 className="dark:text-gray-200">{title}</H3>
             <Text className="max-w-xs text-xs text-gray-700">
               {truncateDescription(description)}
             </Text>
@@ -73,7 +73,7 @@ export const AppCard: React.FC<AppCardProps> = ({
       ) : (
         <Link
           href={`/applications/${id}`}
-          className="flex gap-3 px-3 w-full py-2 items-center md:max-w-md z-10 justify-between dark:hover:bg-slate-800 rounded-xl dark:hover:bg-opacity-40 duration-150 cursor-pointer"
+          className="flex gap-3 px-3 w-full py-2 items-center md:max-w-md z-10 justify-between hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl dark:hover:bg-opacity-40 duration-150 cursor-pointer"
         >
           <div className="flex items-center gap-3">
             <div>
