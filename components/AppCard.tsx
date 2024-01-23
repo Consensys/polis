@@ -2,22 +2,25 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { H2, Text } from "./Text";
+import { H3, H4, Text } from "./Text";
 import Link from "next/link";
+import NewTab from "./icons/NewTab";
 
 interface AppCardProps {
   key: string;
   application: IApplication;
+  type?: "short" | "card";
 }
 
-const AppCard: React.FC<AppCardProps> = ({
-  application: { id, title, description, logo },
+export const AppCard: React.FC<AppCardProps> = ({
+  application: { id, title, description, logo, category },
+  type = "card",
 }) => {
   const [error, setError] = useState(false);
 
   const truncateDescription = (description: string | undefined) => {
     if (description && description.length > 140) {
-      return description.slice(0, 140).trim() + "...";
+      return description.slice(0, 85).trim() + "...";
     }
     return description;
   };
@@ -25,32 +28,76 @@ const AppCard: React.FC<AppCardProps> = ({
   const logoPlaceholder = !logo ? "/cardplaceholderimg.svg" : logo;
 
   return (
-    <Link
-      className="flex flex-col justify-between w-full max-w-sm px-4 py-7 transition duration-200 border border-white shadow-md bg-gradient-to-b from-slate-100 to-transparent rounded-2xl transform-gpu hover:shadow-lg hover:scale-105 dark:bg-gradient-to-b dark:border-gray-700 dark:from-gray-800 dark:to-transparent dark:backdrop-filter dark:backdrop-blur-md"
-      href={`/applications/${id}`}
-    >
-      <div className="flex justify-end">
-        <div className="w-12 h-12">
+    <>
+      {type === "card" ? (
+        <Link
+          className="relative w-full overflow-hidden flex gap-6 min-h-[118px] px-3 py-2 items-center md:max-w-md border border-purple-100 dark:border-gray-600 rounded-xl bg-gradient-to-b from-purple-100 dark:from-slate-900 to-transparent z-10 hover:shadow-lg hover:scale-105 duration-150"
+          href={`/applications/${id}`}
+        >
+          <div>
+            <Image
+              src={error ? "/cardplaceholderimg.svg" : logoPlaceholder}
+              onError={() => setError(true)}
+              alt={title}
+              width={100}
+              height={100}
+              className="rounded-lg"
+            />
+          </div>
+          <div className="flex flex-col justify-between h-full py-2">
+            <div className="flex gap-2">
+              {category &&
+                category.map((category) => (
+                  <span
+                    key={category}
+                    className="uppercase bg-purple-400 bg-opacity-20 text-purple-500 dark:bg-red-200 dark:bg-opacity-20 dark:text-red-200 p-1 rounded-md text-[0.65rem]"
+                  >
+                    {category}
+                  </span>
+                ))}
+            </div>
+            <H3 className="dark:text-gray-200">{title}</H3>
+            <Text className="max-w-xs text-xs text-gray-700">
+              {truncateDescription(description)}
+            </Text>
+          </div>
           <Image
             src={error ? "/cardplaceholderimg.svg" : logoPlaceholder}
             onError={() => setError(true)}
             alt={title}
-            width={48}
-            height={48}
-            className="rounded-lg"
-            sizes="100vw"
+            width={140}
+            height={140}
+            className="absolute right-3 bottom-[-30px] -z-10 blur-xl opacity-50"
           />
-        </div>
-      </div>
-      <div className="px-4 py-2 text-left">
-        <H2 className="mb-2 text-xl font-bold md:text-2xl lg:text-2xl dark:text-white">
-          {title}
-        </H2>
-        <Text className="text-sm md:text-base lg:text-base dark:text-white">
-          {truncateDescription(description)}
-        </Text>
-      </div>
-    </Link>
+        </Link>
+      ) : (
+        <Link
+          href={`/applications/${id}`}
+          className="flex gap-3 px-3 w-full py-2 items-center md:max-w-md z-10 justify-between hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl dark:hover:bg-opacity-40 duration-150 cursor-pointer"
+        >
+          <div className="flex items-center gap-3">
+            <div>
+              <Image
+                src={error ? "/cardplaceholderimg.svg" : logoPlaceholder}
+                onError={() => setError(true)}
+                alt={title}
+                width={50}
+                height={50}
+                className="rounded-lg"
+              />
+            </div>
+
+            <div>
+              <H4 className="dark:text-gray-200">{title}</H4>
+              <Text className="max-w-xs text-xs text-gray-700">
+                {truncateDescription(description)}
+              </Text>
+            </div>
+          </div>
+          <NewTab />
+        </Link>
+      )}
+    </>
   );
 };
 

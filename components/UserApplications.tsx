@@ -67,7 +67,7 @@ const UserApps: React.FC<Props> = ({ applications }) => {
         </div>
       ) : null}
 
-      <div className="grid grid-cols-1 gap-4 justify-items-center md:grid-cols-2 lg:grid-cols-3 mt-12 lg:justify-items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10">
         {filteredApps.map((data) => (
           <AppCard key={data.id} application={data} />
         ))}

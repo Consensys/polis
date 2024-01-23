@@ -1,32 +1,33 @@
 import React, { FC } from "react";
 import AppCard from "./AppCard";
-import { H2 } from "./Text";
 import { cn } from "@/lib/utils";
 
 type ApplicationsContainerProps = {
   applications: IApplication[];
   header?: string;
   className?: string;
+  type?: "short" | "card";
 };
 
 const ApplicationsContainer: FC<ApplicationsContainerProps> = ({
   header,
   applications,
   className,
+  type = "card",
 }) => {
   return (
-    <div className={cn(className, "container px-6 pb-2 mx-auto")}>
+    <section className={cn(className, "lg:px-6 pb-2 mx-auto")}>
       {header && (
-        <H2 className="text-center text-transparent mb-14 bg-gradient-to-br bg-clip-text from-primary to-slate-500">
+        <h2 className="text-3xl font-semibold text-transparent mb-14 bg-gradient-to-br bg-clip-text from-primary to-slate-500 dark:from-white dark:to-slate-400">
           {header}
-        </H2>
+        </h2>
       )}
-      <div className="grid md:justify-center gap-4 md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-7 justify-items-center">
         {applications?.map((data) => (
-          <AppCard key={data.id} application={data} />
+          <AppCard type={type} key={data.id} application={data} />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

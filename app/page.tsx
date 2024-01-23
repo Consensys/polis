@@ -20,7 +20,7 @@ const Home = async ({
   const page = pageStr ? parseInt(pageStr) : 1;
   const limit = limitStr ? parseInt(limitStr) : DEFAULT_FETCH_LIMIT;
 
-  const { applications, total } = await getApplications({
+  const { total } = await getApplications({
     page,
     limit,
   });
@@ -29,19 +29,67 @@ const Home = async ({
     filter: (node) => Boolean(node.isEditorsPick),
   });
 
-  const editorsPick = editorPickedApplications;
+  const marketplacesApps = editorPickedApplications.filter((node) =>
+    Boolean(
+      node.category
+        .map((category) => category.toLocaleLowerCase())
+        .includes("marketplace")
+    )
+  );
 
-  const isAllFetched = applications.length === total;
+  const blockchainApps = editorPickedApplications.filter((node) =>
+    Boolean(
+      node.category
+        .map((category) => category.toLocaleLowerCase())
+        .includes("blockchain")
+    )
+  );
+
+  const nftApps = editorPickedApplications.filter((node) =>
+    Boolean(
+      node.category
+        .map((category) => category.toLocaleLowerCase())
+        .includes("nft")
+    )
+  );
+
+  // const isAllFetched = applications.length === total;
 
   return (
     <div className={cn(inter.className, "pb-10")}>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-6"></div>
       {/* @ts-expect-error Server Component */}
       <Hero total={total} />
       {editorPickedApplications.length > 0 ? (
         <ApplicationsContainer
-          header="All Available Tools"
-          applications={editorsPick}
+          header="Most Popular Tools"
+          applications={editorPickedApplications}
+          className="mt-24"
+        />
+      ) : null}
+
+      {marketplacesApps.length > 0 ? (
+        <ApplicationsContainer
+          header="Marketplaces"
+          applications={marketplacesApps}
+          type="short"
+          className="mt-24"
+        />
+      ) : null}
+
+      {blockchainApps.length > 0 ? (
+        <ApplicationsContainer
+          header="Blockchain"
+          applications={blockchainApps}
+          type="short"
+          className="mt-24"
+        />
+      ) : null}
+
+      {nftApps.length > 0 ? (
+        <ApplicationsContainer
+          header="NFT tools"
+          applications={nftApps}
+          type="short"
           className="mt-24"
         />
       ) : null}
